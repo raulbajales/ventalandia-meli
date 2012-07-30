@@ -5,9 +5,9 @@ El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, com
 
 * Este proyecto pretende:
 
-1) Facilitar el seguimiento de una transacción desde que se genera hasta que se cierra.
-2) Ser un servicio para administrar un punto de venta en Mercadolibre
-3) Hacerle la vida mas facil a los vendedores de MELI.
+    * Facilitar el seguimiento de una transacción desde que se genera hasta que se cierra.
+    * Ser un servicio para administrar un punto de venta en Mercadolibre
+    * Hacerle la vida mas facil a los vendedores de MELI.
 
 * El proyecto tiene 2 branches: "master" y "develompent"
 
