@@ -17,13 +17,15 @@ El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, com
 
 * Para pasar a un branch:
 
-> git checkout <branch>
+> git checkout nomdeDelBranch
 
 * Para pushear cambios:
 
 > git add .
+
 > git commit -m "mensaje"
-> git push origin <branch>
+
+> git push origin nomdeDelBranch
     
 * Para deployar estoy usando el plugin de Appengine para Eclipse.
 
