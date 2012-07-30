@@ -17,7 +17,7 @@ El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, com
 
 * Para pasar a un branch:
 
-    git checkout <branch>
+    git checkout nombre_del_branch
 
 * Para pushear cambios:
 
