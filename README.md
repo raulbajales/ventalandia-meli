@@ -13,17 +13,17 @@ El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, com
 
 * Para bajarte el repo:
 
-    git clone https://github.com/raulbajales/napkin.git
+> git clone https://github.com/raulbajales/napkin.git
 
 * Para pasar a un branch:
 
-    git checkout nombre_del_branch
+> git checkout <branch>
 
 * Para pushear cambios:
 
-    git add .
-    git commit -m "mensaje"
-    git push origin <branch>
+> git add .
+> git commit -m "mensaje"
+> git push origin <branch>
     
 * Para deployar estoy usando el plugin de Appengine para Eclipse.
 
@@ -34,4 +34,4 @@ El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, com
     
 * Si deployas el branch "development" lo ves en:
 
-    http://development.ventalandia-meli.appspot.com
+    * http://development.ventalandia-meli.appspot.com
