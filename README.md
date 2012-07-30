@@ -1,6 +1,32 @@
 Ventalandia
 ===========
 
+El flujo o circuito que sigue MELI es acotado, sólo se encarga de publicar, comprar/vender, notificar, calificar.
+
+* Este proyecto pretende:
+
+1) Facilitar el seguimiento de una transacción desde que se genera hasta que se cierra.
+2) Ser un servicio para administrar un punto de venta en Mercadolibre
+3) Hacerle la vida mas facil a los vendedores de MELI.
+
+* El proyecto tiene 2 branches: "master" y "develompent"
+
+* Para bajarte el repo:
+
+    git clone https://github.com/raulbajales/napkin.git
+
+* Para pasar a un branch:
+
+    git checkout <branch>
+
+* Para pushear cambios:
+
+    git add .
+    git commit -m "mensaje"
+    git push origin <branch>
+    
+* Para deployar estoy usando el plugin de Appengine para Eclipse.
+
 * Si deployas el branch "master" lo ves en:
 
     * http://www.ventalandia.com <- Este es nuestro entorno de produccion
@@ -9,20 +35,3 @@ Ventalandia
 * Si deployas el branch "development" lo ves en:
 
     http://development.ventalandia-meli.appspot.com
-
-
-Para bajarte el repo:
-
-    git clone ...
-
-Para pasar a un branch:
-
-    git checkout <branch>
-
-Para pushear cambios:
-
-    git add .
-    git commit -m "mensaje"
-    git push origin <branch>
-    
-Para deployar estoy usando el plugin de Appengine para Eclipse.
