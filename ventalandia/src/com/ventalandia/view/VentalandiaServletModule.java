@@ -12,7 +12,12 @@ public class VentalandiaServletModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
+		// tests or healthcheckers
 		serve("/echo", "/echo/*").with(EchoServlet.class);
+		
+		// authentication
+		serve("/login.html").with(LoginServlet.class);
+		serve("/meli/auth").with(AuthServlet.class);
 	}
 	
 }
