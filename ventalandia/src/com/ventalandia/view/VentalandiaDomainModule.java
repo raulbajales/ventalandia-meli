@@ -1,5 +1,7 @@
 package com.ventalandia.view;
 
+
+import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 
@@ -14,7 +16,8 @@ public class VentalandiaDomainModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		// add IOC Domain stuff here
+		// support
+		this.bind(Gson.class).toInstance(new Gson());
 	}
 
 }
