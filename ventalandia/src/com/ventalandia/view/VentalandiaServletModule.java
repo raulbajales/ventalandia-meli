@@ -21,9 +21,10 @@ public class VentalandiaServletModule extends ServletModule {
 		// authentication
 		serve("/login.html").with(LoginServlet.class);
 		serve("/meli/auth").with(AuthServlet.class);
-		filter("/*").through(SecurityFilter.class);
 		
 		// api
+		filter("/api/*").through(SecurityFilter.class);
+
 		serve("/api/test").with(ApiServlet.class);
 		serve("/api/news", "/api/news/*").with(NewsApiServlet.class);
 		serve("/meli/notifications", "/meli/notifications/*").with(NotificationApiServlet.class);

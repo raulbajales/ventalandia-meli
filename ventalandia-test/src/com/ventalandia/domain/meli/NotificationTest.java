@@ -25,8 +25,6 @@ public class NotificationTest extends DomainTest {
 		assertNotNull(notification);
 	}
 
-	
-
 	private String createNotificationJson() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
