@@ -7,6 +7,5 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/guice-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/guice-servlet-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gson-2.2.2.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/v1"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
