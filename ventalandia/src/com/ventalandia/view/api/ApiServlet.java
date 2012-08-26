@@ -28,9 +28,9 @@ public class ApiServlet extends HttpServlet {
 	private Gson gson;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	protected final void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		Object answer = get(req, resp);
+		Object answer = this.get(req, resp);
 		
 		if (answer == null) {
 			return;
@@ -41,26 +41,34 @@ public class ApiServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	protected final void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		ApiError error = new ApiError();
-		error.setMessage("POST message is not implemented.");
+		Object answer = this.post(req, resp);
+		
+		if (answer == null) {
+			return;
+		}
 		
 		resp.setContentType(CONTENT_TYPE);
-		resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
-		resp.getWriter().print(this.gson.toJson(error));
+		resp.getWriter().print(this.gson.toJson(answer));
 	}
 
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
-//		AuthToken authToken = new AuthToken();
-//		
-//		authToken.setAccess_token("APP_USR-6092-3246532-cb45c82853f6e620bb0deda096b128d3-8035443");
-//		authToken.setExpires_in(10800L);
-//		authToken.setScope("write read");
-//		authToken.setToken_type("bearer");
-//		
-//		return authToken;
-		return null;
+		ApiError error = new ApiError();
+		
+		error.setMessage("GET message is not implemented.");
+		resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		
+		return error;
+	}
+
+	protected Object post(HttpServletRequest req, HttpServletResponse resp) {
+		ApiError error = new ApiError();
+		
+		error.setMessage("POST message is not implemented.");
+		resp.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		
+		return error;
 	}
 	
 }
