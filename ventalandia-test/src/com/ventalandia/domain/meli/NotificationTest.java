@@ -5,30 +5,27 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
 
 /**
  * 
  * @author msulik
  *
  */
-public class NotificationTest {
+public class NotificationTest extends DomainTest {
 
-	private Gson gson = this.createGson();
+	@Inject
+	private Gson gson;
 	
 	@Test
 	public void test() {
 		String json = this.createNotificationJson();
 		
 		Notification notification = gson.fromJson(json, Notification.class);
-		
 		assertNotNull(notification);
 	}
 
-	private Gson createGson() {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
-		return gson;
-	}
+	
 
 	private String createNotificationJson() {
 		StringBuilder builder = new StringBuilder();
