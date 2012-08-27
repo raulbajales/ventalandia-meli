@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.ventalandia.meli.domain.Notification;
 
 /**
  * 

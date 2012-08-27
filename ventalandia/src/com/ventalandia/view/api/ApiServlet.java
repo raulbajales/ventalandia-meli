@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ventalandia.domain.meli.AuthToken;
+import com.ventalandia.meli.domain.AuthToken;
 
 /**
  * 

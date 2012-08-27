@@ -4,6 +4,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.ventalandia.meli.domain.FluentStringsMap;
+import com.ventalandia.meli.domain.HttpConnector;
+
 /**
  * 
  * @author matias

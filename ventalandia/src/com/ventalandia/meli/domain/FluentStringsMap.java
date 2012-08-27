@@ -1,4 +1,4 @@
-package com.ventalandia.domain.meli;
+package com.ventalandia.meli.domain;
 
 // COPY PASTED CODE!!!
 

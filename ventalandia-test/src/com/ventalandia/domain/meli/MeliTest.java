@@ -5,6 +5,8 @@ import junit.framework.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.ventalandia.meli.domain.Meli;
+
 public class MeliTest {
 
 	private static final int clientId = 10601;
