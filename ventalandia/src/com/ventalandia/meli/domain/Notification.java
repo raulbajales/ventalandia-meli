@@ -2,18 +2,39 @@ package com.ventalandia.meli.domain;
 
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.Key;
+
 /**
  * 
  * @author matias
  * @author german
  * 
  */
+@PersistenceCapable
 public class Notification {
 
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Key key;
+	
+	@Persistent
 	private int user_id;
+	
+	@Persistent
 	private String resource;
+	
+	@Persistent
 	private String topic;
+	
+	@Persistent
 	private Date received;
+	
+	@Persistent
 	private Date sent;
 
 	public int getUser_id() {
@@ -54,6 +75,10 @@ public class Notification {
 
 	public void setSent(Date sent) {
 		this.sent = sent;
+	}
+
+	public Key getKey() {
+		return key;
 	}
 
 }

@@ -19,8 +19,8 @@ public class AuthServlet extends ApiServlet {
 
 	private static final long serialVersionUID = 6791535685445969788L;
 	
-	@Inject
-	private MeliService meliService;
+//	@Inject
+//	private MeliService meliService;
 
 	@Override
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
