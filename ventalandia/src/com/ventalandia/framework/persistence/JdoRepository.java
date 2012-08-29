@@ -1,5 +1,7 @@
 package com.ventalandia.framework.persistence;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,14 @@ public abstract class JdoRepository<T> {
    * 
    * @return the type associated to the Repository. It must not return a null value.
    */
-  protected abstract Class<T> getPersistedType();
+	@SuppressWarnings("unchecked")
+	private Class<T> getPersistedType() {
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		Type type = genericSuperclass.getActualTypeArguments()[0];
+		return (Class<T>) type;
+	}
+  
+  
 
   /**
    * Execute a block of code in a transaction context. This block is a simple {@link Runnable}

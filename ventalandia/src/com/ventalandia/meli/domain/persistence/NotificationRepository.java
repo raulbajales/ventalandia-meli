@@ -11,9 +11,5 @@ import com.ventalandia.meli.domain.Notification;
  */
 public class NotificationRepository extends JdoRepository<Notification> {
 
-	@Override
-	protected Class<Notification> getPersistedType() {
-		return Notification.class;
-	}
 
 }
