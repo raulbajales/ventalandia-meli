@@ -2,6 +2,7 @@ package com.ventalandia.view.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,14 +22,17 @@ import com.google.inject.Singleton;
 public class ApiServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -2325761933018470019L;
-
 	private static final String CONTENT_TYPE = "text/plain";
+	private static final Logger log = Logger.getLogger(ApiServlet.class.getName());
 
 	@Inject
 	private Gson gson;
 
 	@Override
 	protected final void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		log.fine("running...");
+		
 		
 		Object answer = this.get(req, resp);
 
