@@ -313,11 +313,10 @@ header {
   margin:auto; 
   z-index:100000; 
   width:100%;
-  height: 56px;
+  height: 40px;
 }
 
 .main-container {
-  background: brown;
   width: 780px;
   overflow: auto;  
   margin-left:auto;
@@ -325,27 +324,32 @@ header {
 }
 
 .main-container .main {
-   background: grey;
+   background: #B8B8B8 ;
    width: 558px;
    float: right;
-   min-height: 800px;
+   min-height: 550px;
 }
 
 .main-container .sidebar {
    width: 222px;
    float: left;
-   height: 560px;
+   height: 500px;
 }
 
 .main-container .sidebar .miniprofile {
-   background: yellow;
+   background: #FFCC99;
    width: 222px;
    height: 192px;
    position: fixed;
 }
 
+.main-container .sidebar .miniprofile .nav {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 150px;
+}
+
 .main-container .sidebar .navigation {
-   background: pink;
    padding-top: 196px;
    width: 100%;
    height: 252px;
@@ -370,3 +374,12 @@ footer .footer-container {
    margin-left:auto;
    margin-right:auto;   
 }
+
+
+/*
+grid:
+sidebar: 222
+main: 558
+total: 780
+height: 28
+*/
