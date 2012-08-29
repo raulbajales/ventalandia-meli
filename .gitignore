@@ -4,3 +4,6 @@
 # *.jar
 *.war
 *.ear
+
+# GAE auto generated files
+ventalandia/war/WEB-INF/appengine-generated/*

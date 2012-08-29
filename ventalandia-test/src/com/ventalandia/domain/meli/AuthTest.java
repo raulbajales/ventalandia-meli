@@ -31,8 +31,7 @@ public class AuthTest {
 		builder.append("\"expires_in\" : 10800, \"scope\" : \"write read\"");
 		builder.append("}");
 		
-		String json = builder.toString();
-		return json;
+		return builder.toString();
 	}
 
 }

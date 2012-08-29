@@ -3,25 +3,27 @@ package com.ventalandia.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
-import com.ventalandia.dao.NotificationDAO;
 import com.ventalandia.meli.domain.Notification;
+import com.ventalandia.meli.domain.persistence.NotificationRepository;
 
+/**
+ * 
+ * @author german
+ * @author matias
+ *
+ */
 public class NotificationServiceImpl implements NotificationService {
 	
+	@Inject	
 	private Gson gson;
-	private NotificationDAO notificationDAO;
 	
 	@Inject
-	public NotificationServiceImpl(Gson gson, NotificationDAO notificationDAO) {
-		this.gson = gson;
-		this.notificationDAO = notificationDAO;
-	}
+	private NotificationRepository notificationRepository;	
 
 	@Override
 	public void processRequest(String jsonData) throws JsonSyntaxException {
-
 		Notification notification = gson.fromJson(jsonData, Notification.class);
-		notificationDAO.persist(notification);
+		this.notificationRepository.add(notification);
 	}
 
 }

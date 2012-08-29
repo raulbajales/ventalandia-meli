@@ -5,7 +5,7 @@ package com.ventalandia.meli.domain;
  * @author matias
  * 
  */
-public class AuthorizationFailure extends Exception {
+public class AuthorizationFailure extends RuntimeException {
 
 	private static final long serialVersionUID = 8688100047490895706L;
 

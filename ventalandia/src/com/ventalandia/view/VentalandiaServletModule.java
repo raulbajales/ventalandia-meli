@@ -4,6 +4,8 @@ import com.google.inject.servlet.ServletModule;
 import com.ventalandia.view.api.ApiServlet;
 import com.ventalandia.view.api.NewsApiServlet;
 import com.ventalandia.view.api.NotificationApiServlet;
+import com.ventalandia.view.filter.PersistenceManagerFilter;
+import com.ventalandia.view.filter.SecurityFilter;
 
 /**
  * All IOC related with the View must be here.
@@ -17,6 +19,9 @@ public class VentalandiaServletModule extends ServletModule {
 	protected void configureServlets() {
 		// tests or healthcheckers
 		serve("/echo", "/echo/*").with(EchoServlet.class);
+		
+		// persistence support
+		this.filter("/*").through(PersistenceManagerFilter.class);
 		
 		// authentication
 		serve("/login.html").with(LoginServlet.class);

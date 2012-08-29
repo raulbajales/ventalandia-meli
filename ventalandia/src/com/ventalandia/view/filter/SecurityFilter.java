@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.view.filter;
 
 import java.io.IOException;
 

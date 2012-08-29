@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ventalandia.meli.domain.AuthToken;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.view.api.ApiError;
 import com.ventalandia.view.api.ApiServlet;
@@ -18,9 +19,11 @@ import com.ventalandia.view.api.ApiServlet;
 public class AuthServlet extends ApiServlet {
 
 	private static final long serialVersionUID = 6791535685445969788L;
+
+	private static final Object EMPTY_STRING = "";
 	
-//	@Inject
-//	private MeliService meliService;
+	@Inject
+	private MeliService meliService;
 
 	@Override
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
@@ -29,7 +32,6 @@ public class AuthServlet extends ApiServlet {
 	
 	@Override
 	protected Object post(HttpServletRequest req, HttpServletResponse resp) {
-		resp.setContentType("text/plain");
 		String error = req.getParameter("error");
 		if (error != null) {
 			ApiError apiError = new ApiError();
@@ -38,8 +40,10 @@ public class AuthServlet extends ApiServlet {
 		} else if (req.getParameter("code") != null) {
 //			resp.getWriter().println("you are logged in and your code is: " + req.getParameter("code"));
 			// TODO replace this, hit MELI Api to complete the flow (it needs to validate the code token)
+			AuthToken authToken = this.meliService.getAuthToken(req.getParameter("code"));
+			
 		}
-		return "";
+		return EMPTY_STRING;
 	}
 	
 }
