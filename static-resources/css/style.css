@@ -321,13 +321,13 @@ header {
 .main-container .main {
    width: 558px;
    float: right;
-   min-height: 600px;
+   min-height: 500px;
 }
 
 .main-container .sidebar {
    width: 222px;
    float: left;
-   height: 500px;
+   height: 400px;
 }
 
 .main-container .sidebar .miniprofile {
@@ -367,13 +367,22 @@ header .header-container {
    margin-right:auto;   
 }
 
-header .header-container a {
+header .header-container .salir {
   color: #FFFFFF;
   float: right;
   padding-top: 8px;
 }
 
-header .header-container a:hover {
+header .header-container .logo {
+  background: url(../img/logo.png) top right no-repeat; 
+  float: left;
+  padding-top: 8px;
+  width: 185px;
+  height: 24px;  
+  margin-top: 4px;
+}
+
+header .header-container .salir:hover {
   color: #FFFFFF;
   text-decoration: underline;
 }
