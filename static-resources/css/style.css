@@ -367,10 +367,10 @@ header .header-container {
    margin-right:auto;   
 }
 
-header .header-container .salir {
+header .header-container .logout {
   color: #FFFFFF;
   float: right;
-  padding-top: 8px;
+  margin-top: -22px;
 }
 
 header .header-container .logo {
@@ -382,9 +382,14 @@ header .header-container .logo {
   margin-top: 4px;
 }
 
-header .header-container .salir:hover {
+header .header-container .logout:hover {
   color: #FFFFFF;
   text-decoration: underline;
+}
+
+header .header-container .notifications {
+  padding-top: 13px;
+  margin-left: 590px;
 }
 
 footer .footer-container {
