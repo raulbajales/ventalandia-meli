@@ -15,20 +15,25 @@ import com.ventalandia.view.filter.SecurityFilter;
  */
 public class VentalandiaServletModule extends ServletModule {
 
+	private String homePage = "/home.html";
+
 	@Override
 	protected void configureServlets() {
-		// tests or healthcheckers
-		serve("/echo", "/echo/*").with(EchoServlet.class);
-		
-		// persistence support
-		this.filter("/*").through(PersistenceManagerFilter.class);
-		
+		// MELI
 		// authentication
-		serve("/login.html").with(LoginServlet.class);
+		this.bind(String.class).annotatedWith(HomePage.class).toInstance(homePage);
+		serve("/meli/redirect").with(MeliRedirectorServlet.class);
 		serve("/meli/auth").with(AuthServlet.class);
 		
-		// api
+		// Ventalandia
+		// tests or healthcheckers
+		serve("/echo", "/echo/*").with(EchoServlet.class);
+
+		// support
 		filter("/api/*").through(SecurityFilter.class);
+		filter("/*").through(PersistenceManagerFilter.class);
+
+		// api
 
 		serve("/api/test").with(ApiServlet.class);
 		serve("/api/news", "/api/news/*").with(NewsApiServlet.class);

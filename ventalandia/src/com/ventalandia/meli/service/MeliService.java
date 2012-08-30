@@ -11,4 +11,6 @@ public interface MeliService {
 
 	AuthToken getAuthToken(String code);
 
+	boolean validate(AuthToken authToken);
+
 }

@@ -67,4 +67,9 @@ public class MeliServiceImpl implements MeliService {
 			throw new AuthorizationFailure(object.get("message").getAsString());
 		}
 	}
+
+	@Override
+	public boolean validate(AuthToken authToken) {
+		return true;
+	}
 }

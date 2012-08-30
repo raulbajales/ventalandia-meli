@@ -1,6 +1,8 @@
 package com.ventalandia.view.filter;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,7 +14,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ventalandia.meli.domain.AuthToken;
+import com.ventalandia.meli.service.MeliService;
 
 /**
  * 
@@ -22,6 +28,12 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class SecurityFilter implements Filter {
+	
+	@Inject
+	private Gson gson;
+	
+	@Inject
+	private MeliService meliService;
 
 	@Override
 	public void destroy() {
@@ -37,21 +49,47 @@ public class SecurityFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
 		this.doInnerFilter((HttpServletRequest) request, (HttpServletResponse) response, filterChain);
-		filterChain.doFilter(request, response);
 	}
 
 	private void doInnerFilter(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain) {
-		// put here security stuff
-		// Cookie[] cookies = request.getCookies();
+			HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+		AuthToken authToken = this.getAuthToken(request);
 		
-		// check if there is a cookie with the token
-		// if false redirect to MELI
-		// if true 
-		//     check if it is a valid token (need refresh)
-		//           if false redirect to MELI
-		//           if true refresh / set to thread local (MeliUserService)
+		if (authToken != null) {
+			if(this.meliService.validate(authToken)) {
+				filterChain.doFilter(request, response);
+			} else {
+				response.sendRedirect("/meli/redirect");
+			}
+		} else {
+			response.sendRedirect("/meli/redirect");
+		}		
+	}
+
+	private AuthToken getAuthToken(HttpServletRequest request) {
+		if (request.getCookies() == null) {
+			return null;
+		}
 		
+		for (Cookie cookie : request.getCookies()) {
+			if (cookie.getName().equals("vtd_token")) {
+				try {					
+					return this.parseToken(cookie.getValue());
+				} catch (Exception e) {
+					// do nothing
+				}
+			}
+		}
+		return null;
+	}
+	
+	private AuthToken parseToken(String token) {
+		try {
+			String json = URLDecoder.decode(token, "UTF-8");
+			return this.gson.fromJson(json, AuthToken.class);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
