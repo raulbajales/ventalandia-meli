@@ -398,6 +398,24 @@ footer .footer-container {
     background-color: whiteSmoke;   
 }
 
+footer .footer-container .social-facebook {
+  background: url(../img/facebook.png) top right no-repeat; 
+  width: 32px;
+  height: 32px;  
+}
+
+footer .footer-container .social-twitter {
+  background: url(../img/twitter.png) top right no-repeat; 
+  width: 32px;
+  height: 32px;  
+}
+
+footer .footer-container .social-googleplus {
+  background: url(../img/google_plus.png) top right no-repeat; 
+  width: 32px;
+  height: 32px;  
+}
+
 footer .footer-container ul {
   display: table;
   text-align: center;
@@ -409,6 +427,7 @@ footer .footer-container ul li {
   float: left;
   font-size: 15px;
   margin: 0 20px;
+  line-height: 33px;  
 }
 
 
