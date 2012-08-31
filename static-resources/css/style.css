@@ -397,6 +397,8 @@ header .header-container {
    height: 100%;
    margin-left:auto;
    margin-right:auto;   
+   border-top-right-radius: 7px;
+   border-bottom-right-radius: 7px;
 }
 
 header .header-container .generic-search {
