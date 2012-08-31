@@ -47,16 +47,13 @@ public class AuthServlet extends ApiServlet {
 	protected Object post(HttpServletRequest req, HttpServletResponse resp) {
 		String error = req.getParameter("error");
 		if (error != null) {
-			ApiError apiError = new ApiError();
-			apiError.setMessage("There was an issue when you try to login: " + req.getParameter("error_description"));
-			return apiError;
+			return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
 		} else if (req.getParameter("code") != null) {
 			AuthToken authToken = this.meliService.getAuthToken(req.getParameter("code"));
 			Cookie cookie = new Cookie(TOKEN, this.parseToken(authToken));
 			cookie.setMaxAge(authToken.getExpires_in().intValue());
 			cookie.setPath("/");
 			resp.addCookie(cookie);
-			
 			try {
 				resp.sendRedirect(homePage);
 			} catch (IOException e) {

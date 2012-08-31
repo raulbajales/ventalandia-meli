@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.meli.domain.AuthToken;
 import com.ventalandia.meli.service.MeliService;
+import com.ventalandia.meli.service.MeliAuthContext;
 
 /**
  * 
@@ -57,7 +58,9 @@ public class SecurityFilter implements Filter {
 		
 		if (authToken != null) {
 			if(this.meliService.validate(authToken)) {
+				MeliAuthContext.setAuthToken(authToken);
 				filterChain.doFilter(request, response);
+				MeliAuthContext.remove();
 			} else {
 				response.sendRedirect("/meli/redirect");
 			}
