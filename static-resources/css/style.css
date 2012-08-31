@@ -402,7 +402,12 @@ header .header-container {
 header .header-container .generic-search {
   float: left;
   margin-left: 85px;
-  margin-top: 4px;
+  margin-top: 6px;
+}
+
+header .header-container .generic-search .search-input {
+  border-radius: 9px;
+  height: 16px;
 }
 
 header .header-container .logout {
