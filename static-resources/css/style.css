@@ -350,8 +350,25 @@ header {
 }
 
 .main-container .sidebar .miniprofile .info {
-   padding-top: 65px;
-   float: right; 
+   padding-top: 51px;
+   float: left; 
+   margin-left: 0px;
+}
+
+.main-container .sidebar .miniprofile .info ul {
+  list-style-type: none;
+  list-style-position:inside;
+}
+
+.main-container .sidebar .miniprofile .info .reputation {
+  background-color: #73A000;
+  margin-left: 15;
+  position: relative;
+  top: -5;  
+}
+
+.main-container .sidebar .miniprofile .info ul li {
+  margin-left: -10;
 }
 
 .main-container .sidebar .miniprofile .nav {
@@ -395,6 +412,7 @@ header .header-container .logo {
   width: 185px;
   height: 24px;  
   margin-top: 4px;
+  cursor: pointer;
 }
 
 header .header-container .logout:hover {
@@ -456,9 +474,13 @@ footer .footer-container ul li {
 
 
 /*
-grid:
+
+Grid:
+=====
+
 sidebar: 222
 main: 558
 total: 780
 height: 28
+
 */
