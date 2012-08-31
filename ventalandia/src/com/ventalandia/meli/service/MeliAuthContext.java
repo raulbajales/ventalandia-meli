@@ -14,6 +14,10 @@ public class MeliAuthContext {
 	public static void setAuthToken(AuthToken authToken) {
 		threadLocal.set(authToken);
 	}
+	
+	public static AuthToken getAuthToken() {
+		return threadLocal.get();
+	}
 
 	public static void remove() {
 		threadLocal.remove();
