@@ -4,8 +4,10 @@ import com.google.inject.servlet.ServletModule;
 import com.ventalandia.view.api.ApiServlet;
 import com.ventalandia.view.api.NewsApiServlet;
 import com.ventalandia.view.api.NotificationApiServlet;
+import com.ventalandia.view.filter.HomePageSecurityFilter;
+import com.ventalandia.view.filter.IndexPageSecurityFilter;
 import com.ventalandia.view.filter.PersistenceManagerFilter;
-import com.ventalandia.view.filter.SecurityFilter;
+import com.ventalandia.view.filter.ApiSecurityFilter;
 
 /**
  * All IOC related with the View must be here.
@@ -32,8 +34,10 @@ public class VentalandiaServletModule extends ServletModule {
 		serve("/echo", "/echo/*").with(EchoServlet.class);
 
 		// support
-		filter("/api/*").through(SecurityFilter.class);
-		filter("/*").through(PersistenceManagerFilter.class);
+		filter("/index.html").through(IndexPageSecurityFilter.class);
+		filter("/home.html").through(HomePageSecurityFilter.class);
+		filter("/api/*").through(ApiSecurityFilter.class);
+		filter("/api/*").through(PersistenceManagerFilter.class);
 
 		// api
 

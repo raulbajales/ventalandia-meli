@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.ventalandia.meli.domain.AuthToken;
 import com.ventalandia.meli.service.MeliAuthContext;
 import com.ventalandia.meli.service.MeliService;
@@ -24,63 +23,67 @@ import com.ventalandia.view.IndexPage;
 
 /**
  * 
- * @author matias
- * @author german
- *
+ * @author msulik
+ * 
  */
-@Singleton
-public class SecurityFilter implements Filter {
-	
+public abstract class AbstractSecurityFilter implements Filter {
+
 	@Inject
 	private Gson gson;
-	
+
 	@Inject
 	private MeliService meliService;
-	
-	@Inject @IndexPage
+
+	@Inject
+	@IndexPage
 	private String index;
 
 	@Override
 	public void destroy() {
-		// do nothing 
-	}
-	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// do nothing		
+		// do nothing
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
+	public void init(FilterConfig filterConfig) throws ServletException {
+		// do nothing
+	}
+
+	@Override
+	public final void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
-		this.doInnerFilter((HttpServletRequest) request, (HttpServletResponse) response, filterChain);
+		// casting
+		this.doInnerFilter((HttpServletRequest) request,
+				(HttpServletResponse) response, filterChain);
 	}
 
 	private void doInnerFilter(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+			HttpServletResponse response, FilterChain filterChain)
+			throws IOException, ServletException {
 		AuthToken authToken = this.getAuthToken(request);
-		
+
 		if (authToken != null) {
-			if(this.meliService.validate(authToken)) {
+			if (this.meliService.validate(authToken)) {
 				MeliAuthContext.setAuthToken(authToken);
 				filterChain.doFilter(request, response);
 				MeliAuthContext.remove();
 			} else {
-				response.sendRedirect(this.index);
+				this.onInvalidSession(response);
 			}
 		} else {
-			response.sendRedirect(this.index);
-		}		
+			this.onInvalidSession(response);
+		}
 	}
+
+	protected abstract void onInvalidSession(HttpServletResponse response);
 
 	private AuthToken getAuthToken(HttpServletRequest request) {
 		if (request.getCookies() == null) {
 			return null;
 		}
-		
+
 		for (Cookie cookie : request.getCookies()) {
 			if (cookie.getName().equals("vtd_token")) {
-				try {					
+				try {
 					return this.parseToken(cookie.getValue());
 				} catch (Exception e) {
 					// do nothing
@@ -89,7 +92,7 @@ public class SecurityFilter implements Filter {
 		}
 		return null;
 	}
-	
+
 	private AuthToken parseToken(String token) {
 		try {
 			String json = URLDecoder.decode(token, "UTF-8");
