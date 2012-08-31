@@ -23,7 +23,8 @@ import com.ventalandia.view.IndexPage;
 
 /**
  * 
- * @author msulik
+ * @author matias
+ * @author german
  * 
  */
 public abstract class AbstractSecurityFilter implements Filter {

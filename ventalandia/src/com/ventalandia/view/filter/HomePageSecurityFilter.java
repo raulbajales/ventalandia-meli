@@ -4,11 +4,14 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.inject.Singleton;
+
 /**
  * 
- * @author msulik
+ * @author matias
  *
  */
+@Singleton
 public class HomePageSecurityFilter extends AbstractSecurityFilter {
 
 	@Override

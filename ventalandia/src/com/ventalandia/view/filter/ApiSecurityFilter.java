@@ -7,7 +7,6 @@ import com.google.inject.Singleton;
 /**
  * 
  * @author matias
- * @author german
  *
  */
 @Singleton
