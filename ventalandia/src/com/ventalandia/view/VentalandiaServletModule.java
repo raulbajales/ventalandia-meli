@@ -16,12 +16,14 @@ import com.ventalandia.view.filter.SecurityFilter;
 public class VentalandiaServletModule extends ServletModule {
 
 	private String homePage = "/home.html";
+	private String indexPage = "/index.html";
 
 	@Override
 	protected void configureServlets() {
 		// MELI
 		// authentication
 		this.bind(String.class).annotatedWith(HomePage.class).toInstance(homePage);
+		this.bind(String.class).annotatedWith(IndexPage.class).toInstance(indexPage);
 		serve("/meli/redirect").with(MeliRedirectorServlet.class);
 		serve("/meli/auth").with(AuthServlet.class);
 		

@@ -18,8 +18,9 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.meli.domain.AuthToken;
-import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.meli.service.MeliAuthContext;
+import com.ventalandia.meli.service.MeliService;
+import com.ventalandia.view.IndexPage;
 
 /**
  * 
@@ -35,6 +36,9 @@ public class SecurityFilter implements Filter {
 	
 	@Inject
 	private MeliService meliService;
+	
+	@Inject @IndexPage
+	private String index;
 
 	@Override
 	public void destroy() {
@@ -62,10 +66,10 @@ public class SecurityFilter implements Filter {
 				filterChain.doFilter(request, response);
 				MeliAuthContext.remove();
 			} else {
-				response.sendRedirect("/meli/redirect");
+				response.sendRedirect(this.index);
 			}
 		} else {
-			response.sendRedirect("/meli/redirect");
+			response.sendRedirect(this.index);
 		}		
 	}
 
