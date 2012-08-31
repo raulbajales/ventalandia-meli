@@ -399,6 +399,12 @@ header .header-container {
    margin-right:auto;   
 }
 
+header .header-container .generic-search {
+  float: left;
+  margin-left: 85px;
+  margin-top: 4px;
+}
+
 header .header-container .logout {
   color: #FFFFFF;
   float: right;
