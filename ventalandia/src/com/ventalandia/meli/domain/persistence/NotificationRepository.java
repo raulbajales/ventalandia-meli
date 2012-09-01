@@ -1,7 +1,7 @@
 package com.ventalandia.meli.domain.persistence;
 
 import com.ventalandia.framework.persistence.JdoRepository;
-import com.ventalandia.meli.domain.Notification;
+import com.ventalandia.meli.domain.notification.Notification;
 
 /**
  * 
