@@ -22,7 +22,8 @@ public class VentalandiaDomainModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		// support
-		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create());
+//		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create());
+		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create());
 
 		// services
 		this.bind(NewsService.class).toInstance(new NewsServiceStub());
