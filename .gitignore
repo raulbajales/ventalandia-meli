@@ -7,3 +7,6 @@
 
 # GAE auto generated files
 ventalandia/war/WEB-INF/appengine-generated/*
+
+# Eclipse project
+ventalandia-test/bin/*

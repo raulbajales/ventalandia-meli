@@ -1,6 +1,6 @@
 package com.ventalandia.meli.service;
 
-import com.ventalandia.meli.domain.AuthToken;
+import com.ventalandia.meli.api.auth.AuthToken;
 
 /**
  * 

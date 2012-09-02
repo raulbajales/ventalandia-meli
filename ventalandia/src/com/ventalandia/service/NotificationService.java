@@ -1,6 +1,11 @@
 package com.ventalandia.service;
 
+import java.util.List;
+
 import com.google.gson.JsonSyntaxException;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.notification.Notification;
+import com.ventalandia.meli.api.notification.Question;
 
 /**
  * 
@@ -15,5 +20,9 @@ public interface NotificationService {
 	 * @throws JsonSyntaxException
 	 */
 	void processRequest(String jsonData) throws JsonSyntaxException;
+
+	List<Notification> getAllQuestions();
+
+	Question getQuestionFromMeli(Notification notification, AuthToken authToken);
 	
 }

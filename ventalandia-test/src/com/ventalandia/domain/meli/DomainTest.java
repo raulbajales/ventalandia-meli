@@ -5,7 +5,7 @@ import org.junit.Before;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.ventalandia.view.VentalandiaDomainModule;
+import com.ventalandia.ioc.VentalandiaDomainModule;
 
 public class DomainTest {
 

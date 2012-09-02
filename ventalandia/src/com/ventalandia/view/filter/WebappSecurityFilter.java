@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ventalandia.filter.AbstractSecurityFilter;
 import com.ventalandia.view.WebappView;
 
 /**
@@ -31,7 +32,7 @@ public class WebappSecurityFilter extends AbstractSecurityFilter {
 	@Override
 	protected void onInvalidSession(HttpServletResponse response) {
 		try {
-			webappView.renderHome(response, this.filterConfig.getServletContext());
+			webappView.renderGuest(response, this.filterConfig.getServletContext());
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to handle no-session request", e);
 		}
