@@ -1,8 +1,8 @@
 package com.ventalandia.meli.service;
 
+import com.ventalandia.framework.http.FluentStringsMap;
+import com.ventalandia.framework.http.HttpResponse;
 import com.ventalandia.meli.api.user.MeliUser;
-import com.ventalandia.meli.domain.FluentStringsMap;
-import com.ventalandia.meli.domain.HttpResponse;
 import com.ventalandia.meli.domain.MeliException;
 
 /**

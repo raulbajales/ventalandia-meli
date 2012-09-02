@@ -1,4 +1,4 @@
-package com.ventalandia.meli.domain;
+package com.ventalandia.framework.http;
 
 // COPY PASTED CODE!!!
 

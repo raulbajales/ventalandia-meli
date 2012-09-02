@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
-import com.ventalandia.meli.domain.persistence.NotificationRepository;
+import com.ventalandia.meli.pesistence.NotificationRepository;
 import com.ventalandia.service.NewsService;
 import com.ventalandia.service.NewsServiceStub;
 import com.ventalandia.service.NotificationService;
@@ -22,7 +22,6 @@ public class VentalandiaDomainModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		// support
-//		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create());
 		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create());
 
 		// services

@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.ventalandia.gae.ioc.GaeModule;
+import com.ventalandia.meli.ioc.MeliModule;
 
 /**
  * Set guice-servlet support. This is basic set up for web.xml config replacement and one of the

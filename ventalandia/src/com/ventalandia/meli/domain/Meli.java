@@ -9,6 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.ventalandia.framework.http.FluentStringsMap;
+import com.ventalandia.framework.http.HttpConnector;
+import com.ventalandia.framework.http.HttpResponse;
 import com.ventalandia.meli.api.auth.AuthorizationFailure;
 
 /**
@@ -16,6 +19,7 @@ import com.ventalandia.meli.api.auth.AuthorizationFailure;
  * @author matias
  * 
  */
+@Deprecated
 public class Meli {
 
 	public static String apiUrl = "https://api.mercadolibre.com";

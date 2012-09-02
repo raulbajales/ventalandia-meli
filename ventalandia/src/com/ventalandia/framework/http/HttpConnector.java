@@ -1,4 +1,4 @@
-package com.ventalandia.meli.domain;
+package com.ventalandia.framework.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,8 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+
+import com.ventalandia.meli.domain.MeliException;
 
 /**
  * 

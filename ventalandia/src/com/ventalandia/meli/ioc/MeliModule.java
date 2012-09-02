@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.meli.ioc;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;

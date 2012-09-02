@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.meli.ioc;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -18,6 +18,6 @@ import com.google.inject.BindingAnnotation;
 @BindingAnnotation
 @Target({ FIELD, PARAMETER, METHOD })
 @Retention(RUNTIME)
-public @interface MeliClientSecretApi {
+public @interface MeliClientIdApi {
 
 }
