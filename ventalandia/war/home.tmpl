@@ -4,7 +4,7 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!-->
-<html class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head>
+<html ng-app="vldApp" class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
 
   <title>ventalandia.com</title>
@@ -40,6 +40,7 @@
     // load all of the dependencies asynchronously.
     $script([
       'js/libs/angular.js',
+      'js/libs/angular-resource.js',
       'js/app/app.js',
       'js/app/services.js',
       'js/app/controllers.js',
@@ -47,7 +48,7 @@
       'js/app/directives.js'
     ], function() {
       // when all is done, execute bootstrap angular application
-      angular.bootstrap(document, ['myApp']);
+      angular.bootstrap(document, ['vldApp']);
     });
   </script>
 
@@ -189,9 +190,11 @@
       
       // Handle logout: (FIXME: move this out to a controller) 
       $(".logout").click(function() {
-        document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        document.location.href="/";
-        document.location.reload();
+        if (confirm("Esta seguro de que desea salir?")) {
+          document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.location.href="/";
+          document.location.reload();
+        }
       });
       
     });
