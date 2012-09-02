@@ -3,8 +3,8 @@ package com.ventalandia.meli.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.ventalandia.meli.domain.AuthToken;
-import com.ventalandia.meli.domain.AuthorizationFailure;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.auth.AuthorizationFailure;
 import com.ventalandia.meli.domain.FluentStringsMap;
 import com.ventalandia.meli.domain.HttpResponse;
 

@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
-import com.ventalandia.meli.domain.AuthToken;
-import com.ventalandia.meli.domain.notification.Notification;
-import com.ventalandia.meli.domain.notification.Question;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.notification.Notification;
+import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.domain.persistence.NotificationRepository;
 import com.ventalandia.view.MeliUrlApi;
 

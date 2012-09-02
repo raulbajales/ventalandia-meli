@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ventalandia.meli.domain.AuthToken;
-import com.ventalandia.meli.domain.notification.Notification;
-import com.ventalandia.meli.domain.notification.Question;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.notification.Notification;
+import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.service.MeliAuthContext;
 import com.ventalandia.service.NotificationService;
 

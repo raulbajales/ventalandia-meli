@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.ventalandia.meli.domain.AuthToken;
+import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.service.MeliAuthContext;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.view.IndexPage;

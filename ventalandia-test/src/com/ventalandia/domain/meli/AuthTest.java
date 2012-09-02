@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.ventalandia.meli.domain.AuthToken;
+import com.ventalandia.meli.api.auth.AuthToken;
 
 public class AuthTest {
 

@@ -3,9 +3,9 @@ package com.ventalandia.service;
 import java.util.List;
 
 import com.google.gson.JsonSyntaxException;
-import com.ventalandia.meli.domain.AuthToken;
-import com.ventalandia.meli.domain.notification.Notification;
-import com.ventalandia.meli.domain.notification.Question;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.notification.Notification;
+import com.ventalandia.meli.api.notification.Question;
 
 /**
  * 
