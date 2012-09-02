@@ -186,13 +186,14 @@
     $(function() {
       $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Escriba lo que busca y presione Enter.", placement: "bottom"});
       $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
-    });
-  </script>
-
-  <script>
-    $(".header-container .logout").click(function() {
-      $.cookie('vtd_token', null);
-      document.location.href="/";
+      
+      // Handle logout: (FIXME: move this out to a controller) 
+      $(".logout").click(function() {
+        $.cookie('vtd_token', null);
+        document.location.href="/";
+        document.location.reload();
+      });
+      
     });
   </script>
 </body>

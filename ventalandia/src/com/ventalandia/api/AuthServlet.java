@@ -31,9 +31,6 @@ public class AuthServlet extends ApiServlet {
 	private MeliService meliService;
 
 	@Inject
-	private WebappView webappView;
-
-	@Inject
 	private Gson gson;
 
 	@Override
@@ -53,7 +50,7 @@ public class AuthServlet extends ApiServlet {
 			cookie.setPath("/");
 			resp.addCookie(cookie);
 			try {
-				webappView.renderHome(resp, getServletContext());
+				resp.sendRedirect("/");
 			} catch (Exception e) {
 				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				return new ApiError(e.getMessage());
