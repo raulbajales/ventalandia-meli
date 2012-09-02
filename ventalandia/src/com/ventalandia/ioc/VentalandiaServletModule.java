@@ -4,13 +4,13 @@ import com.google.inject.servlet.ServletModule;
 import com.ventalandia.api.AuthServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
+import com.ventalandia.meli.callback.NotificationApiServlet;
 import com.ventalandia.view.api.ApiServlet;
 import com.ventalandia.view.api.NewsApiServlet;
-import com.ventalandia.view.api.NotificationApiServlet;
+import com.ventalandia.view.filter.ApiSecurityFilter;
 import com.ventalandia.view.filter.HomePageSecurityFilter;
 import com.ventalandia.view.filter.IndexPageSecurityFilter;
 import com.ventalandia.view.filter.PersistenceManagerFilter;
-import com.ventalandia.view.filter.ApiSecurityFilter;
 
 /**
  * All IOC related with the View must be here.
@@ -31,6 +31,7 @@ public class VentalandiaServletModule extends ServletModule {
 		this.bind(String.class).annotatedWith(IndexPage.class).toInstance(indexPage);
 		serve("/meli/redirect").with(MeliRedirectorServlet.class);
 		serve("/meli/auth").with(AuthServlet.class);
+		serve("/meli/notifications", "/meli/notifications/*").with(NotificationApiServlet.class);
 		
 		// Ventalandia
 		// tests or healthcheckers
@@ -46,7 +47,6 @@ public class VentalandiaServletModule extends ServletModule {
 
 		serve("/api/test").with(ApiServlet.class);
 		serve("/api/news", "/api/news/*").with(NewsApiServlet.class);
-		serve("/meli/notifications", "/meli/notifications/*").with(NotificationApiServlet.class);
 	}
 	
 }

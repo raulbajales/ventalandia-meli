@@ -1,4 +1,4 @@
-package com.ventalandia.view.api;
+package com.ventalandia.meli.callback;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.service.NotificationService;
+import com.ventalandia.view.api.ApiServlet;
 
 /**
  * 
