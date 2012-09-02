@@ -47,8 +47,7 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public Question getQuestionFromMeli(Notification notification, AuthToken authToken) {
 		
-//		String json = readingFormURL(notification.getResource(),authToken.getAccess_token());
-		String json = readingFormURL(notification.getResource(),null);
+		String json = readingFormURL(notification.getResource(),authToken.getAccess_token());
 		return gson.fromJson(json, Question.class);
 	}
 
@@ -66,8 +65,7 @@ public class NotificationServiceImpl implements NotificationService {
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader in = null;
 		try {
-//			URL url = new URL(meliUrl +  resource + "?access_token=" + access_token);
-			URL url = new URL(meliUrl +  resource );
+			URL url = new URL(meliUrl +  resource + "?access_token=" + access_token);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
 
 			for (String inputLine = in.readLine(); inputLine != null; inputLine = in.readLine()) {

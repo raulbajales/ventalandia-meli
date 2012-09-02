@@ -1,4 +1,4 @@
-package com.ventalandia.view.filter;
+package com.ventalandia.filter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

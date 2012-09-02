@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ventalandia.api.ApiServlet;
 import com.ventalandia.service.NotificationService;
-import com.ventalandia.view.api.ApiServlet;
 
 /**
  * 

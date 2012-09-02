@@ -1,16 +1,16 @@
 package com.ventalandia.ioc;
 
 import com.google.inject.servlet.ServletModule;
+import com.ventalandia.api.ApiServlet;
 import com.ventalandia.api.AuthServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
+import com.ventalandia.api.NewsApiServlet;
+import com.ventalandia.filter.ApiSecurityFilter;
+import com.ventalandia.filter.HomePageSecurityFilter;
+import com.ventalandia.filter.IndexPageSecurityFilter;
+import com.ventalandia.filter.PersistenceManagerFilter;
 import com.ventalandia.meli.callback.NotificationApiServlet;
-import com.ventalandia.view.api.ApiServlet;
-import com.ventalandia.view.api.NewsApiServlet;
-import com.ventalandia.view.filter.ApiSecurityFilter;
-import com.ventalandia.view.filter.HomePageSecurityFilter;
-import com.ventalandia.view.filter.IndexPageSecurityFilter;
-import com.ventalandia.view.filter.PersistenceManagerFilter;
 
 /**
  * All IOC related with the View must be here.

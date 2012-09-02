@@ -1,4 +1,4 @@
-package com.ventalandia.view.api;
+package com.ventalandia.api;
 
 /**
  * 

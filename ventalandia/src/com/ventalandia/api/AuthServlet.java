@@ -14,8 +14,6 @@ import com.google.inject.Singleton;
 import com.ventalandia.ioc.HomePage;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.service.MeliService;
-import com.ventalandia.view.api.ApiError;
-import com.ventalandia.view.api.ApiServlet;
 
 /**
  * 
