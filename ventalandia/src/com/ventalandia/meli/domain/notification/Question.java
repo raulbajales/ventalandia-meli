@@ -2,7 +2,6 @@ package com.ventalandia.meli.domain.notification;
 
 import java.util.Date;
 
-import com.ventalandia.meli.domain.Answer;
 
 public class Question {
 
