@@ -13,4 +13,8 @@ public class MeliException extends RuntimeException{
 		super(cause);
 	}
 
+	public MeliException(String message) {
+		super(message);
+	}
+
 }

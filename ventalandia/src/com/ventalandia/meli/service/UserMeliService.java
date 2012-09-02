@@ -1,0 +1,35 @@
+package com.ventalandia.meli.service;
+
+import com.ventalandia.meli.api.user.MeliUser;
+import com.ventalandia.meli.domain.FluentStringsMap;
+import com.ventalandia.meli.domain.HttpResponse;
+import com.ventalandia.meli.domain.MeliException;
+
+/**
+ * 
+ * @author matias
+ *
+ */
+public class UserMeliService extends AbstractMeliService {
+	
+	public MeliUser getCurrentUser() {
+		FluentStringsMap params = new FluentStringsMap();
+
+		params.add("access_token", MeliAuthContext.getAuthToken().getAccess_token());
+
+		HttpResponse response = http.get("/users/me", params, "");
+
+		return this.parsePrivateUser(response);
+	}
+
+	private MeliUser parsePrivateUser(HttpResponse response) {
+		if (response.getResponseCode() == 200) {
+			String json = response.getResponseMessage();
+			return gson.fromJson(json, MeliUser.class);			
+		} else {
+			throw new MeliException(response.getResponseMessage());
+		}
+		
+	}
+
+}

@@ -1,6 +1,5 @@
-package com.ventalandia.domain.meli.user;
+package com.ventalandia.meli.api.user;
 
-import java.util.Date;
 
 /**
  * 
@@ -25,11 +24,8 @@ public class MeliUser {
 	private String site_id;
 	private String permalink;
 	private String seller_experience;
-
 	private SellerReputation seller_reputation;
-
 	private BuyerReputation buyer_reputation;
-
 	private Status status;
 	private Credit credit;
 
@@ -207,4 +203,5 @@ public class MeliUser {
 				+ ", buyer_reputation=" + buyer_reputation + ", status="
 				+ status + ", credit=" + credit + "]";
 	}
+
 }
