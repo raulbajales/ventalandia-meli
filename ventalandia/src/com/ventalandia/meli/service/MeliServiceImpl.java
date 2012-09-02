@@ -1,39 +1,19 @@
 package com.ventalandia.meli.service;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.google.inject.Inject;
 import com.ventalandia.meli.domain.AuthToken;
 import com.ventalandia.meli.domain.AuthorizationFailure;
 import com.ventalandia.meli.domain.FluentStringsMap;
-import com.ventalandia.meli.domain.HttpConnector;
 import com.ventalandia.meli.domain.HttpResponse;
-import com.ventalandia.view.MeliCallbackUrlApi;
-import com.ventalandia.view.MeliClientIdApi;
-import com.ventalandia.view.MeliClientSecretApi;
 
 /**
  * 
  * @author matias
  * 
  */
-public class MeliServiceImpl implements MeliService {
-
-	@Inject @MeliClientSecretApi
-	private String clientSecret;
-	
-	@Inject @MeliClientIdApi
-	private Integer clientId;
-	
-	@Inject @MeliCallbackUrlApi
-	private String callback;
-	
-	@Inject
-	private Gson gson;
-	
-	private HttpConnector http = new HttpConnector();
+public class MeliServiceImpl extends AbstractMeliService implements MeliService {
 
 	@Override
 	public AuthToken getAuthToken(String code) {

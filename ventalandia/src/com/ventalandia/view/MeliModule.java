@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.meli.service.MeliServiceImpl;
+import com.ventalandia.meli.service.UserMeliService;
 
 /**
  * 
@@ -27,6 +28,7 @@ public class MeliModule extends AbstractModule {
 		
 		// services
 		this.bind(MeliService.class).to(MeliServiceImpl.class).in(Scopes.SINGLETON);
+		this.bind(UserMeliService.class).toInstance(new UserMeliService());
 		
 	}
 

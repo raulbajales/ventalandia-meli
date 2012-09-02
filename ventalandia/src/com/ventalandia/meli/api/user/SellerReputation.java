@@ -1,4 +1,4 @@
-package com.ventalandia.domain.meli.user;
+package com.ventalandia.meli.api.user;
 
 /**
  * 
