@@ -20,9 +20,6 @@
 		<servlet-name>Ventalandia</servlet-name>
 		<url-pattern>/ventalandia</url-pattern>
 	</servlet-mapping>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
  <servlet>
   <servlet-name>SystemServiceServlet</servlet-name>
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>

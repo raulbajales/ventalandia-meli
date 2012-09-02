@@ -1,6 +1,5 @@
 package com.ventalandia.view;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -31,12 +30,12 @@ public class AuthServlet extends ApiServlet {
 	
 	@Inject
 	private MeliService meliService;
-	
+
+	@Inject
+	private WebappView webappView;
+
 	@Inject
 	private Gson gson;
-
-	@Inject @HomePage
-	private String homePage;
 
 	@Override
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
@@ -55,8 +54,8 @@ public class AuthServlet extends ApiServlet {
 			cookie.setPath("/");
 			resp.addCookie(cookie);
 			try {
-				resp.sendRedirect(homePage);
-			} catch (IOException e) {
+				webappView.renderHome(resp, getServletContext());
+			} catch (Exception e) {
 				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				return new ApiError(e.getMessage());
 			}

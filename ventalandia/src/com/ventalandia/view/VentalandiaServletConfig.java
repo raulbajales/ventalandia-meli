@@ -22,7 +22,7 @@ public class VentalandiaServletConfig extends GuiceServletContextListener {
 	 */
 	@Override
 	protected Injector getInjector() {
-		return Guice.createInjector(new VentalandiaDomainModule(), new VentalandiaServletModule(), new GaeModule(), new MeliModule());
+		return Guice.createInjector(new VentalandiaDomainModule(), new VentalandiaServletModule(), new GaeModule(), new MeliModule(), new WebappModule());
 	}
 
 }

@@ -402,13 +402,14 @@ header .header-container {
 
 header .header-container .generic-search {
   float: left;
-  margin-left: 85px;
+  margin-left: 70px;
   margin-top: 6px;
 }
 
 header .header-container .generic-search .search-input {
   border-radius: 7px;
   height: 16px;
+  width: 240px;
 }
 
 header .header-container .logo {
@@ -424,7 +425,9 @@ header .header-container .logo {
 header .header-container .logout {
   color: #FFFFFF;
   float: right;
-  margin-top: -22px;
+  margin-top: 4px;
+  margin-right: 10;
+  margin-left: -10;
 }
 
 header .header-container .logout:hover {
@@ -433,12 +436,28 @@ header .header-container .logout:hover {
 }
 
 header .header-container .notifications {
-  padding-top: 13px;
-  margin-left: 590px;
+  float: right;
+  margin-top: -28px;
+  width: 162px;
+}
+
+header .header-container .notifications .btn {
+  color: #FFFFFF;
+}
+
+header .header-container .notifications:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
 }
 
 header .header-container .counter {
   cursor: pointer;
+  position: fixed;
+  margin-left: -16;  
+  padding-left: 4px;
+  padding-right: 4px;
+  position: fixed;
+  background: red;
 }
 
 footer .footer-container {

@@ -58,18 +58,22 @@
   <!--[if lt IE 7]><p class=chromeframe>Tu browser es <em>viejo!</em> <a href="http://browsehappy.com/">Bajate un browser nuevo</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instala Google Chrome Frame</a> para poder usar Ventalandia.</p><![endif]-->
   <header>
     <div class="header-container">
-      <span class="logo"></span>
-      <span class="generic-search">
+      <div class="logo"></div>
+      <div class="generic-search">
         <i class="icon-search icon-white"></i>
-        <input type="search" class="search-query search-input" placeholder="¿Qué desea buscar?" size="90"/>
-      </span>
-      <div class="notifications">
-        <span class="badge badge-important counter"> 5 Notificaciones! </span>
+        <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
       </div>
-      <span class="btn btn-link logout">
+      <div class="btn btn-link logout">
         <i class="icon-off icon-white"></i>  
         Salir
-      </span>
+      </div>
+      <div class="notifications">
+        <span class="btn btn-link">
+          <i class="icon-exclamation-sign icon-white"></i>  
+          Notificaciones
+        </span>      
+        <span class="badge badge-important counter">16</span >       
+      </div>  
     </div>
   </header>
 
@@ -155,9 +159,9 @@
         <li><a href="#">Sobre Ventalandia</a></li>
         <li><a href="#">Terminos y Condiciones</a></li>
         <li><a href="#">Blog</a></li>
-        <li><a href="#"><img class="social-facebook"></img></a></li>
-        <li><a href="#"><img class="social-twitter"></img></a></li>
-        <li><a href="#"><img class="social-googleplus"></img></a></li>
+        <li><a href="#"><div class="social-facebook"></div></a></li>
+        <li><a href="#"><div class="social-twitter"></div></a></li>
+        <li><a href="#"><div class="social-googleplus"></div></a></li>
       </ul>
     </div>
   </footer>
@@ -180,7 +184,7 @@
   <!-- jQuery tooltips initialization -->
   <script>
     $(function() {
-      $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Solo ingrese lo que desea buscar y presione Enter.", placement: "bottom"});
+      $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Escriba lo que busca y presione Enter.", placement: "bottom"});
       $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
     });
   </script>
