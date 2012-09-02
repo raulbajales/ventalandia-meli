@@ -189,7 +189,7 @@
       
       // Handle logout: (FIXME: move this out to a controller) 
       $(".logout").click(function() {
-        $.cookie('vtd_token', null);
+        document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.location.href="/";
         document.location.reload();
       });
