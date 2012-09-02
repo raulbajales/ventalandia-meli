@@ -1,4 +1,4 @@
-package com.ventalandia.gae.ioc;
+package com.ventalandia.ioc;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;

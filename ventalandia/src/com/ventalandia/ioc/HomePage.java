@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.ioc;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;

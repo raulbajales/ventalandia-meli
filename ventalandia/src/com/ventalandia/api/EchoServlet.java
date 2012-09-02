@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;

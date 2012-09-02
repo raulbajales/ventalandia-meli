@@ -1,6 +1,9 @@
-package com.ventalandia.view;
+package com.ventalandia.ioc;
 
 import com.google.inject.servlet.ServletModule;
+import com.ventalandia.api.AuthServlet;
+import com.ventalandia.api.EchoServlet;
+import com.ventalandia.api.MeliRedirectorServlet;
 import com.ventalandia.view.api.ApiServlet;
 import com.ventalandia.view.api.NewsApiServlet;
 import com.ventalandia.view.api.NotificationApiServlet;

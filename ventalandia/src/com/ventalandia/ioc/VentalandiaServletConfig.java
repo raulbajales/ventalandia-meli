@@ -1,9 +1,8 @@
-package com.ventalandia.view;
+package com.ventalandia.ioc;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
-import com.ventalandia.gae.ioc.GaeModule;
 import com.ventalandia.meli.ioc.MeliModule;
 
 /**

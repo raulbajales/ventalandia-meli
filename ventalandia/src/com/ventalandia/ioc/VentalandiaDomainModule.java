@@ -1,4 +1,4 @@
-package com.ventalandia.view;
+package com.ventalandia.ioc;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
