@@ -188,5 +188,12 @@
       $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
     });
   </script>
+
+  <script>
+    $(".header-container .logout").click(function() {
+      $.cookie('vtd_token', null);
+      document.location.href="/";
+    });
+  </script>
 </body>
 </html>
