@@ -1,4 +1,4 @@
-package com.ventalandia.meli.domain;
+package com.ventalandia.domain.meli;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
