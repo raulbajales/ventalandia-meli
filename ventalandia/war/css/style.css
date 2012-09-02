@@ -503,7 +503,85 @@ footer .footer-container ul li {
   line-height: 33px;  
 }
 
+footer .footer-guest {
+  height: 34px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;  
+}
 
+.main-content-guest {
+  width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;
+  margin-top: 50px;
+  height: 400px;
+  background: #08C;
+}
+
+.main-content-guest .logo {
+  background: url(../img/logo.png) right no-repeat; 
+  width: 181px;
+  height: 42px;
+  margin-top: 19px;
+  margin-left: 15px;
+  top: 15px;
+  position: relative;
+}
+
+.main-content-guest .content {
+  background: lavender;
+  padding-left: 26px;
+  padding-right: 26px;
+  padding-top: 15px;
+  padding-bottom: 15px;  
+  width: 648px;
+  height: 274px;
+  margin-top: 29;
+  margin-left: 0px;
+}
+
+.main-content-guest .content .headline {
+  color: #0C055E;
+  margin-top: 3px;
+  font-weight: bold;
+  font-size: 28;
+}
+
+.main-content-guest .content .picture {
+  float: left;
+  width: 291px;
+  height: 210px;  
+  background: url(../img/morochaperra.jpeg) right no-repeat; 
+  margin-top: 23px;
+}
+
+.main-content-guest .content .info {
+  float: right;
+  width: 313px;
+  height: 179px;
+  background: lavender;
+  margin-top: 20;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+.main-content-guest .content .info .title{
+  font-weight: bold;
+  color: #08C;
+  font-size: 17;
+}
+
+.main-content-guest .content .info p {
+  margin-top: 10px;
+  color: grey;
+}
+
+.main-content-guest .content .info .btn {
+  margin-left: 17px;
+  margin-top: 34px;
+}
 /*
 
 Grid:
