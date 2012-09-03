@@ -2,11 +2,11 @@
 
 /* Controllers */
 
+function NewsController() {}
+NewsController.$inject = [];
 
-function MyCtrl1() {}
-MyCtrl1.$inject = [];
+function CustomersController() {}
+CustomersController.$inject = [];
 
-
-function MyCtrl2() {
-}
-MyCtrl2.$inject = [];
+function ProductsController() {}
+ProductsController.$inject = [];

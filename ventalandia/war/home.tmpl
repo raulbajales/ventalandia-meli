@@ -4,10 +4,10 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!-->
-<html class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head>
+<html ng-app="vldApp" class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
 
-  <title>Ventalandia</title>
+  <title>ventalandia.com</title>
   <meta name="description" content="Te ayuda a concretar mas ventas y mas rapido!, vende mas y mejor en Mercadolibre!">
 
   <meta name="viewport" content="width=device-width">
@@ -40,6 +40,7 @@
     // load all of the dependencies asynchronously.
     $script([
       'js/libs/angular.js',
+      'js/libs/angular-resource.js',
       'js/app/app.js',
       'js/app/services.js',
       'js/app/controllers.js',
@@ -47,7 +48,7 @@
       'js/app/directives.js'
     ], function() {
       // when all is done, execute bootstrap angular application
-      angular.bootstrap(document, ['myApp']);
+      angular.bootstrap(document, ['vldApp']);
     });
   </script>
 
@@ -58,18 +59,22 @@
   <!--[if lt IE 7]><p class=chromeframe>Tu browser es <em>viejo!</em> <a href="http://browsehappy.com/">Bajate un browser nuevo</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instala Google Chrome Frame</a> para poder usar Ventalandia.</p><![endif]-->
   <header>
     <div class="header-container">
-      <span class="logo"></span>
-      <span class="generic-search">
+      <div class="logo"></div>
+      <div class="generic-search">
         <i class="icon-search icon-white"></i>
-        <input type="search" class="search-query search-input" placeholder="¿Qué desea buscar?" size="90"/>
-      </span>
-      <div class="notifications">
-        <span class="badge badge-important counter"> 5 Notificaciones! </span>
+        <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
       </div>
-      <span class="btn btn-link logout">
+      <div class="btn btn-link logout">
         <i class="icon-off icon-white"></i>  
         Salir
-      </span>
+      </div>
+      <div class="notifications">
+        <span class="btn btn-link">
+          <i class="icon-exclamation-sign icon-white"></i>  
+          Notificaciones
+        </span>      
+        <span class="badge badge-important counter">16</span >       
+      </div>  
     </div>
   </header>
 
@@ -155,9 +160,9 @@
         <li><a href="#">Sobre Ventalandia</a></li>
         <li><a href="#">Terminos y Condiciones</a></li>
         <li><a href="#">Blog</a></li>
-        <li><a href="#"><img class="social-facebook"></img></a></li>
-        <li><a href="#"><img class="social-twitter"></img></a></li>
-        <li><a href="#"><img class="social-googleplus"></img></a></li>
+        <li><a href="#"><div class="social-facebook"></div></a></li>
+        <li><a href="#"><div class="social-twitter"></div></a></li>
+        <li><a href="#"><div class="social-googleplus"></div></a></li>
       </ul>
     </div>
   </footer>
@@ -180,8 +185,18 @@
   <!-- jQuery tooltips initialization -->
   <script>
     $(function() {
-      $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Solo ingrese lo que desea buscar y presione Enter.", placement: "bottom"});
+      $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Escriba lo que busca y presione Enter.", placement: "bottom"});
       $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
+      
+      // Handle logout: (FIXME: move this out to a controller) 
+      $(".logout").click(function() {
+        if (confirm("Esta seguro de que desea salir?")) {
+          document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.location.href="/";
+          document.location.reload();
+        }
+      });
+      
     });
   </script>
 </body>

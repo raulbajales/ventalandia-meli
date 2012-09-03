@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.ventalandia.ioc.IndexPage;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.service.MeliAuthContext;
 import com.ventalandia.meli.service.MeliService;
@@ -35,9 +34,7 @@ public abstract class AbstractSecurityFilter implements Filter {
 	@Inject
 	private MeliService meliService;
 
-	@Inject
-	@IndexPage
-	private String index;
+	protected FilterConfig filterConfig;
 
 	@Override
 	public void destroy() {
@@ -46,7 +43,7 @@ public abstract class AbstractSecurityFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// do nothing
+		this.filterConfig = filterConfig;
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public abstract class AbstractSecurityFilter implements Filter {
 		if (authToken != null) {
 			if (this.meliService.validate(authToken)) {
 				MeliAuthContext.setAuthToken(authToken);
-				filterChain.doFilter(request, response);
+				this.onValidSession(filterChain, request, response);
 				MeliAuthContext.remove();
 			} else {
 				this.onInvalidSession(response);
@@ -76,6 +73,8 @@ public abstract class AbstractSecurityFilter implements Filter {
 	}
 
 	protected abstract void onInvalidSession(HttpServletResponse response);
+	
+	protected abstract void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response);
 
 	private AuthToken getAuthToken(HttpServletRequest request) {
 		if (request.getCookies() == null) {
@@ -102,5 +101,4 @@ public abstract class AbstractSecurityFilter implements Filter {
 			throw new RuntimeException(e);
 		}
 	}
-
 }
