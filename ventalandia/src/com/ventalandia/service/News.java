@@ -13,6 +13,7 @@ public class News {
 	private String message;
 	private Date date;
 	private NewsType type;
+	private String product;
 
 	public boolean isRead() {
 		return read;
@@ -44,6 +45,14 @@ public class News {
 
 	public void setType(NewsType type) {
 		this.type = type;
+	}
+
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
 	}
 
 }
