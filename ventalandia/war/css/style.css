@@ -388,6 +388,11 @@ header {
    height: 222px;
 }
 
+.main-container .sidebar .navigation ul {
+   position: fixed;
+   width: 201;
+}
+
 .main-container .sidebar .navigation .nav {
   padding: 10px
 }
