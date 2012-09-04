@@ -1,5 +1,6 @@
 package com.ventalandia.meli.api.user;
 
+import java.util.Date;
 
 /**
  * 
@@ -10,7 +11,7 @@ public class MeliUser {
 
 	private long id;
 	private String nickname;
-	// private Date registration_date;
+	private Date registration_date;
 	private String first_name;
 	private String last_name;
 	private String country_id;
@@ -45,13 +46,13 @@ public class MeliUser {
 		this.nickname = nickname;
 	}
 
-	// public Date getRegistration_date() {
-	// return registration_date;
-	// }
-	//
-	// public void setRegistration_date(Date registration_date) {
-	// this.registration_date = registration_date;
-	// }
+	public Date getRegistration_date() {
+		return registration_date;
+	}
+
+	public void setRegistration_date(Date registration_date) {
+		this.registration_date = registration_date;
+	}
 
 	public String getFirst_name() {
 		return first_name;
@@ -192,16 +193,16 @@ public class MeliUser {
 	@Override
 	public String toString() {
 		return "MeliUser [id=" + id + ", nickname=" + nickname
-				+ ", first_name=" + first_name + ", last_name=" + last_name
-				+ ", country_id=" + country_id + ", email=" + email
-				+ ", identification=" + identification + ", phone=" + phone
-				+ ", alternative_phone=" + alternative_phone + ", user_type="
-				+ user_type + ", logo=" + logo + ", points=" + points
-				+ ", site_id=" + site_id + ", permalink=" + permalink
-				+ ", seller_experience=" + seller_experience
-				+ ", seller_reputation=" + seller_reputation
-				+ ", buyer_reputation=" + buyer_reputation + ", status="
-				+ status + ", credit=" + credit + "]";
+				+ ", registration_date=" + registration_date + ", first_name="
+				+ first_name + ", last_name=" + last_name + ", country_id="
+				+ country_id + ", email=" + email + ", identification="
+				+ identification + ", phone=" + phone + ", alternative_phone="
+				+ alternative_phone + ", user_type=" + user_type + ", logo="
+				+ logo + ", points=" + points + ", site_id=" + site_id
+				+ ", permalink=" + permalink + ", seller_experience="
+				+ seller_experience + ", seller_reputation="
+				+ seller_reputation + ", buyer_reputation=" + buyer_reputation
+				+ ", status=" + status + ", credit=" + credit + "]";
 	}
 
 }

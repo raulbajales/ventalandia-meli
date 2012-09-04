@@ -21,7 +21,7 @@ public class UserTest {
 
 	private Gson gson = new GsonBuilder().setDateFormat(
 //			"yyyy-MM-dd'T'HH:mm:ss.SSS-04:00 <<< issue with this format
-			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+			"yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 	
 	@Test
 	public void test() throws FileNotFoundException {

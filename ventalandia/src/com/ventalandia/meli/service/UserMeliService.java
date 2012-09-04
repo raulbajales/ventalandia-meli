@@ -29,7 +29,6 @@ public class UserMeliService extends AbstractMeliService {
 		} else {
 			throw new MeliException(response.getResponseMessage());
 		}
-		
 	}
 
 }

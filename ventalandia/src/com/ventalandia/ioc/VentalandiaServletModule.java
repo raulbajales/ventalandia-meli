@@ -6,6 +6,7 @@ import com.ventalandia.api.AuthServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
 import com.ventalandia.api.NewsApiServlet;
+import com.ventalandia.api.UserApiServlet;
 import com.ventalandia.filter.ApiSecurityFilter;
 import com.ventalandia.filter.PersistenceManagerFilter;
 import com.ventalandia.meli.callback.NotificationApiServlet;
@@ -40,6 +41,7 @@ public class VentalandiaServletModule extends ServletModule {
 
 		serve("/api/test").with(ApiServlet.class);
 		serve("/api/news", "/api/news/*").with(NewsApiServlet.class);
+		serve("/api/users/me").with(UserApiServlet.class);
 	}
 	
 }

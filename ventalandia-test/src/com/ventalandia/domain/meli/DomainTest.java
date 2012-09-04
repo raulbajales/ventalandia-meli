@@ -6,6 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.ventalandia.ioc.VentalandiaDomainModule;
+import com.ventalandia.meli.ioc.MeliModule;
 
 public class DomainTest {
 
@@ -22,6 +23,6 @@ public class DomainTest {
 	}
 
 	 protected Module[] getModules() {
-         return new Module[] { new VentalandiaDomainModule() };
+         return new Module[] { new VentalandiaDomainModule(), new MeliModule() };
  }
 }
