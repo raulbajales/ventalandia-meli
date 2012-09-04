@@ -21,7 +21,7 @@ public interface NotificationService {
 	 */
 	void processRequest(String jsonData) throws JsonSyntaxException;
 
-	List<Notification> getUnreadQuestionsByUserId(int userId);
+	List<Notification> getUnreadQuestionsByUserId(long userId);
 
 	Question getQuestionFromMeli(Notification notification, AuthToken authToken);
 	

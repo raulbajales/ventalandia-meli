@@ -13,7 +13,7 @@ import java.util.List;
 // TODO remove this implementation when the news service implementation is ready
 public class NewsServiceStub implements NewsService {
 
-	public List<News> getNewsFor(String user) {
+	public List<News> getNewsByUserId(long user) {
 		List<News> newsList = new ArrayList<News>();
 
 		newsList.add(this.create(new Date(), "message 1", false, NewsType.QUESTION, "Bicicleta usada rodado 26"));

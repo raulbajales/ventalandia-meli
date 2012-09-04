@@ -49,17 +49,22 @@ public class NotificationServiceImpl implements NotificationService {
 //		TODO REEMPLAZAR POR ESTA LA LINEA PARA QUE UTILICE EL TOKEN 
 //		HttpResponse json = httpConnector.get(notification.getResource(), new FluentStringsMap().add(ACCESS_TOKEN, authToken.getAccess_token()));
 		HttpResponse json = httpConnector.get(notification.getResource());
-		notification.markAsRead();
-		notificationRepository.update(notification);
-		Question question = gson.fromJson(json.getResponseMessage(), Question.class);
-		questionRepository.add(question);
+		
+		if(json.getResponseCode() == 200){
+			notification.markAsRead();
+			notificationRepository.update(notification);
+			Question question = gson.fromJson(json.getResponseMessage(), Question.class);
+			questionRepository.add(question);
+			return question;
+		}
+		
+		throw new RuntimeException("Question Not Found");
 
-		return question;
 	}
 
 	
 	@Override
-	public List<Notification> getUnreadQuestionsByUserId(int userId) {
+	public List<Notification> getUnreadQuestionsByUserId(long userId) {
 		return notificationRepository.getUnreadQuestionsByUserId(userId);
 
 	}
