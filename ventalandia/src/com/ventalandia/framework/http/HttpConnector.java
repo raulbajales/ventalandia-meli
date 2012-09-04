@@ -13,6 +13,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.appengine.api.urlfetch.FetchOptions;
+import com.google.appengine.api.urlfetch.HTTPHeader;
+import com.google.appengine.api.urlfetch.HTTPMethod;
+import com.google.appengine.api.urlfetch.HTTPRequest;
+import com.google.appengine.api.urlfetch.HTTPResponse;
+import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+
 
 /**
  * 
@@ -25,32 +32,14 @@ public class HttpConnector {
 
 	public HttpResponse get(String path, FluentStringsMap params, String body) {
         try {
-        	
-            URL url = new URL(apiUrl + path + "?" + getQueryString(params));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("GET");
-            connection.addRequestProperty("Accept", "application/json");
-            connection.addRequestProperty("Content-Type", "application/json");
-            
-            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-            if (!(body == null || body.equals(""))) {
-            	 writer.write(URLEncoder.encode(body, "UTF-8"));
-			}
-            writer.close();
-            
-            InputStream response = connection.getInputStream();
-            
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response));
-            StringBuilder builder = new StringBuilder();
-            
-            String inputLine;
-            while ((inputLine = reader.readLine()) != null) {
-            	builder.append(inputLine);
-            } 
-            reader.close();
-            
-            return new HttpResponse(connection.getResponseCode(), builder.toString());
+        	FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
+			HTTPRequest request = new HTTPRequest(new URL(apiUrl+path+"?"+getQueryString(params)), HTTPMethod.GET, fetchOptions);
+			HTTPHeader header = new HTTPHeader("Accept", "application/json");
+			request.addHeader(header);
+			
+			HTTPResponse httpResponse = URLFetchServiceFactory.getURLFetchService().fetch(request);
+			
+            return new HttpResponse(httpResponse.getResponseCode(), new String(httpResponse.getContent()));
         } catch (MalformedURLException e) {
         	throw new MeliException(e);
         } catch (IOException e) {

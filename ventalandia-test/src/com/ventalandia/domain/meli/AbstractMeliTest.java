@@ -5,16 +5,13 @@ import org.junit.Before;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.ventalandia.ioc.VentalandiaDomainModule;
 import com.ventalandia.meli.ioc.MeliModule;
 
-public class DomainTest {
-
+public class AbstractMeliTest {
 	private static Injector injector;
 
 	@Before
-	public  void before() {
-
+	public void before() {
 		if (injector == null) {
 			injector = Guice.createInjector(getModules());
 		}
@@ -22,7 +19,8 @@ public class DomainTest {
 		injector.injectMembers(this);
 	}
 
-	 protected Module[] getModules() {
-         return new Module[] { new VentalandiaDomainModule(), new MeliModule() };
- }
+	protected Module[] getModules() {
+		return new Module[] { new MeliModule() };
+	}
+	
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
+import com.ventalandia.api.UserService;
 import com.ventalandia.meli.pesistence.NotificationRepository;
 import com.ventalandia.service.NewsService;
 import com.ventalandia.service.NewsServiceStub;
@@ -27,10 +28,10 @@ public class VentalandiaDomainModule extends AbstractModule {
 		// services
 		this.bind(NewsService.class).toInstance(new NewsServiceStub());
 		this.bind(NotificationService.class).to(NotificationServiceImpl.class);
+		this.bind(UserService.class).toInstance(new UserService());
 
 		// daos
 		this.bind(NotificationRepository.class).toInstance(new NotificationRepository());
-
 	}
 
 }
