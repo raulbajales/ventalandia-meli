@@ -6,6 +6,8 @@ import javax.jdo.PersistenceManagerFactory;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.urlfetch.URLFetchService;
+import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.inject.AbstractModule;
 import com.ventalandia.framework.persistence.PersistenceManagerProvider;
 
@@ -21,5 +23,6 @@ public class GaeModule extends AbstractModule {
 		this.bind(PersistenceManagerFactory.class).toInstance(JDOHelper.getPersistenceManagerFactory("transactions-optional"));
 		this.bind(PersistenceManager.class).toProvider(PersistenceManagerProvider.class);
 		this.bind(DatastoreService.class).toInstance(DatastoreServiceFactory.getDatastoreService());
+		this.bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
 	}
 }

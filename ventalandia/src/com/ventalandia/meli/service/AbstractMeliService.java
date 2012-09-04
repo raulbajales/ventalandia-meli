@@ -29,6 +29,7 @@ public class AbstractMeliService {
 	@Inject
 	protected Gson gson;
 
-	protected HttpConnector http = new HttpConnector();
+	@Inject
+	protected HttpConnector http;
 
 }

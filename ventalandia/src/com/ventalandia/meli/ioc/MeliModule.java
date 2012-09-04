@@ -2,6 +2,7 @@ package com.ventalandia.meli.ioc;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
+import com.ventalandia.framework.http.HttpConnector;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.meli.service.MeliServiceImpl;
 import com.ventalandia.meli.service.UserMeliService;
@@ -25,10 +26,11 @@ public class MeliModule extends AbstractModule {
 		this.bind(String.class).annotatedWith(MeliClientSecretApi.class).toInstance(clientSecret);
 		this.bind(Integer.class).annotatedWith(MeliClientIdApi.class).toInstance(clientId);
 		this.bind(String.class).annotatedWith(MeliCallbackUrlApi.class).toInstance(callback);
-		
+
 		// services
 		this.bind(MeliService.class).to(MeliServiceImpl.class).in(Scopes.SINGLETON);
 		this.bind(UserMeliService.class).toInstance(new UserMeliService());
+		this.bind(HttpConnector.class).toInstance(new HttpConnector());
 		
 	}
 

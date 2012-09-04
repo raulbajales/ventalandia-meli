@@ -14,7 +14,6 @@ import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.pesistence.NotificationRepository;
 import com.ventalandia.meli.pesistence.QuestionRepository;
 
-;
 /**
  * 
  * @author german
@@ -27,12 +26,15 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Inject
 	private Gson gson;
+	
 	@Inject
 	private NotificationRepository notificationRepository;
+	
 	@Inject
 	private QuestionRepository questionRepository;
 
-	private final HttpConnector httpConnector = new HttpConnector();
+	@Inject
+	private HttpConnector httpConnector;
 
 	@Override
 	public void processRequest(String jsonData) throws JsonSyntaxException {

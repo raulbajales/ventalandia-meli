@@ -18,7 +18,8 @@ import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import com.google.appengine.api.urlfetch.URLFetchService;
+import com.google.inject.Inject;
 
 /**
  * 
@@ -29,6 +30,10 @@ public class HttpConnector {
 
 	public static String apiUrl = "https://api.mercadolibre.com";
 	public static final String ACCESS_TOKEN = "access_token";
+	private static final String APPLICATION_JSON = "application/json";
+	
+	@Inject
+	private URLFetchService urlFetchService;
 
 	public HttpResponse get(String path) {
 		return get(path, new FluentStringsMap(), null);
@@ -39,14 +44,13 @@ public class HttpConnector {
 	}
 
 	public HttpResponse get(String path, FluentStringsMap params, String body) {
-
 		try {
 			FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
 			HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + getQueryString(params)), HTTPMethod.GET, fetchOptions);
-			HTTPHeader header = new HTTPHeader("Accept", "application/json");
+			HTTPHeader header = new HTTPHeader("Accept", APPLICATION_JSON);
 			request.addHeader(header);
 
-			HTTPResponse httpResponse = URLFetchServiceFactory.getURLFetchService().fetch(request);
+			HTTPResponse httpResponse = this.urlFetchService.fetch(request);
 
 			return new HttpResponse(httpResponse.getResponseCode(), new String(httpResponse.getContent()));
 		} catch (MalformedURLException e) {
@@ -64,8 +68,8 @@ public class HttpConnector {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestMethod("POST");
-			connection.addRequestProperty("Accept", "application/json");
-			connection.addRequestProperty("Content-Type", "application/json");
+			connection.addRequestProperty("Accept", APPLICATION_JSON);
+			connection.addRequestProperty("Content-Type", APPLICATION_JSON);
 
 			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 			if (!(body == null || body.equals(""))) {
