@@ -33,11 +33,9 @@ public class VentalandiaDomainModule extends AbstractModule {
 
 		// repositories
 		this.bind(NotificationRepository.class).toInstance(new NotificationRepository());
-<<<<<<< HEAD
 		this.bind(QuestionRepository.class).toInstance(new QuestionRepository());
 
-=======
->>>>>>> 155e232777ba307de945e8a393b02145b9e6cf2a
+
 	}
 
 }

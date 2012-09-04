@@ -5,7 +5,6 @@ package com.ventalandia.framework.http;
  * @author matias
  * 
  */
-@Deprecated
 public class MeliException extends RuntimeException{
 	
 	private static final long serialVersionUID = 7263275678852231779L;

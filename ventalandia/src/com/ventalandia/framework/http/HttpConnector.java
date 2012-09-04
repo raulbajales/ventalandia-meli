@@ -13,8 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-<<<<<<< HEAD
-=======
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
@@ -22,8 +20,6 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 
-
->>>>>>> 155e232777ba307de945e8a393b02145b9e6cf2a
 /**
  * 
  * @author matias
@@ -35,64 +31,30 @@ public class HttpConnector {
 	public static final String ACCESS_TOKEN = "access_token";
 
 	public HttpResponse get(String path) {
-		return get(path, null, null);
+		return get(path, new FluentStringsMap(), null);
 	}
-	
+
 	public HttpResponse get(String path, FluentStringsMap params) {
 		return get(path, params, null);
 	}
 
 	public HttpResponse get(String path, FluentStringsMap params, String body) {
-<<<<<<< HEAD
+
 		try {
+			FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
+			HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + getQueryString(params)), HTTPMethod.GET, fetchOptions);
+			HTTPHeader header = new HTTPHeader("Accept", "application/json");
+			request.addHeader(header);
 
-			String spec = apiUrl + path + (params == null ? "" : "?" + getQueryString(params));
-			URL url = new URL(spec);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestMethod("GET");
-			connection.addRequestProperty("Accept", "application/json");
-			connection.addRequestProperty("Content-Type", "application/json");
+			HTTPResponse httpResponse = URLFetchServiceFactory.getURLFetchService().fetch(request);
 
-			if (!(body == null || body.equals(""))) {
-				OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-				writer.write(URLEncoder.encode(body, "UTF-8"));
-				writer.close();
-			}
-
-			InputStream response = connection.getInputStream();
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response));
-			StringBuilder builder = new StringBuilder();
-
-			String inputLine;
-			while ((inputLine = reader.readLine()) != null) {
-				builder.append(inputLine);
-			}
-			reader.close();
-
-			return new HttpResponse(connection.getResponseCode(), builder.toString());
+			return new HttpResponse(httpResponse.getResponseCode(), new String(httpResponse.getContent()));
 		} catch (MalformedURLException e) {
 			throw new MeliException(e);
 		} catch (IOException e) {
 			throw new MeliException(e);
 		}
-=======
-        try {
-        	FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
-			HTTPRequest request = new HTTPRequest(new URL(apiUrl+path+"?"+getQueryString(params)), HTTPMethod.GET, fetchOptions);
-			HTTPHeader header = new HTTPHeader("Accept", "application/json");
-			request.addHeader(header);
-			
-			HTTPResponse httpResponse = URLFetchServiceFactory.getURLFetchService().fetch(request);
-			
-            return new HttpResponse(httpResponse.getResponseCode(), new String(httpResponse.getContent()));
-        } catch (MalformedURLException e) {
-        	throw new MeliException(e);
-        } catch (IOException e) {
-            throw new MeliException(e);
-        }
->>>>>>> 155e232777ba307de945e8a393b02145b9e6cf2a
+
 	}
 
 	public HttpResponse post(String path, FluentStringsMap params, String body) {
@@ -153,5 +115,4 @@ public class HttpConnector {
 		return result.toString();
 	}
 
-	
 }
