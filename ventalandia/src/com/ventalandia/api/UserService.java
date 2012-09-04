@@ -17,6 +17,8 @@ public class UserService {
 		
 		user.setNickname(meliUser.getNickname());
 		user.setMeliId(meliUser.getId());
+		user.setName(meliUser.getFirst_name());
+		user.setSurname(meliUser.getLast_name());
 		
 		return user;
 	}
