@@ -35,7 +35,8 @@ public class EchoServlet extends HttpServlet {
 
 		resp.setContentType("text/plain");
 		AuthToken authToken = MeliAuthContext.getAuthToken();
-		List<Notification> notifications = notificationService.getAllQuestions();
+		int userId = 1234;
+		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
 
 		PrintWriter writer = resp.getWriter();
 		if (notifications.isEmpty()) {

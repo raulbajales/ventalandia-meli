@@ -1,23 +1,20 @@
 package com.ventalandia.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
+import com.ventalandia.framework.http.HttpConnector;
+import com.ventalandia.framework.http.HttpResponse;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
-import com.ventalandia.meli.ioc.MeliUrlApi;
 import com.ventalandia.meli.pesistence.NotificationRepository;
+import com.ventalandia.meli.pesistence.QuestionRepository;
 
+;
 /**
  * 
  * @author german
@@ -26,16 +23,16 @@ import com.ventalandia.meli.pesistence.NotificationRepository;
  */
 public class NotificationServiceImpl implements NotificationService {
 
-	@Inject
-	private Gson gson;
-
 	private static final Logger log = Logger.getLogger(NotificationServiceImpl.class.getName());
 
 	@Inject
+	private Gson gson;
+	@Inject
 	private NotificationRepository notificationRepository;
+	@Inject
+	private QuestionRepository questionRepository;
 
-	@Inject @MeliUrlApi
-	private String meliUrl;
+	private final HttpConnector httpConnector = new HttpConnector();
 
 	@Override
 	public void processRequest(String jsonData) throws JsonSyntaxException {
@@ -46,45 +43,23 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public Question getQuestionFromMeli(Notification notification, AuthToken authToken) {
-		
-		String json = readingFormURL(notification.getResource(),authToken.getAccess_token());
-		return gson.fromJson(json, Question.class);
+
+//		TODO REEMPLAZAR POR ESTA LA LINEA PARA QUE UTILICE EL TOKEN 
+//		HttpResponse json = httpConnector.get(notification.getResource(), new FluentStringsMap().add(ACCESS_TOKEN, authToken.getAccess_token()));
+		HttpResponse json = httpConnector.get(notification.getResource());
+		notification.markAsRead();
+		notificationRepository.update(notification);
+		Question question = gson.fromJson(json.getResponseMessage(), Question.class);
+		questionRepository.add(question);
+
+		return question;
 	}
 
+	
 	@Override
-	public List<Notification> getAllQuestions() {
+	public List<Notification> getUnreadQuestionsByUserId(int userId) {
+		return notificationRepository.getUnreadQuestionsByUserId(userId);
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("topic", "questions");
-		return this.notificationRepository.search(params);
-
-	}
-
-	private String readingFormURL(String resource, String access_token) {
-
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader in = null;
-		try {
-			URL url = new URL(meliUrl +  resource + "?access_token=" + access_token);
-			in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-			for (String inputLine = in.readLine(); inputLine != null; inputLine = in.readLine()) {
-				stringBuilder.append(inputLine);
-			}
-
-		} catch (Exception e) {
-
-		} finally {
-			if(in !=null){
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return stringBuilder.toString();
 	}
 
 }

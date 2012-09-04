@@ -34,7 +34,7 @@ public class VentalandiaServletModule extends ServletModule {
 		// support
 		filter("/").through(WebappSecurityFilter.class);
 		filter("/api/*").through(ApiSecurityFilter.class);
-		filter("/api/*").through(PersistenceManagerFilter.class);
+		filter("/*").through(PersistenceManagerFilter.class);
 
 		// api
 

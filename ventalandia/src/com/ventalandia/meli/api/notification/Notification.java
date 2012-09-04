@@ -36,6 +36,9 @@ public class Notification {
 	
 	@Persistent
 	private Date sent;
+	
+	@Persistent
+	private boolean read;
 
 	public int getUser_id() {
 		return user_id;
@@ -81,4 +84,20 @@ public class Notification {
 		return key;
 	}
 
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	public void markAsRead(){
+		this.read = true;
+	}
+
+	@Override
+	public String toString() {
+		return "topic: "+topic+" read: "+read+" user_id: "+user_id;
+	}
 }
