@@ -12,6 +12,7 @@ public class User {
 	private long meliId;
 	private String name;
 	private String surname;
+	private int sellerReputationLevel;
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
@@ -43,6 +44,14 @@ public class User {
 
 	public String getSurname() {
 		return surname;
+	}
+
+	public void setSellerReputationLevel(int sellerReputationLevel) {
+		this.sellerReputationLevel = sellerReputationLevel;
+	}
+
+	public int getSellerReputationLevel() {
+		return sellerReputationLevel;
 	}
 
 }
