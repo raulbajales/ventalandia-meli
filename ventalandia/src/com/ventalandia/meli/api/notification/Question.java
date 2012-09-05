@@ -32,6 +32,9 @@ public class Question {
 	private long seller_id;
 	
 	@Persistent
+	private long user_id;
+	
+	@Persistent
 	private String status;
 
 	@Persistent
@@ -102,6 +105,14 @@ public class Question {
 
 	public void setFrom(UserFrom from) {
 		this.from = from;
+	}
+
+	public long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
 
 }

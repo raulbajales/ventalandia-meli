@@ -54,6 +54,7 @@ public class NotificationServiceImpl implements NotificationService {
 			notification.markAsRead();
 			notificationRepository.update(notification);
 			Question question = gson.fromJson(json.getResponseMessage(), Question.class);
+			question.setUser_id(notification.getUser_id());
 			questionRepository.add(question);
 			return question;
 		}

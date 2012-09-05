@@ -18,8 +18,9 @@ public class NotificationRepository extends JdoRepository<Notification> {
 	@SuppressWarnings("unchecked")
 	public List<Notification> getUnreadQuestionsByUserId(long userId) {
 
-		Query query = getPersistenceManager().newQuery(
-				"select from com.ventalandia.meli.api.notification.Notification where topic == topicValue && user_id == userId && read == false " + "parameters String topicValue, Long userId");
+		String queryString = "select from com.ventalandia.meli.api.notification.Notification where topic == topicValue && user_id == userId && read == false";
+		Query query = getPersistenceManager().newQuery(queryString);
+		query.declareParameters("String topicValue, Long userId");
 
 		return (List<Notification>) query.execute("questions", userId);
 	}
