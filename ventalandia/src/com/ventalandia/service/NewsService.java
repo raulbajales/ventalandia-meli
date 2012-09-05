@@ -14,9 +14,9 @@ public interface NewsService {
 	/**
 	 * Provide the list of the latest news sorted by descending date.
 	 * 
-	 * @param user
+	 * @param userId
 	 * @return
 	 */
-	public List<News> getNewsFor(String user);
+	public List<News> getNewsByUserId(long userId);
 
 }
