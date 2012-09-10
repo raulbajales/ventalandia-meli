@@ -5,5 +5,8 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/ventalandia"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="GAE_TESTING_LIB/appengine-testing.jar"/>
+	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api-labs.jar"/>
+	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api-stubs.jar"/>
+	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

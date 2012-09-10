@@ -1,58 +1,23 @@
 package com.ventalandia.meli.api.user;
 
-import java.util.Date;
 
 /**
  * 
  * @author matias
  * 
  */
-public class MeliUser {
+public class MeliUser extends AbstractMeliUser {
 
-	private long id;
-	private String nickname;
-	private Date registration_date;
 	private String first_name;
 	private String last_name;
-	private String country_id;
 	private String email;
 	private Identification identification;
 	private Phone phone;
 	private Phone alternative_phone;
-	private String user_type;
-	private String logo;
-	private String points;
-	private String site_id;
-	private String permalink;
 	private String seller_experience;
-	private SellerReputation seller_reputation;
 	private BuyerReputation buyer_reputation;
 	private Status status;
 	private Credit credit;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public Date getRegistration_date() {
-		return registration_date;
-	}
-
-	public void setRegistration_date(Date registration_date) {
-		this.registration_date = registration_date;
-	}
 
 	public String getFirst_name() {
 		return first_name;
@@ -70,60 +35,12 @@ public class MeliUser {
 		this.last_name = last_name;
 	}
 
-	public String getCountry_id() {
-		return country_id;
-	}
-
-	public void setCountry_id(String country_id) {
-		this.country_id = country_id;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getUser_type() {
-		return user_type;
-	}
-
-	public void setUser_type(String user_type) {
-		this.user_type = user_type;
-	}
-
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public String getPoints() {
-		return points;
-	}
-
-	public void setPoints(String points) {
-		this.points = points;
-	}
-
-	public String getSite_id() {
-		return site_id;
-	}
-
-	public void setSite_id(String site_id) {
-		this.site_id = site_id;
-	}
-
-	public String getPermalink() {
-		return permalink;
-	}
-
-	public void setPermalink(String permalink) {
-		this.permalink = permalink;
 	}
 
 	public String getSeller_experience() {
@@ -158,14 +75,6 @@ public class MeliUser {
 		return alternative_phone;
 	}
 
-	public void setSeller_reputation(SellerReputation seller_reputation) {
-		this.seller_reputation = seller_reputation;
-	}
-
-	public SellerReputation getSeller_reputation() {
-		return seller_reputation;
-	}
-
 	public void setBuyer_reputation(BuyerReputation buyer_reputation) {
 		this.buyer_reputation = buyer_reputation;
 	}
@@ -192,17 +101,15 @@ public class MeliUser {
 
 	@Override
 	public String toString() {
-		return "MeliUser [id=" + id + ", nickname=" + nickname
-				+ ", registration_date=" + registration_date + ", first_name="
-				+ first_name + ", last_name=" + last_name + ", country_id="
-				+ country_id + ", email=" + email + ", identification="
+		return "MeliUser [first_name=" + first_name + ", last_name="
+				+ last_name + ", email=" + email + ", identification="
 				+ identification + ", phone=" + phone + ", alternative_phone="
-				+ alternative_phone + ", user_type=" + user_type + ", logo="
-				+ logo + ", points=" + points + ", site_id=" + site_id
-				+ ", permalink=" + permalink + ", seller_experience="
-				+ seller_experience + ", seller_reputation="
-				+ seller_reputation + ", buyer_reputation=" + buyer_reputation
-				+ ", status=" + status + ", credit=" + credit + "]";
+				+ alternative_phone + ", seller_experience="
+				+ seller_experience + ", buyer_reputation=" + buyer_reputation
+				+ ", status=" + status + ", credit=" + credit + ", toString()="
+				+ super.toString() + "]";
 	}
+
+	
 
 }

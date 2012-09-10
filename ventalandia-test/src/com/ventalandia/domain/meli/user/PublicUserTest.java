@@ -10,28 +10,27 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ventalandia.meli.api.user.AbstractMeliUser;
-import com.ventalandia.meli.api.user.MeliUser;
+import com.ventalandia.meli.api.user.MeliPublicUser;
 
 /**
  * 
  * @author matias
  *
  */
-public class UserTest {
-
+public class PublicUserTest {
+	
 	private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 	
 	@Test
 	public void test() throws FileNotFoundException {
 		Reader json = this.getUserAsJson();
-		AbstractMeliUser user = this.gson.fromJson(json, MeliUser.class);
+		MeliPublicUser user = this.gson.fromJson(json, MeliPublicUser.class);
 		
 		System.out.println(user);
 	}
 
 	private Reader getUserAsJson() throws FileNotFoundException {
-		File file = getDirectory("com/ventalandia/domain/meli/user/private-user.json");
+		File file = getDirectory("com/ventalandia/domain/meli/user/public-user.json");
 		return new FileReader(file);
 	}
 
