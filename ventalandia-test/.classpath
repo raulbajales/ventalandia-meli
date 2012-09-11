@@ -8,5 +8,8 @@
 	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api-labs.jar"/>
 	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api-stubs.jar"/>
 	<classpathentry kind="var" path="GAE_SDK_ROOT/lib/impl/appengine-api.jar"/>
+	<classpathentry kind="lib" path="/ventalandia/war/WEB-INF/lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="/ventalandia/war/WEB-INF/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="/ventalandia/war/WEB-INF/lib/aopalliance.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
