@@ -1,16 +1,14 @@
 package com.ventalandia.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
@@ -22,34 +20,45 @@ import com.ventalandia.service.NotificationService;
  * @author matias
  * 
  */
-@Singleton
-public class EchoServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 3750062946924357873L;
+@Path("/echo")
+@Produces(MediaType.TEXT_PLAIN)
+public class EchoServlet {
 
 	@Inject
 	private NotificationService notificationService;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@GET
+	@Path("/test")
+	public String test() {
 
-		resp.setContentType("text/plain");
 		AuthToken authToken = MeliAuthContext.getAuthToken();
 		long userId = 1234;
 		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
 
-		PrintWriter writer = resp.getWriter();
+		String result = null;
+		
 		if (notifications.isEmpty()) {
-			writer.print("Usted no tiene notificaciones pendientes");
+			result = "Usted no tiene notificaciones pendientes";
+			
 		} else {
 
-			Question question = notificationService.getQuestionFromMeli(notifications.get(0), authToken);
+			List<Question> questions = notificationService.getQuestionsFromMeli(notifications, authToken);
 
-			writer.println("pregunta: " + question.getText());
-			writer.println("respuesta: " + question.getAnswer().getText());
+			for (Question question : questions) {
+				result =  "pregunta: " + question.getText() + "\n" + "respuesta: " + question.getAnswer().getText();
+			}
 
 		}
+		return result;
 
 	}
+		
+	@GET
+	@Path("/users/{userId}")
+	public String getUserById(@PathParam("userId") Long userId) {
+		
+		return "El id de usuario es: "+userId;
 
+	}
+	
 }

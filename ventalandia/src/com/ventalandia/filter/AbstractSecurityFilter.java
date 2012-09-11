@@ -47,16 +47,12 @@ public abstract class AbstractSecurityFilter implements Filter {
 	}
 
 	@Override
-	public final void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain filterChain) throws IOException, ServletException {
+	public final void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 		// casting
-		this.doInnerFilter((HttpServletRequest) request,
-				(HttpServletResponse) response, filterChain);
+		this.doInnerFilter((HttpServletRequest) request, (HttpServletResponse) response, filterChain);
 	}
 
-	private void doInnerFilter(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
-			throws IOException, ServletException {
+	private void doInnerFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 		AuthToken authToken = this.getAuthToken(request);
 
 		if (authToken != null) {
@@ -73,7 +69,7 @@ public abstract class AbstractSecurityFilter implements Filter {
 	}
 
 	protected abstract void onInvalidSession(HttpServletResponse response);
-	
+
 	protected abstract void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response);
 
 	private AuthToken getAuthToken(HttpServletRequest request) {

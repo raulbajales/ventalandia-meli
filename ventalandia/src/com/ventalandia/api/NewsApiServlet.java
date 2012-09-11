@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ventalandia.meli.api.notification.Notification;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.api.notification.Question;
+import com.ventalandia.meli.service.MeliAuthContext;
 import com.ventalandia.meli.service.UserMeliService;
 import com.ventalandia.service.News;
 import com.ventalandia.service.NewsType;
@@ -33,25 +35,24 @@ public class NewsApiServlet extends ApiServlet {
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
 
 		long userId = userMeliService.getCurrentUser().getId();
-		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
-		
-		return getNews(notifications);
+		AuthToken authToken = MeliAuthContext.getAuthToken();
+		List<Question> questions = notificationService.getQuestionsFromMeli(userId, authToken);
+		return getNews(questions);
 
 	}
 
-	private Object getNews(List<Notification> notifications) {
-
+	private Object getNews(List<Question> questions) {
 
 		List<News> result = new ArrayList<News>();
 
-		for (Notification notification : notifications) {
+		for (Question question : questions) {
 
 			News news = new News();
-			news.setDate(notification.getSent());
-			news.setMessage(notification.getTopic());
-			news.setRead(notification.isRead());
+			news.setDate(question.getDate_created());
+			news.setMessage(question.getText());
+			news.setRead(false);
 			news.setType(NewsType.QUESTION);
-			news.setProduct("this field is not available");
+			news.setProduct(question.getItem_id());
 			result.add(news);
 
 		}

@@ -1,6 +1,7 @@
 package com.ventalandia.ioc;
 
-import com.google.inject.servlet.ServletModule;
+import com.sun.jersey.guice.JerseyServletModule;
+import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.ventalandia.api.ApiServlet;
 import com.ventalandia.api.AuthServlet;
 import com.ventalandia.api.EchoServlet;
@@ -18,7 +19,7 @@ import com.ventalandia.view.filter.WebappSecurityFilter;
  * @author matias
  *
  */
-public class VentalandiaServletModule extends ServletModule {
+public class VentalandiaServletModule extends JerseyServletModule {
 
 	@Override
 	protected void configureServlets() {
@@ -30,7 +31,8 @@ public class VentalandiaServletModule extends ServletModule {
 		
 		// Ventalandia
 		// tests or healthcheckers
-		serve("/echo", "/echo/*").with(EchoServlet.class);
+//		serve("/echo", "/echo/*").with(EchoServlet.class);
+		bind(EchoServlet.class);
 
 		// support
 		filter("/").through(WebappSecurityFilter.class);
@@ -42,6 +44,7 @@ public class VentalandiaServletModule extends ServletModule {
 		serve("/api/test").with(ApiServlet.class);
 		serve("/api/news", "/api/news/*").with(NewsApiServlet.class);
 		serve("/api/users/me").with(UserApiServlet.class);
+		serve("/*").with(GuiceContainer.class);
 	}
 	
 }
