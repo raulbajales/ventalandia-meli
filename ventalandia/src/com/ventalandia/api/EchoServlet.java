@@ -28,7 +28,7 @@ public class EchoServlet {
 	private NotificationService notificationService;
 
 	@GET
-	@Path("/test")
+	@Path("test")
 	public String test() {
 
 		AuthToken authToken = MeliAuthContext.getAuthToken();
@@ -54,7 +54,7 @@ public class EchoServlet {
 	}
 		
 	@GET
-	@Path("/users/{userId}")
+	@Path("users/{userId}")
 	public String getUserById(@PathParam("userId") Long userId) {
 		
 		return "El id de usuario es: "+userId;
