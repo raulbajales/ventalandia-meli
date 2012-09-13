@@ -12,6 +12,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.google.inject.Inject;
+import com.ventalandia.meli.pesistence.Repository;
 
 /**
  * Abstract behavior of a repository. It define basic CRUD operations.
@@ -19,7 +20,7 @@ import com.google.inject.Inject;
  * @author matias
  * 
  */
-public abstract class JdoRepository<T> {
+public abstract class JdoRepository<T> implements Repository<T>{
 
   @Inject
   private PersistenceManagerProvider persistenceManagerProvider;

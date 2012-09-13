@@ -1,39 +1,40 @@
 
 package com.ventalandia.meli.api.notification;
 
+import java.util.Date;
 import java.util.List;
 
 public class Item{
 	
    	private boolean accepts_mercadopago;
    	private List attributes;
-   	private Number available_quantity;
-   	private Number base_price;
+   	private int available_quantity;
+   	private float base_price;
    	private String buying_mode;
    	private String catalog_product_id;
    	private String category_id;
    	private String condition;
    	private List coverage_areas;
    	private String currency_id;
-   	private String date_created;
+   	private Date date_created;
    	private List<Description> descriptions;
    	private Geolocation geolocation;
    	private String id;
-   	private Number initial_quantity;
-   	private String last_updated;
+   	private int initial_quantity;
+   	private Date last_updated;
    	private String listing_type_id;
    	private String location;
    	private List<NonMercadoPagoPaymentMethod> non_mercado_pago_payment_methods;
    	private String parent_item_id;
    	private String permalink;
    	private List<Picture> pictures;
-   	private Number price;
+   	private float price;
    	private Seller_address seller_address;
    	private String seller_contact;
-   	private Number seller_id;
+   	private long seller_id;
    	private Shipping shipping;
    	private String site_id;
-   	private Number sold_quantity;
+   	private int sold_quantity;
    	private String start_time;
    	private String status;
    	private String stop_time;
@@ -58,16 +59,16 @@ public class Item{
 	public void setAttributes(List attributes) {
 		this.attributes = attributes;
 	}
-	public Number getAvailable_quantity() {
+	public int getAvailable_quantity() {
 		return available_quantity;
 	}
-	public void setAvailable_quantity(Number available_quantity) {
+	public void setAvailable_quantity(int available_quantity) {
 		this.available_quantity = available_quantity;
 	}
-	public Number getBase_price() {
+	public float getBase_price() {
 		return base_price;
 	}
-	public void setBase_price(Number base_price) {
+	public void setBase_price(float base_price) {
 		this.base_price = base_price;
 	}
 	public String getBuying_mode() {
@@ -106,10 +107,10 @@ public class Item{
 	public void setCurrency_id(String currency_id) {
 		this.currency_id = currency_id;
 	}
-	public String getDate_created() {
+	public Date getDate_created() {
 		return date_created;
 	}
-	public void setDate_created(String date_created) {
+	public void setDate_created(Date date_created) {
 		this.date_created = date_created;
 	}
 	public List<Description> getDescriptions() {
@@ -130,16 +131,16 @@ public class Item{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Number getInitial_quantity() {
+	public int getInitial_quantity() {
 		return initial_quantity;
 	}
-	public void setInitial_quantity(Number initial_quantity) {
+	public void setInitial_quantity(int initial_quantity) {
 		this.initial_quantity = initial_quantity;
 	}
-	public String getLast_updated() {
+	public Date getLast_updated() {
 		return last_updated;
 	}
-	public void setLast_updated(String last_updated) {
+	public void setLast_updated(Date last_updated) {
 		this.last_updated = last_updated;
 	}
 	public String getListing_type_id() {
@@ -178,10 +179,10 @@ public class Item{
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
 	}
-	public Number getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(Number price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public Seller_address getSeller_address() {
@@ -196,10 +197,10 @@ public class Item{
 	public void setSeller_contact(String seller_contact) {
 		this.seller_contact = seller_contact;
 	}
-	public Number getSeller_id() {
+	public long getSeller_id() {
 		return seller_id;
 	}
-	public void setSeller_id(Number seller_id) {
+	public void setSeller_id(long seller_id) {
 		this.seller_id = seller_id;
 	}
 	public Shipping getShipping() {
@@ -214,10 +215,10 @@ public class Item{
 	public void setSite_id(String site_id) {
 		this.site_id = site_id;
 	}
-	public Number getSold_quantity() {
+	public int getSold_quantity() {
 		return sold_quantity;
 	}
-	public void setSold_quantity(Number sold_quantity) {
+	public void setSold_quantity(int sold_quantity) {
 		this.sold_quantity = sold_quantity;
 	}
 	public String getStart_time() {

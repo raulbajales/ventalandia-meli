@@ -12,6 +12,8 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable
 public class Question {
 
+	public static final String ANSWERED_STATUS = "ANSWERED";
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
@@ -30,16 +32,16 @@ public class Question {
 
 	@Persistent
 	private long seller_id;
-	
+
 	@Persistent
 	private long user_id;
-	
+
 	@Persistent
 	private String status;
 
 	@Persistent
 	private String text;
-	
+
 	@Persistent
 	private UserFrom from;
 
@@ -113,6 +115,10 @@ public class Question {
 
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
+	}
+
+	public boolean isAnswered() {
+		return ANSWERED_STATUS.equals(status);
 	}
 
 }
