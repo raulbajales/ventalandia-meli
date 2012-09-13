@@ -14,6 +14,7 @@ import com.ventalandia.meli.service.UserMeliService;
  *
  */
 @Singleton
+@Deprecated
 public class UserApiServlet extends ApiServlet {
 
 	private static final long serialVersionUID = 3490358649836139664L;
