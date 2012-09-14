@@ -49,9 +49,12 @@ public class QuestionServiceImpl implements QuestionService {
 	 * Gets question from MELI service.
 	 */
 	@Override
-	public Question getQuestionFromMeli(String questionId) {
+	public Question getQuestionFromMeli(String questionId,long userId) {
 
 		Question question = new Question();
+		User client = getUser(userId);
+		question.setClient(client);
+		
 		com.ventalandia.meli.api.notification.Question questionAPI = getEntityFromMELI(questionId, com.ventalandia.meli.api.notification.Question.class);
 		fillQuestion(questionAPI, question);
 		return question;
@@ -178,7 +181,7 @@ public class QuestionServiceImpl implements QuestionService {
 	 */
 	private void fillQuestion(com.ventalandia.meli.api.notification.Question questionAPI, Question question) {
 
-		User client = getUser(questionAPI.getUser_id());
+		
 		User seller = getUser(questionAPI.getSeller_id());
 		Item item = getItem(questionAPI.getItem_id());
 
@@ -186,7 +189,7 @@ public class QuestionServiceImpl implements QuestionService {
 			question.setAnswer(getAnswer(questionAPI.getAnswer()));
 		}
 
-		question.setClient(client);
+		
 		question.setSeller(seller);
 		question.setText(questionAPI.getText());
 		question.setItem(item);
