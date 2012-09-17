@@ -7,6 +7,7 @@ import com.google.inject.Module;
 import com.ventalandia.api.UserService;
 import com.ventalandia.meli.pesistence.NotificationRepository;
 import com.ventalandia.meli.pesistence.QuestionRepository;
+import com.ventalandia.persistence.TokenRepository;
 import com.ventalandia.service.NewsService;
 import com.ventalandia.service.NewsServiceStub;
 import com.ventalandia.service.NotificationService;
@@ -34,7 +35,7 @@ public class VentalandiaDomainModule extends AbstractModule {
 		// repositories
 		this.bind(NotificationRepository.class).toInstance(new NotificationRepository());
 		this.bind(QuestionRepository.class).toInstance(new QuestionRepository());
-
+		this.bind(TokenRepository.class).toInstance(new TokenRepository());
 
 	}
 

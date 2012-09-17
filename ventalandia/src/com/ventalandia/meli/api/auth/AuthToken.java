@@ -5,10 +5,6 @@ package com.ventalandia.meli.api.auth;
  * @author matias
  *
  */
-/**
- * @author msulik
- *
- */
 public class AuthToken {
 
 	private String access_token;

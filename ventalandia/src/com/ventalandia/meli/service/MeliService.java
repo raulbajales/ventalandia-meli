@@ -10,6 +10,8 @@ import com.ventalandia.meli.api.auth.AuthToken;
 public interface MeliService {
 
 	AuthToken getAuthToken(String code);
+	
+	AuthToken refreshAuthToken(String refreshToken);
 
 	boolean validate(AuthToken authToken);
 

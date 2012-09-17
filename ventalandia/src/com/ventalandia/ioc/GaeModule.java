@@ -6,6 +6,8 @@ import javax.jdo.PersistenceManagerFactory;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.inject.AbstractModule;
@@ -24,5 +26,6 @@ public class GaeModule extends AbstractModule {
 		this.bind(PersistenceManager.class).toProvider(PersistenceManagerProvider.class);
 		this.bind(DatastoreService.class).toInstance(DatastoreServiceFactory.getDatastoreService());
 		this.bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
+		this.bind(MemcacheService.class).toInstance(MemcacheServiceFactory.getMemcacheService());
 	}
 }

@@ -5,6 +5,7 @@ import org.junit.Before;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalMailServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestConfig;
 import com.google.inject.Guice;
@@ -27,7 +28,8 @@ public abstract class DomainTest {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalMailServiceTestConfig(),
 			new LocalDatastoreServiceTestConfig(),
-			new LocalURLFetchServiceTestConfig());
+			new LocalURLFetchServiceTestConfig(),
+			new LocalMemcacheServiceTestConfig());
 
 	private static Injector injector;
 

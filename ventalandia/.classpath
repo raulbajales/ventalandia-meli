@@ -6,7 +6,7 @@
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/guice-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/guice-servlet-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/gson-2.2.2.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (1)"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-core-1.11.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-guice-1.11.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jersey-server-1.11.jar"/>
