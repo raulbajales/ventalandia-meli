@@ -10,14 +10,17 @@ public class QuestionTransformerTest {
 
     
     @Test
-    public void testname(){
+    public void testTransform(){
         
-        Question in = null;
+        Question in = GSonBuilde;
         Transformer<Question, com.ventalandia.domain.Question> questionTransformer = new QuestionTransformer();
         
         Assert.assertNotNull(questionTransformer.transform(in));
         
         
     }
+    
+
+    
     
 }
