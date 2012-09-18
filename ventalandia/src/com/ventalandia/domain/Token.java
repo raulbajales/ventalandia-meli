@@ -19,7 +19,10 @@ public class Token implements StoreCallback {
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
-    
+
+    /**
+     * It's a user Id provided by MELI.
+     */
     @Persistent
     private long meliId;
 
@@ -73,7 +76,7 @@ public class Token implements StoreCallback {
     public void setMeliId(long meliId) {
         this.meliId = meliId;
     }
-    
+
     public long getMeliId() {
         return meliId;
     }

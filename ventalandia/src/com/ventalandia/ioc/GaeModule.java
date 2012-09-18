@@ -20,12 +20,14 @@ import com.ventalandia.framework.persistence.PersistenceManagerProvider;
  */
 public class GaeModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		this.bind(PersistenceManagerFactory.class).toInstance(JDOHelper.getPersistenceManagerFactory("transactions-optional"));
-		this.bind(PersistenceManager.class).toProvider(PersistenceManagerProvider.class);
-		this.bind(DatastoreService.class).toInstance(DatastoreServiceFactory.getDatastoreService());
-		this.bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
-		this.bind(MemcacheService.class).toInstance(MemcacheServiceFactory.getMemcacheService());
-	}
+    @Override
+    protected void configure() {
+        this.bind(PersistenceManagerFactory.class).toInstance(JDOHelper.getPersistenceManagerFactory("transactions-optional"));
+        this.bind(PersistenceManager.class).toProvider(PersistenceManagerProvider.class);
+        this.bind(DatastoreService.class).toInstance(DatastoreServiceFactory.getDatastoreService());
+        this.bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
+        this.bind(MemcacheService.class).annotatedWith(TokenCache.class).toInstance(MemcacheServiceFactory.getMemcacheService("tokens"));
+//        this.bind(MemcacheService.class).annotatedWith(TokenCache.class).toInstance(MemcacheServiceFactory.getMemcacheService("users"));
+    }
+
 }
