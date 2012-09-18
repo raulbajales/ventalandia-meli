@@ -26,6 +26,10 @@ public class TokenRepositoryTest extends DomainTest {
         Assert.assertNull(token.getKey());
         this.tokenRepository.add(token);
         Assert.assertNotNull(token.getKey());
+
+        Token persistedToken = this.tokenRepository.getByMeliUserId(token.getMeliId());
+
+        Assert.assertEquals(token.getKey(), persistedToken.getKey());
     }
 
     @Test(expected = RuntimeException.class)

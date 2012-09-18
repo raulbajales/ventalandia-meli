@@ -22,11 +22,13 @@ public class TokenMemcacheTest extends DomainTest {
 
     @Test
     public void test() throws InterruptedException {
+        MemcacheService tokens = MemcacheServiceFactory.getMemcacheService("tokens");
         MemcacheService service = MemcacheServiceFactory.getMemcacheService();
 
         service.put(KEY, VALUE, Expiration.byDeltaSeconds(2));
 
         Assert.assertEquals(VALUE, service.get(KEY));
+        Assert.assertNull(tokens.get(KEY));
 
         Thread.sleep(2100);
 
