@@ -6,7 +6,12 @@ import com.google.appengine.api.memcache.MemcacheService;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Token;
+import com.ventalandia.domain.transformer.TokenTransformer;
 import com.ventalandia.ioc.TokenCache;
+import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.service.AuthContext;
+import com.ventalandia.meli.service.MeliService;
+import com.ventalandia.meli.service.UserMeliService;
 import com.ventalandia.persistence.TokenRepository;
 
 /**
@@ -31,6 +36,14 @@ public class AuthService {
 
     @Inject
     private TokenRepository tokenRepository;
+
+    @Inject
+    private MeliService meliService;
+
+    @Inject
+    private UserMeliService userMeliService;
+
+    private TokenTransformer tokenTransformer = new TokenTransformer();
 
     /**
      * Get a token associated with a User ID. This user id is a MELI User ID.
@@ -97,4 +110,13 @@ public class AuthService {
 
         return hash;
     }
+
+    public String generateToken(String meliCode) {
+        AuthToken authToken = this.meliService.getAuthToken(meliCode);
+        Token token = this.tokenTransformer.transform(authToken);
+        AuthContext.setAuthToken(token);
+        token.setMeliId(this.userMeliService.getCurrentUser().getId());
+        return this.addToken(token);
+    }
+
 }

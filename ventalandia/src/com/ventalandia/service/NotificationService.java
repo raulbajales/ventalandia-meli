@@ -3,7 +3,6 @@ package com.ventalandia.service;
 import java.util.List;
 
 import com.google.gson.JsonSyntaxException;
-import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
 
@@ -34,15 +33,14 @@ public interface NotificationService {
 	 * @param authToken
 	 * @return
 	 */
-	List<Question> getQuestionsFromMeli(List<Notification> notifications, AuthToken authToken);
+	List<Question> getQuestionsFromMeli(List<Notification> notifications);
 
 	/**
 	 * Gets Questions from MELI.
 	 * @param userId
-	 * @param authToken
 	 * @return
 	 */
-	List<Question> getQuestionsFromMeli(long userId, AuthToken authToken);
+	List<Question> getQuestionsFromMeli(long userId);
 	
 	
 }

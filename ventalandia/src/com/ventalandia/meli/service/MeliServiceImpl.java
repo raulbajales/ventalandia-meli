@@ -3,6 +3,7 @@ package com.ventalandia.meli.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.ventalandia.domain.Token;
 import com.ventalandia.framework.http.FluentStringsMap;
 import com.ventalandia.framework.http.HttpResponse;
 import com.ventalandia.meli.api.auth.AuthToken;
@@ -14,6 +15,8 @@ import com.ventalandia.meli.api.auth.AuthorizationFailure;
  * 
  */
 public class MeliServiceImpl extends AbstractMeliService implements MeliService {
+
+    private AuthTokenTransformer authTokenTransformer = new AuthTokenTransformer();
 
     @Override
     public AuthToken getAuthToken(String code) {
@@ -66,7 +69,13 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
 
     @Override
     public boolean validate(AuthToken authToken) {
+        // TODO validate token
         return true;
+    }
+
+    @Override
+    public boolean validate(Token token) {
+        return this.validate(this.authTokenTransformer.transform(token));
     }
 
 }

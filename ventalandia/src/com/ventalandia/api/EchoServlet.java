@@ -9,10 +9,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
-import com.ventalandia.meli.service.MeliAuthContext;
+import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NotificationService;
 
 /**
@@ -30,8 +31,8 @@ public class EchoServlet {
 	@GET
 	@Path("test")
 	public String test() {
+		Token authToken = AuthContext.getToken();
 
-		AuthToken authToken = MeliAuthContext.getAuthToken();
 		long userId = 1234;
 		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
 
@@ -42,7 +43,7 @@ public class EchoServlet {
 			
 		} else {
 
-			List<Question> questions = notificationService.getQuestionsFromMeli(notifications, authToken);
+			List<Question> questions = notificationService.getQuestionsFromMeli(notifications);
 
 			for (Question question : questions) {
 				result =  "pregunta: " + question.getText() + "\n" + "respuesta: " + question.getAnswer().getText();

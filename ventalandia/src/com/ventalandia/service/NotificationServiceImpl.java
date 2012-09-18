@@ -50,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
-	public List<Question> getQuestionsFromMeli(List<Notification> notifications, AuthToken authToken) {
+	public List<Question> getQuestionsFromMeli(List<Notification> notifications) {
 
 		List<Question> questions = new ArrayList<Question>();
 		for (Notification notification : notifications) {
@@ -83,11 +83,11 @@ public class NotificationServiceImpl implements NotificationService {
 	}
 
 	@Override
-	public List<Question> getQuestionsFromMeli(long userId, AuthToken authToken) {
+	public List<Question> getQuestionsFromMeli(long userId) {
 
 		List<Notification> notifications = notificationRepository.getUnreadQuestionsByUserId(userId);
 		
-		return getQuestionsFromMeli(notifications, authToken);
+		return getQuestionsFromMeli(notifications);
 	}
 
 }

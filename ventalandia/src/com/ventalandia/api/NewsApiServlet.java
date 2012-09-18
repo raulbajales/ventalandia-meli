@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Question;
-import com.ventalandia.meli.service.MeliAuthContext;
+import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.meli.service.UserMeliService;
 import com.ventalandia.service.News;
 import com.ventalandia.service.NewsType;
@@ -33,10 +33,9 @@ public class NewsApiServlet extends ApiServlet {
 
 	@Override
 	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
-
 		long userId = userMeliService.getCurrentUser().getId();
-		AuthToken authToken = MeliAuthContext.getAuthToken();
-		List<Question> questions = notificationService.getQuestionsFromMeli(userId, authToken);
+
+		List<Question> questions = notificationService.getQuestionsFromMeli(userId);
 		return getNews(questions);
 
 	}

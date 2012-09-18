@@ -4,11 +4,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.inject.Inject;
+import com.ventalandia.domain.Token;
+import com.ventalandia.domain.helper.TokenHelper;
 import com.ventalandia.domain.meli.AbstractMeliTest;
-import com.ventalandia.meli.api.auth.AuthToken;
-import com.ventalandia.meli.api.helper.AuthTokenHelper;
 import com.ventalandia.meli.api.user.MeliUser;
-import com.ventalandia.meli.service.MeliAuthContext;
+import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.meli.service.UserMeliService;
 
 /**
@@ -23,9 +23,9 @@ public class MeliUserServiceTest extends AbstractMeliTest {
 
     @Test
     public void test() throws Exception {
-        AuthToken authToken = AuthTokenHelper.create();
+        Token token = TokenHelper.create();
 
-        MeliAuthContext.setAuthToken(authToken);
+        AuthContext.setAuthToken(token);
         MeliUser user = this.userMeliService.getCurrentUser();
 
         Assert.assertEquals("test", user.getNickname());

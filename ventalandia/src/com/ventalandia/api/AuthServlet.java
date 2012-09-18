@@ -10,62 +10,59 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.service.MeliService;
+import com.ventalandia.service.AuthService;
 import com.ventalandia.view.WebappView;
 
 /**
  * 
  * @author matias
- *
+ * 
  */
 @Singleton
 public class AuthServlet extends ApiServlet {
 
-	private static final long serialVersionUID = 6791535685445969788L;
+    private static final long serialVersionUID = 6791535685445969788L;
 
-	private static final String TOKEN = "vtd_token";
-	private static final Object EMPTY_STRING = "";
-	
-	@Inject
-	private MeliService meliService;
+    private static final String TOKEN = "vtd_token";
 
-	@Inject
-	private Gson gson;
+    private static final Object EMPTY_STRING = "";
 
-	@Override
-	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
-		return post(req, resp);
-	}
-	
-	@Override
-	protected Object post(HttpServletRequest req, HttpServletResponse resp) {
-		String error = req.getParameter("error");
-		if (error != null) {
-			return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
-		} else if (req.getParameter("code") != null) {
-			AuthToken authToken = this.meliService.getAuthToken(req.getParameter("code"));
-			Cookie cookie = new Cookie(TOKEN, this.parseToken(authToken));
-			cookie.setMaxAge(authToken.getExpires_in().intValue());
-			cookie.setPath("/");
-			resp.addCookie(cookie);
-			try {
-				resp.sendRedirect("/");
-			} catch (Exception e) {
-				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				return new ApiError(e.getMessage());
-			}
-		}
-		return EMPTY_STRING;
-	}
+    @Inject
+    private AuthService authService;
 
-	private String parseToken(AuthToken authToken) {
-		String json = this.gson.toJson(authToken);
-		try {
-			return URLEncoder.encode(json, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
+    @Inject
+    private Gson gson;
+
+    @Override
+    protected Object get(HttpServletRequest req, HttpServletResponse resp) {
+        return post(req, resp);
+    }
+
+    @Override
+    protected Object post(HttpServletRequest req, HttpServletResponse resp) {
+        String error = req.getParameter("error");
+        if (error != null) {
+            return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
+        }
+        else if (req.getParameter("code") != null) {
+            Token token = this.authService.getToken(req.getParameter("code"));
+            AuthToken authToken = this.meliService.getAuthToken(req.getParameter("code"));
+            Cookie cookie = new Cookie(TOKEN, this.parseToken(authToken));
+            cookie.setMaxAge(authToken.getExpires_in().intValue());
+            cookie.setPath("/");
+            resp.addCookie(cookie);
+            try {
+                resp.sendRedirect("/");
+            }
+            catch (Exception e) {
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return new ApiError(e.getMessage());
+            }
+        }
+        return EMPTY_STRING;
+    }
+
 }

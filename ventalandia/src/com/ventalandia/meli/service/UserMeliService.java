@@ -9,44 +9,46 @@ import com.ventalandia.meli.api.user.MeliUser;
 /**
  * 
  * @author matias
- *
+ * 
  */
 public class UserMeliService extends AbstractMeliService {
-	
-	public MeliUser getCurrentUser() {
-		FluentStringsMap params = new FluentStringsMap();
 
-		params.add("access_token", MeliAuthContext.getAuthToken().getAccess_token());
+    public MeliUser getCurrentUser() {
+        FluentStringsMap params = new FluentStringsMap();
 
-		HttpResponse response = http.get("/users/me", params, "");
+        params.add("access_token", AuthContext.getToken().getAccess_token());
 
-		return this.parsePrivateUser(response);
-	}
+        HttpResponse response = http.get("/users/me", params);
 
-	private MeliUser parsePrivateUser(HttpResponse response) {
-		if (response.getResponseCode() == 200) {
-			String json = response.getResponseMessage();
-			return gson.fromJson(json, MeliUser.class);			
-		} else {
-			throw new MeliException(response.getResponseMessage());
-		}
-	}
-	
-	public MeliPublicUser getPulicUser(long id) {
-		FluentStringsMap params = new FluentStringsMap();
+        return this.parsePrivateUser(response);
+    }
 
-		HttpResponse response = http.get("/users/"+id, params, "");
+    private MeliUser parsePrivateUser(HttpResponse response) {
+        if (response.getResponseCode() == 200) {
+            String json = response.getResponseMessage();
+            return gson.fromJson(json, MeliUser.class);
+        }
+        else {
+            throw new MeliException(response.getResponseMessage());
+        }
+    }
 
-		return this.parsePublicUser(response);
-	}
+    public MeliPublicUser getPulicUser(long id) {
+        FluentStringsMap params = new FluentStringsMap();
 
-	private MeliPublicUser parsePublicUser(HttpResponse response) {
-		if (response.getResponseCode() == 200) {
-			String json = response.getResponseMessage();
-			return gson.fromJson(json, MeliPublicUser.class);			
-		} else {
-			throw new MeliException(response.getResponseMessage());
-		}
-	}
+        HttpResponse response = http.get("/users/" + id, params, "");
+
+        return this.parsePublicUser(response);
+    }
+
+    private MeliPublicUser parsePublicUser(HttpResponse response) {
+        if (response.getResponseCode() == 200) {
+            String json = response.getResponseMessage();
+            return gson.fromJson(json, MeliPublicUser.class);
+        }
+        else {
+            throw new MeliException(response.getResponseMessage());
+        }
+    }
 
 }

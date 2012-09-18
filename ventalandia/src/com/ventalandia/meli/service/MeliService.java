@@ -1,5 +1,6 @@
 package com.ventalandia.meli.service;
 
+import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
 
 /**
@@ -14,5 +15,7 @@ public interface MeliService {
 	AuthToken refreshAuthToken(String refreshToken);
 
 	boolean validate(AuthToken authToken);
+	
+	boolean validate(Token token);
 
 }
