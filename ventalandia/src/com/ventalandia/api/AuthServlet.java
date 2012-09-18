@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
+import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.service.AuthService;
 import com.ventalandia.view.WebappView;
@@ -48,10 +49,9 @@ public class AuthServlet extends ApiServlet {
             return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
         }
         else if (req.getParameter("code") != null) {
-            Token token = this.authService.getToken(req.getParameter("code"));
-            AuthToken authToken = this.meliService.getAuthToken(req.getParameter("code"));
-            Cookie cookie = new Cookie(TOKEN, this.parseToken(authToken));
-            cookie.setMaxAge(authToken.getExpires_in().intValue());
+            String hash = this.authService.generateToken(req.getParameter("code"));
+            Cookie cookie = new Cookie(TOKEN, hash);
+            cookie.setMaxAge(Integer.MAX_VALUE);
             cookie.setPath("/");
             resp.addCookie(cookie);
             try {
