@@ -9,7 +9,6 @@ import com.google.gson.JsonSyntaxException;
 import com.google.inject.Inject;
 import com.ventalandia.framework.http.HttpConnector;
 import com.ventalandia.framework.http.HttpResponse;
-import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.pesistence.NotificationRepository;
