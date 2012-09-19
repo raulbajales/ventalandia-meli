@@ -6,26 +6,28 @@ import com.ventalandia.domain.Item;
 import com.ventalandia.domain.User;
 import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.service.ItemService;
+import com.ventalandia.service.UserService;
 
 public class QuestionTransformer implements Transformer<Question, com.ventalandia.domain.Question> {
 
     private ItemService itemService;
+    private UserService userService;
 
     @Inject
-    public QuestionTransformer(ItemService itemService) {
+    public QuestionTransformer(ItemService itemService, UserService userService) {
         this.itemService = itemService;
+        this.userService = userService;
     }
 
     @Override
     public com.ventalandia.domain.Question transform(Question in) {
 
-        User seller = null;
-
-        com.ventalandia.domain.Question result = new com.ventalandia.domain.Question();
+        User seller = userService.getByMeliId(in.getSeller_id());
         Item item = itemService.getByMeliId(in.getItem_id());
+        
+        com.ventalandia.domain.Question result = new com.ventalandia.domain.Question();
 
         if (in.isAnswered()) {
-
             Answer answer = new Answer();
             answer.setCreationDate(in.getAnswer().getDate_created());
             answer.setStatus(in.getAnswer().getStatus());

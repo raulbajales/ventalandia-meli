@@ -24,7 +24,7 @@ public class QuestionHelper {
         return question;
     }
 
-    private static Answer getAnswer() {
+    public static Answer getAnswer() {
         Answer answer = new Answer();
         answer.setDate_created(new Date());
         answer.setStatus("ACTIVE");

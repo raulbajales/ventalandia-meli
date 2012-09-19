@@ -9,9 +9,7 @@ import com.ventalandia.meli.service.MeliService;
 public class ItemServiceImpl implements ItemService {
 
     private ItemTransformer itemTransformer;
-
     private ItemRepository itemRepository;
-
     private MeliService meliService;
 
     @Inject
