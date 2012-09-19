@@ -5,7 +5,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.ventalandia.meli.api.notification.Currency;
-import com.ventalandia.service.CurrencyTransformer;
 
 public class CurrencyTransformerTest {
     

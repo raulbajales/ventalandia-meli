@@ -17,5 +17,7 @@ public interface MeliService {
 	boolean validate(AuthToken authToken);
 	
 	boolean validate(Token token);
+	
+	<T> T getEntityFromMELI(String resource, Class<T> clazz) ;
 
 }

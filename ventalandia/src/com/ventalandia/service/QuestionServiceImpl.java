@@ -26,242 +26,246 @@ import com.ventalandia.meli.pesistence.UserRepository;
  */
 public class QuestionServiceImpl implements QuestionService {
 
-	private HttpConnector httpConnector;
-	private Gson gson;
-	private UserRepository userRepository;
-	private ItemRepository itemRepository;
-	private CountryRepository countryRepository;
-	private CurrencyRepository currencyRepository;
+    private HttpConnector httpConnector;
 
-	@Inject
-	public QuestionServiceImpl(HttpConnector httpConnector, Gson gson, UserRepository userRepository, ItemRepository itemRepository, CountryRepository countryRepository,
-			CurrencyRepository currencyRepository) {
-		super();
-		this.httpConnector = httpConnector;
-		this.gson = gson;
-		this.userRepository = userRepository;
-		this.itemRepository = itemRepository;
-		this.countryRepository = countryRepository;
-		this.currencyRepository = currencyRepository;
-	}
+    private Gson gson;
 
-	/**
-	 * Gets question from MELI service.
-	 */
-	@Override
-	public Question getQuestionFromMeli(String questionId,long userId) {
+    private UserRepository userRepository;
 
-		Question question = new Question();
-		User client = getUser(userId);
-		question.setClient(client);
-		
-		com.ventalandia.meli.api.notification.Question questionAPI = getEntityFromMELI(questionId, com.ventalandia.meli.api.notification.Question.class);
-		fillQuestion(questionAPI, question);
-		return question;
+    private ItemRepository itemRepository;
 
-	}
+    private CountryRepository countryRepository;
 
-	/**
-	 * 
-	 * @param answer
-	 * @return
-	 */
-	private Answer getAnswer(com.ventalandia.meli.api.notification.Answer answer) {
+    private CurrencyRepository currencyRepository;
 
-		Answer answerResult = new Answer();
-		answerResult.setCreationDate(answer.getDate_created());
-		answerResult.setStatus(answer.getStatus());
-		answerResult.setText(answer.getText());
-		return answerResult;
-	}
+    @Inject
+    public QuestionServiceImpl(HttpConnector httpConnector, Gson gson, UserRepository userRepository, ItemRepository itemRepository, CountryRepository countryRepository,
+            CurrencyRepository currencyRepository) {
+        super();
+        this.httpConnector = httpConnector;
+        this.gson = gson;
+        this.userRepository = userRepository;
+        this.itemRepository = itemRepository;
+        this.countryRepository = countryRepository;
+        this.currencyRepository = currencyRepository;
+    }
 
-	/**
-	 * 
-	 * @param item_id
-	 * @return
-	 */
-	private Item getItem(String item_id) {
+    /**
+     * Gets question from MELI service.
+     */
+    @Override
+    public Question getQuestionFromMeli(String questionId, long userId) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("meliId", item_id);
-		List<Item> list = itemRepository.search(params);
-		if (list.isEmpty()) {
+        Question question = new Question();
+        User client = getUser(userId);
+        question.setClient(client);
 
-			Item item = new Item();
-			com.ventalandia.meli.api.notification.Item entityFromMELI = getEntityFromMELI("/items/" + item_id, com.ventalandia.meli.api.notification.Item.class);
-			fillItem(entityFromMELI, item);
-			return item;
-		}
+        com.ventalandia.meli.api.notification.Question questionAPI = getEntityFromMELI(questionId, com.ventalandia.meli.api.notification.Question.class);
+        fillQuestion(questionAPI, question);
+        return question;
 
-		return list.get(0);
-	}
+    }
 
-	/**
-	 * 
-	 * @param user_id
-	 * @return
-	 */
-	private User getUser(long user_id) {
+    /**
+     * 
+     * @param answer
+     * @return
+     */
+    private Answer getAnswer(com.ventalandia.meli.api.notification.Answer answer) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("meliId", user_id);
-		List<User> list = userRepository.search(params);
-		if (list.isEmpty()) {
-			User user = new User();
-			com.ventalandia.meli.api.notification.User userAPI = getEntityFromMELI("/users/" + user_id, com.ventalandia.meli.api.notification.User.class);
-			fillUser(userAPI, user);
-			return user;
-		}
+        Answer answerResult = new Answer();
+        answerResult.setCreationDate(answer.getDate_created());
+        answerResult.setStatus(answer.getStatus());
+        answerResult.setText(answer.getText());
+        return answerResult;
+    }
 
-		return list.get(0);
-	}
+    /**
+     * 
+     * @param item_id
+     * @return
+     */
+    private Item getItem(String item_id) {
 
-	/**
-	 * 
-	 * @param country_id
-	 * @return
-	 */
-	private Country getCountry(String country_id) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("meliId", item_id);
+        List<Item> list = itemRepository.search(params);
+        if (list.isEmpty()) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("meliId", country_id);
+            Item item = new Item();
+            com.ventalandia.meli.api.notification.Item entityFromMELI = getEntityFromMELI("/items/" + item_id, com.ventalandia.meli.api.notification.Item.class);
+            fillItem(entityFromMELI, item);
+            return item;
+        }
 
-		List<Country> list = countryRepository.search(params);
-		if (list.isEmpty()) {
-			Country country = new Country();
-			com.ventalandia.meli.api.notification.Country countryAPI = getEntityFromMELI("/countries/" + country_id, com.ventalandia.meli.api.notification.Country.class);
-			fillCountry(countryAPI, country);
-			return country;
-		}
-		return list.get(0);
-	}
+        return list.get(0);
+    }
 
-	/**
-	 * 
-	 * @param currency_id
-	 * @return
-	 */
-	private Currency getCurrency(String currency_id) {
+    /**
+     * 
+     * @param user_id
+     * @return
+     */
+    private User getUser(long user_id) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("meliId", currency_id);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("meliId", user_id);
+        List<User> list = userRepository.search(params);
+        if (list.isEmpty()) {
+            User user = new User();
+            com.ventalandia.meli.api.notification.User userAPI = getEntityFromMELI("/users/" + user_id, com.ventalandia.meli.api.notification.User.class);
+            fillUser(userAPI, user);
+            return user;
+        }
 
-		List<Currency> list = currencyRepository.search(params);
-		if (list.isEmpty()) {
-			Currency currency = new Currency();
-			com.ventalandia.meli.api.notification.Currency currencyAPI = getEntityFromMELI("/currencies/" + currency_id, com.ventalandia.meli.api.notification.Currency.class);
-			fillCurrency(currencyAPI, currency);
-			return currency;
-		}
-		return list.get(0);
-	}
+        return list.get(0);
+    }
 
-	/**
-	 * 
-	 * @param resource
-	 * @param clazz
-	 * @return
-	 */
-	private <T> T getEntityFromMELI(String resource, Class<T> clazz) {
+    /**
+     * 
+     * @param country_id
+     * @return
+     */
+    private Country getCountry(String country_id) {
 
-		HttpResponse httpResponse = httpConnector.get(resource);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("meliId", country_id);
 
-		if (httpResponse.getResponseCode() == 200) {
-			String json = httpResponse.getResponseMessage();
-			return gson.fromJson(json, clazz);
-		} else {
-			throw new RuntimeException("problems to get Entity " + clazz.getName() + " from MELI");
-		}
-	}
+        List<Country> list = countryRepository.search(params);
+        if (list.isEmpty()) {
+            Country country = new Country();
+            com.ventalandia.meli.api.notification.Country countryAPI = getEntityFromMELI("/countries/" + country_id, com.ventalandia.meli.api.notification.Country.class);
+            fillCountry(countryAPI, country);
+            return country;
+        }
+        return list.get(0);
+    }
 
-	/**
-	 * 
-	 * @param questionAPI
-	 * @param question
-	 */
-	private void fillQuestion(com.ventalandia.meli.api.notification.Question questionAPI, Question question) {
+    /**
+     * 
+     * @param currency_id
+     * @return
+     */
+    private Currency getCurrency(String currency_id) {
 
-		
-		User seller = getUser(questionAPI.getSeller_id());
-		Item item = getItem(questionAPI.getItem_id());
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("meliId", currency_id);
 
-		if (questionAPI.isAnswered()) {
-			question.setAnswer(getAnswer(questionAPI.getAnswer()));
-		}
+        List<Currency> list = currencyRepository.search(params);
+        if (list.isEmpty()) {
+            Currency currency = new Currency();
+            com.ventalandia.meli.api.notification.Currency currencyAPI = getEntityFromMELI("/currencies/" + currency_id, com.ventalandia.meli.api.notification.Currency.class);
+            fillCurrency(currencyAPI, currency);
+            return currency;
+        }
+        return list.get(0);
+    }
 
-		
-		question.setSeller(seller);
-		question.setText(questionAPI.getText());
-		question.setItem(item);
-		question.setStatus(questionAPI.getStatus());
-		question.setCreationDate(questionAPI.getDate_created());
-		question.setMeliId(questionAPI.getId());
+    /**
+     * 
+     * @param resource
+     * @param clazz
+     * @return
+     */
+    private <T> T getEntityFromMELI(String resource, Class<T> clazz) {
 
-	}
+        HttpResponse httpResponse = httpConnector.get(resource);
 
-	/**
-	 * 
-	 * @param userAPI
-	 * @param user
-	 */
-	private void fillUser(com.ventalandia.meli.api.notification.User userAPI, User user) {
+        if (httpResponse.getResponseCode() == 200) {
+            String json = httpResponse.getResponseMessage();
+            return gson.fromJson(json, clazz);
+        }
+        else {
+            throw new RuntimeException("problems to get Entity " + clazz.getName() + " from MELI");
+        }
+    }
 
-		Country country = getCountry(userAPI.getCountry_id());
-		user.setCountry(country);
-		user.setMeliId(userAPI.getId());
-		user.setNickName(userAPI.getNickname());
-		user.setRegistrationDate(userAPI.getRegistration_date());
+    /**
+     * 
+     * @param questionAPI
+     * @param question
+     */
+    private void fillQuestion(com.ventalandia.meli.api.notification.Question questionAPI, Question question) {
 
-	}
+        User seller = getUser(questionAPI.getSeller_id());
+        Item item = getItem(questionAPI.getItem_id());
 
-	/**
-	 * 
-	 * @param countryAPI
-	 * @param country
-	 */
-	private void fillCountry(com.ventalandia.meli.api.notification.Country countryAPI, Country country) {
+        if (questionAPI.isAnswered()) {
+            question.setAnswer(getAnswer(questionAPI.getAnswer()));
+        }
 
-		country.setMeliId(countryAPI.getId());
-		country.setName(countryAPI.getName());
+        question.setSeller(seller);
+        question.setText(questionAPI.getText());
+        question.setItem(item);
+        question.setStatus(questionAPI.getStatus());
+        question.setCreationDate(questionAPI.getDate_created());
+        question.setMeliId(questionAPI.getId());
 
-	}
+    }
 
-	/**
-	 * 
-	 * @param itemAPI
-	 * @param item
-	 */
-	private void fillItem(com.ventalandia.meli.api.notification.Item itemAPI, Item item) {
+    /**
+     * 
+     * @param userAPI
+     * @param user
+     */
+    private void fillUser(com.ventalandia.meli.api.notification.User userAPI, User user) {
 
-		Currency currency = getCurrency(itemAPI.getCurrency_id());
-		User seller = getUser(itemAPI.getSeller_id());
-		
-		item.setAvailableQuantity(itemAPI.getAvailable_quantity());
-		item.setBasePrice(itemAPI.getBase_price());
-		item.setCreationDate(itemAPI.getDate_created());
-		item.setCurrency(currency);
-		item.setInitialQuantity(itemAPI.getInitial_quantity());
-		item.setLastUpdated(itemAPI.getLast_updated());
-		item.setPrice(itemAPI.getPrice());
-		item.setSeller(seller);
-		item.setSoldQuantity(itemAPI.getSold_quantity());
-		item.setSubTitle(itemAPI.getSubtitle());
-		item.setTitle(itemAPI.getTitle());
+        Country country = getCountry(userAPI.getCountry_id());
+        user.setCountry(country);
+        user.setMeliId(userAPI.getId());
+        user.setNickName(userAPI.getNickname());
+        user.setRegistrationDate(userAPI.getRegistration_date());
 
-	}
+    }
 
-	/**
-	 * 
-	 * @param currencyAPI
-	 * @param currency
-	 */
-	private void fillCurrency(com.ventalandia.meli.api.notification.Currency currencyAPI, Currency currency) {
+    /**
+     * 
+     * @param countryAPI
+     * @param country
+     */
+    private void fillCountry(com.ventalandia.meli.api.notification.Country countryAPI, Country country) {
 
-		currency.setDecimalPlaces(currencyAPI.getDecimal_places());
-		currency.setDescription(currencyAPI.getDescription());
-		currency.setMeliId(currencyAPI.getId());
-		currency.setSymbol(currencyAPI.getSymbol());
+        country.setMeliId(countryAPI.getId());
+        country.setName(countryAPI.getName());
 
-	}
+    }
+
+    /**
+     * 
+     * @param itemAPI
+     * @param item
+     */
+    private void fillItem(com.ventalandia.meli.api.notification.Item itemAPI, Item item) {
+
+        Currency currency = getCurrency(itemAPI.getCurrency_id());
+        User seller = getUser(itemAPI.getSeller_id());
+
+        item.setAvailableQuantity(itemAPI.getAvailable_quantity());
+        item.setBasePrice(itemAPI.getBase_price());
+        item.setCreationDate(itemAPI.getDate_created());
+        item.setCurrency(currency);
+        item.setInitialQuantity(itemAPI.getInitial_quantity());
+        item.setLastUpdated(itemAPI.getLast_updated());
+        item.setPrice(itemAPI.getPrice());
+        item.setSeller(seller);
+        item.setSoldQuantity(itemAPI.getSold_quantity());
+        item.setSubTitle(itemAPI.getSubtitle());
+        item.setTitle(itemAPI.getTitle());
+
+    }
+
+    /**
+     * 
+     * @param currencyAPI
+     * @param currency
+     */
+    private void fillCurrency(com.ventalandia.meli.api.notification.Currency currencyAPI, Currency currency) {
+
+        currency.setDecimalPlaces(currencyAPI.getDecimal_places());
+        currency.setDescription(currencyAPI.getDescription());
+        currency.setMeliId(currencyAPI.getId());
+        currency.setSymbol(currencyAPI.getSymbol());
+
+    }
 
 }

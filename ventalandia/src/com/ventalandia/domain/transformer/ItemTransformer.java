@@ -1,9 +1,8 @@
-package com.ventalandia.service;
+package com.ventalandia.domain.transformer;
 
 import com.google.inject.Inject;
 import com.ventalandia.domain.Currency;
 import com.ventalandia.domain.Item;
-import com.ventalandia.domain.transformer.Transformer;
 import com.ventalandia.meli.service.CurrencyService;
 
 /**

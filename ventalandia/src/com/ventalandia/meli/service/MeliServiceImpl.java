@@ -78,4 +78,23 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
         return this.validate(this.authTokenTransformer.transform(token));
     }
 
+    /**
+     * 
+     * @param resource
+     * @param clazz
+     * @return
+     */
+    @Override
+    public <T> T getEntityFromMELI(String resource, Class<T> clazz) {
+
+        HttpResponse httpResponse = http.get(resource);
+
+        if (httpResponse.getResponseCode() == 200) {
+            String json = httpResponse.getResponseMessage();
+            return gson.fromJson(json, clazz);
+        } else {
+            throw new RuntimeException("problems to get Entity " + clazz.getName() + " from MELI");
+        }
+    }
+
 }
