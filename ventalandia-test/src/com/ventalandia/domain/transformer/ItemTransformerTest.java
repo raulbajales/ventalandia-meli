@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.ventalandia.domain.Currency;
 import com.ventalandia.domain.helper.ItemHelper;
 import com.ventalandia.meli.api.notification.Item;
-import com.ventalandia.meli.service.CurrencyService;
+import com.ventalandia.service.CurrencyService;
 import com.ventalandia.service.UserService;
 
 /**

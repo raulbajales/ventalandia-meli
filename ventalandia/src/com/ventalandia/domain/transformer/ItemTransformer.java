@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.ventalandia.domain.Currency;
 import com.ventalandia.domain.Item;
 import com.ventalandia.domain.User;
-import com.ventalandia.meli.service.CurrencyService;
+import com.ventalandia.service.CurrencyService;
 import com.ventalandia.service.UserService;
 
 /**
