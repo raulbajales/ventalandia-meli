@@ -1,5 +1,6 @@
 package com.ventalandia.domain.transformer;
 
+import com.google.inject.Inject;
 import com.ventalandia.domain.Country;
 import com.ventalandia.meli.api.notification.User;
 import com.ventalandia.service.CountryService;
@@ -8,6 +9,7 @@ public class UserTransformer implements Transformer<User, com.ventalandia.domain
 
     private CountryService countryService;
     
+    @Inject
     public UserTransformer(CountryService countryService) {
         super();
         this.countryService = countryService;
