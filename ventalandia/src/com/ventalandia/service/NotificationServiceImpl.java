@@ -65,9 +65,10 @@ public class NotificationServiceImpl implements NotificationService {
 				question.setUser_id(notification.getUser_id());
 				questionRepository.add(question);
 				questions.add(question);
+			}else{
+			    throw new RuntimeException("Question Not Found");
 			}
 
-			throw new RuntimeException("Question Not Found");
 
 		}
 		return questions;
