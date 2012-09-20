@@ -1,5 +1,6 @@
 package com.ventalandia.service;
 
+import com.google.inject.Inject;
 import com.ventalandia.domain.Currency;
 import com.ventalandia.domain.transformer.CurrencyTransformer;
 import com.ventalandia.meli.pesistence.CurrencyRepository;
@@ -11,6 +12,16 @@ public class CurrencyServiceImpl implements CurrencyService{
     private CurrencyTransformer currencyTransformer;
     private MeliService meliService;
     
+    
+    @Inject
+    public CurrencyServiceImpl(CurrencyRepository currencyRepository, CurrencyTransformer currencyTransformer, MeliService meliService) {
+        this.currencyRepository = currencyRepository;
+        this.currencyTransformer = currencyTransformer;
+        this.meliService = meliService;
+    }
+
+
+
     @Override
     public Currency getByMeliId(String id) {
 

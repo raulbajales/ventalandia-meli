@@ -15,6 +15,7 @@ import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NotificationService;
+import com.ventalandia.service.QuestionService;
 
 /**
  * 
@@ -27,6 +28,9 @@ public class EchoServlet {
 
 	@Inject
 	private NotificationService notificationService;
+	
+	@Inject
+	private QuestionService questionService;
 
 	@GET
 	@Path("test")
@@ -61,5 +65,57 @@ public class EchoServlet {
 		return "El id de usuario es: "+userId;
 
 	}
+	
+	@GET
+    @Path("question/{userId}/{questionId}")
+	public String getQuestion(@PathParam("userId") long userId, @PathParam("questionId") String questionId){
+	    
+	    
+	    com.ventalandia.domain.Question question = questionService.getQuestionFromMeli(questionId, userId);    
+	    
+	    StringBuilder result = new StringBuilder();
+	    
+	    result.append("************ CLIENT *******************");
+	    result.append("\n");
+	    result.append("nickName: "+question.getClient().getNickName());
+	    result.append("\n");
+	    result.append("country: "+question.getClient().getCountry().getName());
+	    result.append("\n");
+	    result.append("\n");
+	    
+	    result.append("************ SELLER *******************");
+	    result.append("\n");
+	    result.append("nickName: "+question.getSeller().getNickName());
+	    result.append("\n");
+	    result.append("country: "+question.getSeller().getCountry().getName());
+	    result.append("\n");
+	    result.append("\n");
+	    
+	    result.append("************ ITEM *******************");
+	    result.append("\n");
+	    result.append("titulo: "+question.getItem().getTitle());
+	    result.append("\n");
+	    result.append("precio: "+question.getItem().getPrice());
+	    result.append("\n");
+	    result.append("vendidas: "+question.getItem().getSoldQuantity());
+	    result.append("\n");
+        result.append("cantidad inicial: "+question.getItem().getInitialQuantity());
+        
+        result.append("************ QUESTION *******************");
+        result.append("\n");
+        result.append("question: "+question.getText());
+        result.append("\n");
+        result.append("\n");
+        
+        result.append("************ ANSWER *******************");
+        result.append("\n");
+        result.append("answer: "+question.getAnswer().getText());
+        result.append("\n");
+        result.append("\n");
+	    
+	    return result.toString();
+	}
+	
+	
 	
 }

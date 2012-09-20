@@ -1,5 +1,7 @@
 package com.ventalandia.framework.persistence;
 
+import java.util.List;
+
 import javax.jdo.Query;
 
 import com.ventalandia.meli.pesistence.MeliEntityRepository;
@@ -12,7 +14,8 @@ public abstract class MeliJdoRepository<T> extends JdoRepository<T> implements M
         Query query = this.createQuery();
         query.setFilter("meliId == meliIdParam");
         query.declareParameters("Object meliIdParam");
-        return (T) query.execute("meliIdParam", meliId);
+        List<T> list = (List<T>) query.execute(meliId);
+        return list.isEmpty() ? null : list.get(0);
 
     }
 

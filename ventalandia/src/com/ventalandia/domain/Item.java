@@ -48,6 +48,9 @@ public class Item {
 
     @Persistent
     private Date lastUpdated;
+    
+    @Persistent
+    private String meliId;
 
     public User getSeller() {
         return seller;
@@ -136,4 +139,13 @@ public class Item {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    public String getMeliId() {
+        return meliId;
+    }
+
+    public void setMeliId(String meliId) {
+        this.meliId = meliId;
+    }
+    
 }
