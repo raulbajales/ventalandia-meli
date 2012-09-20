@@ -21,13 +21,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getByMeliId(long seller_id) {
+    public User getByMeliId(long userId) {
 
-        User user = userRepository.getByMeliId(seller_id);
+        User user = userRepository.getByMeliId(userId);
         
         if (user == null) {
-            com.ventalandia.meli.api.notification.User userMeli = meliService.getEntityFromMELI("/users/"+seller_id, com.ventalandia.meli.api.notification.User.class);
+            com.ventalandia.meli.api.notification.User userMeli = meliService.getEntityFromMELI("/users/"+userId, com.ventalandia.meli.api.notification.User.class);
             user = userTransformer.transform(userMeli);
+            userRepository.add(user);
         }
 
         return user;

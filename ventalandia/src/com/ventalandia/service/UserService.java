@@ -4,7 +4,7 @@ import com.ventalandia.domain.User;
 
 public interface UserService {
 
-    User getByMeliId(long seller_id);
+    User getByMeliId(long userId);
     
 
 }

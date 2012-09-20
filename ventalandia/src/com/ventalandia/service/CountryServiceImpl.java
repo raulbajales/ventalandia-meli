@@ -30,6 +30,7 @@ public class CountryServiceImpl implements CountryService{
         if(country == null){
             com.ventalandia.meli.api.notification.Country countryMeli = meliService.getEntityFromMELI("/countries/"+country_id, com.ventalandia.meli.api.notification.Country.class);
             country = countryTransformer.transform(countryMeli);
+            countryRepository.add(country);
         }
         
         return country;

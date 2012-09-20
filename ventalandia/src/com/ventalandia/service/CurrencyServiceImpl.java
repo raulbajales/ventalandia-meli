@@ -30,6 +30,7 @@ public class CurrencyServiceImpl implements CurrencyService{
         if(currency == null){
             com.ventalandia.meli.api.notification.Currency currencyMeli = meliService.getEntityFromMELI("/currencies/"+id, com.ventalandia.meli.api.notification.Currency.class);
             currency = currencyTransformer.transform(currencyMeli);
+            currencyRepository.add(currency);
         }
         
         return currency;

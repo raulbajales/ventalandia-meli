@@ -28,6 +28,7 @@ public class ItemServiceImpl implements ItemService {
         if (item == null) {
             com.ventalandia.meli.api.notification.Item itemFromMELI = meliService.getEntityFromMELI("/items/" + itemId, com.ventalandia.meli.api.notification.Item.class);
             item = itemTransformer.transform(itemFromMELI);
+            itemRepository.add(item);
         }
 
         return item;

@@ -8,11 +8,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.api.notification.Question;
+import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NotificationService;
 import com.ventalandia.service.QuestionService;
@@ -31,6 +33,12 @@ public class EchoServlet {
 	
 	@Inject
 	private QuestionService questionService;
+	
+	@Inject
+	private QuestionRepository questionRepository;
+	
+	@Inject
+	private Gson gson;
 
 	@GET
 	@Path("test")
@@ -112,8 +120,10 @@ public class EchoServlet {
         result.append("answer: "+question.getAnswer().getText());
         result.append("\n");
         result.append("\n");
-	    
-	    return result.toString();
+        
+	    questionRepository.add(question);
+        
+	    return this.gson.toJson(question);
 	}
 	
 	

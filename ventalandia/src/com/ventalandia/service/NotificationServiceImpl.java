@@ -63,7 +63,7 @@ public class NotificationServiceImpl implements NotificationService {
 				notificationRepository.update(notification);
 				Question question = gson.fromJson(json.getResponseMessage(), Question.class);
 				question.setUser_id(notification.getUser_id());
-				questionRepository.add(question);
+//				questionRepository.add(question);
 				questions.add(question);
 			}else{
 			    throw new RuntimeException("Question Not Found");

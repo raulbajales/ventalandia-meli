@@ -11,7 +11,6 @@ import com.ventalandia.domain.Currency;
  */
 public class CurrencyTransformer implements Transformer<com.ventalandia.meli.api.notification.Currency, Currency> {
 
-
     @Override
     public Currency transform(com.ventalandia.meli.api.notification.Currency in) {
         
