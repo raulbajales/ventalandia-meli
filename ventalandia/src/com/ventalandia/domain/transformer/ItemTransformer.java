@@ -41,6 +41,7 @@ public class ItemTransformer implements Transformer<com.ventalandia.meli.api.not
         item.setSoldQuantity(itemAPI.getSold_quantity());
         item.setSubTitle(itemAPI.getSubtitle());
         item.setTitle(itemAPI.getTitle());
+        item.setMeliId(itemAPI.getId());
 
         return item;
     }
