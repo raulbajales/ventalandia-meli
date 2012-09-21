@@ -8,6 +8,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 public class Question {
@@ -17,15 +18,18 @@ public class Question {
     private Key key;
 
     @Persistent
+    @Unowned
     private User client;
 
     @Persistent
+    @Unowned
     private User seller;
 
-    @Persistent
+    @Persistent(dependent = "true")
     private Answer answer;
 
     @Persistent
+    @Unowned
     private Item item;
 
     @Persistent
