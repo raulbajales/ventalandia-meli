@@ -60,16 +60,16 @@ public class AuthService {
      * (cookies) and must be provided in order to identify the User and Session.
      * 
      * @param hash
-     * @return
+     * @return the {@link Token}
      */
     public Token getToken(String hash) {
-        // TODO change it to use hash -> user_id -> token
-        String id = (String) this.memcacheService.get(hash);
-        if (id == null) {
+        // hash -> user_id -> token
+        String userId = (String) this.memcacheService.get(hash);
+        if (userId == null) {
             return null;
         }
         else {
-            return this.getTokenFromCache(id);
+            return this.getTokenFromCache(userId);
         }
     }
 
@@ -98,25 +98,58 @@ public class AuthService {
      * @param token
      * @return a <b>hash</b> to identify the cache entry.
      */
+    // TODO check expiration
     public String addToken(Token token) {
         // generate cache's keys
         String hash = UUID.randomUUID().toString();
         String userId = PREFFIX + token.getMeliId();
 
         // adding to cache service
-        // TODO check expiration
         this.memcacheService.put(hash, userId);
         this.memcacheService.put(userId, this.gson.toJson(token));
 
         return hash;
     }
 
+    /**
+     * 
+     * @param meliCode provided by MELI
+     * @return a hash to identify the {@link Token}
+     */
+    // TODO rename.
     public String generateToken(String meliCode) {
         AuthToken authToken = this.meliService.getAuthToken(meliCode);
         Token token = this.tokenTransformer.transform(authToken);
         AuthContext.setAuthToken(token);
         token.setMeliId(this.userMeliService.getCurrentUser().getId());
+
+        // TODO add here some code to persist a token (insert/updated). Also it
+        // should be placed on cache.
+
         return this.addToken(token);
+    }
+
+    public Token generateOfflineToken(long meliId) {
+        Token token = this.getToken(meliId);
+
+        this.updateTokenValues(token);
+
+        return token;
+    }
+
+    private void updateTokenValues(Token token) {
+        Token refreshedToken = this.tokenTransformer.transform(this.meliService.refreshAuthToken(token.getRefresh_token()));
+
+        token.setAccess_token(refreshedToken.getAccess_token());
+        token.setRefresh_token(refreshedToken.getRefresh_token());
+        token.setExpires_in(refreshedToken.getExpires_in());
+
+        this.replaceTokenOnCache(token);
+    }
+
+    private void replaceTokenOnCache(Token token) {
+        this.tokenRepository.update(token);
+        this.memcacheService.put(token.getMeliId(), this.gson.toJson(token));
     }
 
 }

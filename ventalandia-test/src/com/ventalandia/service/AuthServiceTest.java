@@ -1,5 +1,6 @@
 package com.ventalandia.service;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -46,6 +47,20 @@ public class AuthServiceTest extends DomainTest {
 
         assertEquals(token.getAccess_token(), tokenFromCache.getAccess_token());
         assertEquals(token.getRefresh_token(), tokenFromCache.getRefresh_token());
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void offline_failWhenUserIdIsNotCorrect() {
+        int userId = UserHelper.MELI_USER_ID;
+        this.authService.getToken(userId);
+    }
+    
+    @Test
+    public void offline() throws Exception {
+        Token token = TokenHelper.create();
+        this.authService.addToken(token);
+        
+        this.authService.generateOfflineToken(token.getMeliId());
     }
 
 }

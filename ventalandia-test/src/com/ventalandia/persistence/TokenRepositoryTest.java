@@ -32,6 +32,14 @@ public class TokenRepositoryTest extends DomainTest {
         Assert.assertEquals(token.getKey(), persistedToken.getKey());
     }
 
+    @Test
+    public void update() {
+        this.tokenRepository.add(TokenHelper.create());
+        this.tokenRepository.update(TokenHelper.create());
+        
+        this.tokenRepository.getByMeliUserId(TokenHelper.create().getMeliId());
+    }
+
     @Test(expected = RuntimeException.class)
     public void add_without_meliId() {
         Token token = TokenHelper.create();

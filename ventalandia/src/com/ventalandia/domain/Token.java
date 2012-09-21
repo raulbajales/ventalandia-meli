@@ -88,4 +88,9 @@ public class Token implements StoreCallback {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Token [key=" + key + ", meliId=" + meliId + ", access_token=" + access_token + ", expires_in=" + expires_in + ", refresh_token=" + refresh_token + "]";
+    }
+
 }

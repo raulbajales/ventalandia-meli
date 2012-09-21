@@ -28,7 +28,7 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
         params.add("code", code);
         params.add("redirect_uri", this.callback);
 
-        HttpResponse response = http.post("/oauth/token", params, "");
+        HttpResponse response = http.post("/oauth/token", params);
 
         return this.parseToken(response);
     }
@@ -42,7 +42,7 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
         params.add("client_secret", this.clientSecret);
         params.add("refresh_token", refreshToken);
 
-        HttpResponse response = http.post("/oauth/token", params, "");
+        HttpResponse response = http.post("/oauth/token", params);
 
         return this.parseToken(response);
     }
@@ -86,7 +86,6 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
      */
     @Override
     public <T> T getEntityFromMELI(String resource, Class<T> clazz) {
-
         HttpResponse httpResponse = http.get(resource);
 
         if (httpResponse.getResponseCode() == 200) {

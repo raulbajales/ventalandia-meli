@@ -28,104 +28,104 @@ import com.ventalandia.service.QuestionService;
 @Produces(MediaType.TEXT_PLAIN)
 public class EchoServlet {
 
-	@Inject
-	private NotificationService notificationService;
-	
-	@Inject
-	private QuestionService questionService;
-	
-	@Inject
-	private QuestionRepository questionRepository;
-	
-	@Inject
-	private Gson gson;
+    @Inject
+    private NotificationService notificationService;
 
-	@GET
-	@Path("test")
-	public String test() {
-		Token authToken = AuthContext.getToken();
+    @Inject
+    private QuestionService questionService;
 
-		long userId = 1234;
-		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
+    @Inject
+    private QuestionRepository questionRepository;
 
-		String result = null;
-		
-		if (notifications.isEmpty()) {
-			result = "Usted no tiene notificaciones pendientes";
-			
-		} else {
+    @Inject
+    private Gson gson;
 
-			List<Question> questions = notificationService.getQuestionsFromMeli(notifications);
+    @GET
+    @Path("test")
+    public String test() {
+        Token authToken = AuthContext.getToken();
 
-			for (Question question : questions) {
-				result =  "pregunta: " + question.getText() + "\n" + "respuesta: " + question.getAnswer().getText();
-			}
+        long userId = 1234;
+        List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
 
-		}
-		return result;
+        String result = null;
 
-	}
-		
-	@GET
-	@Path("users/{userId}")
-	public String getUserById(@PathParam("userId") Long userId) {
-		
-		return "El id de usuario es: "+userId;
+        if (notifications.isEmpty()) {
+            result = "Usted no tiene notificaciones pendientes";
 
-	}
-	
-	@GET
+        }
+        else {
+
+            List<Question> questions = notificationService.getQuestionsFromMeli(notifications);
+
+            for (Question question : questions) {
+                result = "pregunta: " + question.getText() + "\n" + "respuesta: " + question.getAnswer().getText();
+            }
+
+        }
+        return result;
+
+    }
+
+    @GET
+    @Path("users/{userId}")
+    public String getUserById(@PathParam("userId")
+    Long userId) {
+
+        return "El id de usuario es: " + userId;
+
+    }
+
+    @GET
     @Path("question/{userId}/{questionId}")
-	public String getQuestion(@PathParam("userId") long userId, @PathParam("questionId") String questionId){
-	    
-	    
-	    com.ventalandia.domain.Question question = questionService.getQuestionFromMeli(questionId, userId);    
-	    
-	    StringBuilder result = new StringBuilder();
-	    
-	    result.append("************ CLIENT *******************");
-	    result.append("\n");
-	    result.append("nickName: "+question.getClient().getNickName());
-	    result.append("\n");
-	    result.append("country: "+question.getClient().getCountry().getName());
-	    result.append("\n");
-	    result.append("\n");
-	    
-	    result.append("************ SELLER *******************");
-	    result.append("\n");
-	    result.append("nickName: "+question.getSeller().getNickName());
-	    result.append("\n");
-	    result.append("country: "+question.getSeller().getCountry().getName());
-	    result.append("\n");
-	    result.append("\n");
-	    
-	    result.append("************ ITEM *******************");
-	    result.append("\n");
-	    result.append("titulo: "+question.getItem().getTitle());
-	    result.append("\n");
-	    result.append("precio: "+question.getItem().getPrice());
-	    result.append("\n");
-	    result.append("vendidas: "+question.getItem().getSoldQuantity());
-	    result.append("\n");
-        result.append("cantidad inicial: "+question.getItem().getInitialQuantity());
-        
+    public String getQuestion(@PathParam("userId")
+    long userId, @PathParam("questionId")
+    String questionId) {
+        com.ventalandia.domain.Question question = questionService.getQuestionFromMeli(questionId, userId);
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("************ CLIENT *******************");
+        result.append("\n");
+        result.append("nickName: " + question.getClient().getNickName());
+        result.append("\n");
+        result.append("country: " + question.getClient().getCountry().getName());
+        result.append("\n");
+        result.append("\n");
+
+        result.append("************ SELLER *******************");
+        result.append("\n");
+        result.append("nickName: " + question.getSeller().getNickName());
+        result.append("\n");
+        result.append("country: " + question.getSeller().getCountry().getName());
+        result.append("\n");
+        result.append("\n");
+
+        result.append("************ ITEM *******************");
+        result.append("\n");
+        result.append("titulo: " + question.getItem().getTitle());
+        result.append("\n");
+        result.append("precio: " + question.getItem().getPrice());
+        result.append("\n");
+        result.append("vendidas: " + question.getItem().getSoldQuantity());
+        result.append("\n");
+        result.append("cantidad inicial: " + question.getItem().getInitialQuantity());
+
         result.append("************ QUESTION *******************");
         result.append("\n");
-        result.append("question: "+question.getText());
+        result.append("question: " + question.getText());
         result.append("\n");
         result.append("\n");
-        
+
         result.append("************ ANSWER *******************");
         result.append("\n");
-        result.append("answer: "+question.getAnswer().getText());
+        result.append("answer: " + question.getAnswer().getText());
         result.append("\n");
         result.append("\n");
-        
-	    questionRepository.add(question);
-        
-	    return this.gson.toJson(question);
-	}
-	
-	
-	
+
+        questionRepository.add(question);
+
+        return this.gson.toJson(question);
+    }
+
 }

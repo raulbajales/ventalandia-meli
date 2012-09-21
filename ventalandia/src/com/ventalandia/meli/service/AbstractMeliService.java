@@ -14,22 +14,22 @@ import com.ventalandia.meli.ioc.MeliClientSecretApi;
  */
 public class AbstractMeliService {
 
-	@Inject
-	@MeliClientSecretApi
-	protected String clientSecret;
+    @Inject
+    @MeliClientSecretApi
+    protected String clientSecret;
 
-	@Inject
-	@MeliClientIdApi
-	protected Integer clientId;
+    @Inject
+    @MeliClientIdApi
+    protected Integer clientId;
 
-	@Inject
-	@MeliCallbackUrlApi
-	protected String callback;
+    @Inject
+    @MeliCallbackUrlApi
+    protected String callback;
 
-	@Inject
-	protected Gson gson;
+    @Inject
+    protected Gson gson;
 
-	@Inject
-	protected HttpConnector http;
+    @Inject
+    protected HttpConnector http;
 
 }
