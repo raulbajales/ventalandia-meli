@@ -10,3 +10,15 @@ ventalandia/war/WEB-INF/appengine-generated/*
 
 # Eclipse project
 ventalandia-test/bin/*
+
+# Maven
+.project
+.settings
+.classpath
+target
+**/.project
+**/.settings
+**/.externalToolBuilders
+**/.classpath
+**/target
+.DS_Store

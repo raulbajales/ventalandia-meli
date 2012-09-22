@@ -42,7 +42,7 @@ public class ItemTransformerTest {
         com.ventalandia.domain.Item item = transformer.transform(ItemHelper.createItem());
         Assert.assertNotNull(item);
         Assert.assertEquals(argentineCurrency, item.getCurrency());
-        Assert.assertEquals("Llantas de aleación - 15 pulgadas", item.getTitle());
+        Assert.assertEquals("Llantas de aleacion - 15 pulgadas", item.getTitle());
 
     }
 

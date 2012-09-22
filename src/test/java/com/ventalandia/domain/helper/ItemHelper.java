@@ -10,7 +10,7 @@ public class ItemHelper {
         item.setId("MLA430494065");
         item.setCurrency_id("ARS");
         item.setAvailable_quantity(100);
-        item.setTitle("Llantas de aleación - 15 pulgadas");
+        item.setTitle("Llantas de aleacion - 15 pulgadas");
         return item;
     }
 }
