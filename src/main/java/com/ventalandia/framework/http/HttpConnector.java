@@ -3,9 +3,6 @@ package com.ventalandia.framework.http;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
 
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
@@ -41,7 +38,7 @@ public class HttpConnector {
     public HttpResponse get(String path, FluentStringsMap params, String body) {
         try {
             FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
-            HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + getQueryString(params)), HTTPMethod.GET, fetchOptions);
+            HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + HttpRequestBuilder.getQueryString(params)), HTTPMethod.GET, fetchOptions);
             HTTPHeader header = new HTTPHeader("Accept", APPLICATION_JSON);
             request.addHeader(header);
 
@@ -64,7 +61,7 @@ public class HttpConnector {
     public HttpResponse post(String path, FluentStringsMap params, String body) {
         try {
             FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
-            HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + getQueryString(params)), HTTPMethod.POST, fetchOptions);
+            HTTPRequest request = new HTTPRequest(new URL(apiUrl + path + "?" + HttpRequestBuilder.getQueryString(params)), HTTPMethod.POST, fetchOptions);
 
             if (body != null && body.length() > 0) {
                 request.setPayload(body.getBytes());
@@ -83,29 +80,6 @@ public class HttpConnector {
         catch (IOException e) {
             throw new MeliException(e);
         }
-    }
-
-    public static String getQueryString(FluentStringsMap params) {
-        StringBuilder result = new StringBuilder();
-
-        for (Iterator<Entry<String, List<String>>> iterator = params.iterator(); iterator.hasNext();) {
-            Entry<String, List<String>> entry = iterator.next();
-
-            StringBuilder builder = new StringBuilder();
-            for (Iterator<String> valueIterator = entry.getValue().iterator(); valueIterator.hasNext();) {
-                String value = valueIterator.next();
-                builder.append(value);
-                if (valueIterator.hasNext()) {
-                    builder.append(",");
-                }
-            }
-            result.append(String.format("%s=%s", entry.getKey(), builder.toString()));
-            if (iterator.hasNext()) {
-                result.append("&");
-            }
-        }
-
-        return result.toString();
     }
 
 }
