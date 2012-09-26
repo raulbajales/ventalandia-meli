@@ -212,7 +212,7 @@
 			<plugin>
 				<groupId>net.kindleit</groupId>
 				<artifactId>maven-gae-plugin</artifactId>
-				<version>0.9.2</version>
+				<version>0.9.4</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
