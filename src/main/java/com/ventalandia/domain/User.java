@@ -8,7 +8,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-//import com.google.appengine.datanucleus.annotations.Unowned;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 /**
  * @author gzanussi
@@ -28,7 +28,7 @@ public class User {
     private String nickName;
 
     @Persistent
-//    @Unowned
+    @Unowned
     private Country country;
 
     @Persistent

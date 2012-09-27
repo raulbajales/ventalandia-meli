@@ -6,7 +6,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-//import com.google.appengine.datanucleus.annotations.Unowned;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 public class Country {
@@ -25,7 +25,7 @@ public class Country {
     private String locale;
 
     @Persistent
-//    @Unowned
+    @Unowned
     private Currency currency;
 
     public String getMeliId() {
