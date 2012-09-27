@@ -2,6 +2,8 @@ package com.ventalandia.service;
 
 import java.util.List;
 
+import com.ventalandia.view.domain.NewsView;
+
 
 /**
  * 
@@ -17,6 +19,6 @@ public interface NewsService {
 	 * @param userId
 	 * @return
 	 */
-	public List<News> getNewsByUserId(long userId);
+	public List<NewsView> getNewsByUserId(long userId);
 
 }

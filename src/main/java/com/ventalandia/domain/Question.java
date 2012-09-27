@@ -43,6 +43,10 @@ public class Question {
 
     @Persistent
     private long meliId;
+    
+    @Persistent
+    private boolean read;
+    
 
     public User getClient() {
         return client;
@@ -107,5 +111,17 @@ public class Question {
     public void setMeliId(long meliId) {
         this.meliId = meliId;
     }
+
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	public Key getKey() {
+		return key;
+	}
 
 }

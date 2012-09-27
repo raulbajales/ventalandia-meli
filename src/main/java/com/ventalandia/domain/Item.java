@@ -150,5 +150,10 @@ public class Item {
     public void setMeliId(String meliId) {
         this.meliId = meliId;
     }
+
+	public Key getKey() {
+		return key;
+	}
+    
     
 }

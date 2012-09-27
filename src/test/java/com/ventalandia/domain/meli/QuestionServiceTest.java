@@ -12,6 +12,7 @@ import com.ventalandia.domain.Question;
 import com.ventalandia.domain.User;
 import com.ventalandia.domain.helper.QuestionHelper;
 import com.ventalandia.domain.transformer.QuestionTransformer;
+import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.service.ItemService;
 import com.ventalandia.service.QuestionServiceImpl;
@@ -28,6 +29,8 @@ public class QuestionServiceTest {
     private UserService userService;
 
     private MeliService meliService;
+    
+    private QuestionRepository questionRepository;
 
     @Before
     public void setup() {
@@ -35,8 +38,9 @@ public class QuestionServiceTest {
         meliService = mock(MeliService.class);
         itemService = mock(ItemService.class);
         userService = mock(UserService.class);
+        questionRepository = mock(QuestionRepository.class);
         questionTransformer = new QuestionTransformer(itemService, userService);
-        questionService = new QuestionServiceImpl(questionTransformer, userService, meliService);
+        questionService = new QuestionServiceImpl(questionTransformer, userService, meliService,questionRepository);
 
     }
 

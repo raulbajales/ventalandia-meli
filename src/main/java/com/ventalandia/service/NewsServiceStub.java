@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ventalandia.view.domain.NewsView;
+
 /**
  * 
  * @author matias
@@ -13,8 +15,8 @@ import java.util.List;
 // TODO remove this implementation when the news service implementation is ready
 public class NewsServiceStub implements NewsService {
 
-    public List<News> getNewsByUserId(long user) {
-        List<News> newsList = new ArrayList<News>();
+    public List<NewsView> getNewsByUserId(long user) {
+        List<NewsView> newsList = new ArrayList<NewsView>();
 
         newsList.add(this.create(new Date(), "message 1", false, NewsType.QUESTION, "Bicicleta usada rodado 26"));
         newsList.add(this.create(new Date(), "message 2", false, NewsType.QUESTION,
@@ -24,15 +26,11 @@ public class NewsServiceStub implements NewsService {
         return newsList;
     }
 
-    private News create(Date date, String message, boolean read, NewsType type, String product) {
-        News news = new News();
+    private NewsView create(Date date, String message, boolean read, NewsType type, String product) {
+        NewsView news = new NewsView(null);
 
         news.setDate(date);
-        news.setMessage(message);
-        news.setRead(read);
         news.setType(type);
-        news.setProduct(product);
-
         return news;
     }
 

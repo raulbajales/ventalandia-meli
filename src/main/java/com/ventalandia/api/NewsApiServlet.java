@@ -8,13 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.notification.Question;
-import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.meli.service.UserMeliService;
-import com.ventalandia.service.News;
 import com.ventalandia.service.NewsType;
 import com.ventalandia.service.NotificationService;
+import com.ventalandia.view.domain.NewsView;
 
 /**
  * 
@@ -42,16 +40,13 @@ public class NewsApiServlet extends ApiServlet {
 
 	private Object getNews(List<Question> questions) {
 
-		List<News> result = new ArrayList<News>();
+		List<NewsView> result = new ArrayList<NewsView>();
 
 		for (Question question : questions) {
 
-			News news = new News();
+			NewsView news = new NewsView(null);
 			news.setDate(question.getDate_created());
-			news.setMessage(question.getText());
-			news.setRead(false);
 			news.setType(NewsType.QUESTION);
-			news.setProduct(question.getItem_id());
 			result.add(news);
 
 		}

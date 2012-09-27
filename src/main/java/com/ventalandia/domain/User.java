@@ -66,4 +66,9 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
+	public Key getKey() {
+		return key;
+	}
+    
+
 }
