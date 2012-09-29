@@ -213,6 +213,11 @@
 				<groupId>net.kindleit</groupId>
 				<artifactId>maven-gae-plugin</artifactId>
 				<version>0.9.4</version>
+                <configuration>
+                    <serverId>appengine.google.com</serverId>
+                    <sdkDir>${appengine.sdk.root}</sdkDir>
+                    <appDir>${basedir}/war</appDir>
+                </configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
