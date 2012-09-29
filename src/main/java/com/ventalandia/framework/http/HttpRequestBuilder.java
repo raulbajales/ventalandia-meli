@@ -19,15 +19,29 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
  */
 public class HttpRequestBuilder {
 
+    /**
+     * It's a host. Must not be null.
+     */
     private String spec;
 
+    /**
+     * Path to a resource.
+     */
     private String path;
 
+    /**
+     * Header parameters.
+     */
     private List<HTTPHeader> headers = new ArrayList<HTTPHeader>();
 
+    /**
+     * Query string stuff.
+     */
     private FluentStringsMap params = new FluentStringsMap();
 
     private HTTPMethod httpMethod;
+
+    private String body;
 
     public HttpRequestBuilder(String spec) {
         this.spec = spec;
@@ -35,6 +49,11 @@ public class HttpRequestBuilder {
 
     public HttpRequestBuilder withPath(String path) {
         this.path = path;
+        return this;
+    }
+
+    public HttpRequestBuilder body(String body) {
+        this.body = body;
         return this;
     }
 
@@ -48,6 +67,11 @@ public class HttpRequestBuilder {
         return this;
     }
 
+    public HttpRequestBuilder replaceParam(String key, String value) {
+        this.params.replace(key, value);
+        return this;
+    }
+    
     /**
      * Convenient method to add 'Accept: application/json' to the header.
      */
@@ -90,9 +114,15 @@ public class HttpRequestBuilder {
         try {
             FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
             HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod, fetchOptions);
+
             for (HTTPHeader header : this.headers) {
                 request.addHeader(header);
             }
+
+            if (this.body != null && this.body.length() > 0) {
+                request.setPayload(this.body.getBytes());
+            }
+
             return request;
         }
         catch (MalformedURLException e) {
@@ -140,6 +170,10 @@ public class HttpRequestBuilder {
         }
 
         return result.toString();
+    }
+
+    public boolean containsParam(String key) {
+        return this.params.containsKey(key);
     }
 
 }

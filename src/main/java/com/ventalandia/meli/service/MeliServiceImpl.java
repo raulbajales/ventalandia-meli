@@ -1,11 +1,10 @@
 package com.ventalandia.meli.service;
 
+import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.ventalandia.domain.Token;
-import com.ventalandia.framework.http.FluentStringsMap;
-import com.ventalandia.framework.http.HttpResponse;
+import com.ventalandia.framework.http.HttpRequestBuilder;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.auth.AuthorizationFailure;
 
@@ -16,37 +15,17 @@ import com.ventalandia.meli.api.auth.AuthorizationFailure;
  */
 public class MeliServiceImpl extends AbstractMeliService implements MeliService {
 
-    private AuthTokenTransformer authTokenTransformer = new AuthTokenTransformer();
-
     public AuthToken getAuthToken(String code) {
-        FluentStringsMap params = new FluentStringsMap();
+        HttpRequestBuilder httpRequestBuilder = createJsonPost().withPath("/oauth/token").addParam("grant_type", "authorization_code").addParam("client_id", String.valueOf(this.clientId))
+                .addParam("client_secret", this.clientSecret).addParam("code", code).addParam("redirect_uri", this.callback);
 
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", String.valueOf(this.clientId));
-        params.add("client_secret", this.clientSecret);
-        params.add("code", code);
-        params.add("redirect_uri", this.callback);
+        HTTPResponse httpResponse = this.execute(httpRequestBuilder);
 
-        HttpResponse response = http.post("/oauth/token", params);
-
-        return this.parseToken(response);
+        return this.parseToken(httpResponse, AuthToken.class);
     }
 
-    public AuthToken refreshAuthToken(String refreshToken) {
-        FluentStringsMap params = new FluentStringsMap();
-
-        params.add("grant_type", "refresh_token");
-        params.add("client_id", String.valueOf(this.clientId));
-        params.add("client_secret", this.clientSecret);
-        params.add("refresh_token", refreshToken);
-
-        HttpResponse response = http.post("/oauth/token", params);
-
-        return this.parseToken(response);
-    }
-
-    private AuthToken parseToken(HttpResponse response) throws AuthorizationFailure {
-        String responseBody = response.getResponseMessage();
+    private <T> T parseToken(HTTPResponse httpResponse, Class<T> clazz) {
+        String responseBody = new String(httpResponse.getContent());
         JsonParser p = new JsonParser();
         JsonObject object;
 
@@ -57,36 +36,41 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
             throw new AuthorizationFailure(responseBody);
         }
 
-        if (response.getResponseCode() == 200) {
-            return this.gson.fromJson(object, AuthToken.class);
+        if (httpResponse.getResponseCode() == 200) {
+            return this.gson.fromJson(object, clazz);
         }
         else {
+            // Should I use a different exception?
             throw new AuthorizationFailure(object.get("message").getAsString());
         }
     }
 
-    public boolean validate(AuthToken authToken) {
-        // TODO validate token
-        return true;
-    }
+    public AuthToken refreshAuthToken(String refreshToken) {
+        HttpRequestBuilder httpRequestBuilder = this.createJsonPost().withPath("/oauth/token")//
+                .addParam("grant_type", "refresh_token").addParam("client_id", String.valueOf(this.clientId))//
+                .addParam("client_secret", this.clientSecret).addParam("refresh_token", refreshToken);
 
-    public boolean validate(Token token) {
-        return this.validate(this.authTokenTransformer.transform(token));
+        HTTPResponse httpResponse = this.execute(httpRequestBuilder);
+
+        return this.parseToken(httpResponse, AuthToken.class);
     }
 
     /**
+     * Useful method to execute a GET call and parse the response. It does not
+     * need parameters, it just uses a path to complete the URL.
      * 
      * @param resource
      * @param clazz
      * @return
      */
     public <T> T getEntityFromMELI(String resource, Class<T> clazz) {
-        HttpResponse httpResponse = http.get(resource);
+        HTTPResponse httpResponse = this.execute(this.createJsonGet().withPath(resource));
 
         if (httpResponse.getResponseCode() == 200) {
-            String json = httpResponse.getResponseMessage();
+            String json = new String(httpResponse.getContent());
             return gson.fromJson(json, clazz);
-        } else {
+        }
+        else {
             throw new RuntimeException("problems to get Entity " + clazz.getName() + " from MELI");
         }
     }

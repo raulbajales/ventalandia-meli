@@ -47,24 +47,15 @@ public abstract class AbstractSecurityFilter implements Filter {
         // casting
         this.doInnerFilter((HttpServletRequest) request, (HttpServletResponse) response, filterChain);
     }
-    
+
     @Inject
     private AuthService authService;
 
     private void doInnerFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        String hash = this.getAuthToken(request);
+        String hash = this.getVtdToken(request);
         Token token = this.authService.getToken(hash);
 
         if (token != null) {
-            // TODO do I really need to validate the token? should it be checked and refreshed when in tries to hit MELI API?
-//            if (this.meliService.validate(token)) {
-//                AuthContext.setAuthToken(token);
-//                this.onValidSession(filterChain, request, response);
-//                AuthContext.remove();
-//            }
-//            else {
-//                this.onInvalidSession(response);
-//            }
             AuthContext.setAuthToken(token);
             this.onValidSession(filterChain, request, response);
             AuthContext.remove();
@@ -78,7 +69,7 @@ public abstract class AbstractSecurityFilter implements Filter {
 
     protected abstract void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response);
 
-    private String getAuthToken(HttpServletRequest request) {
+    private String getVtdToken(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return null;
         }

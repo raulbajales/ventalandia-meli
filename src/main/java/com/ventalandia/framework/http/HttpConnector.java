@@ -33,6 +33,15 @@ public class HttpConnector {
     public HttpResponse get(String path, FluentStringsMap params) {
         return get(path, params, null);
     }
+    
+    public HTTPResponse execute(HTTPRequest httpRequest) {
+        try {
+            return this.urlFetchService.fetch(httpRequest);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Error executing an HTTP call: " + httpRequest.getURL(), e);
+        }
+    }
 
     // TODO add body to the request
     public HttpResponse get(String path, FluentStringsMap params, String body) {

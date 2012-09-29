@@ -23,6 +23,7 @@ public class Token implements StoreCallback {
     /**
      * It's a user Id provided by MELI.
      */
+    // TODO check if it could be used as part of the key => this.key.getId() and KeyFactory.createKey(Token.class.getSimpleName(), meliId)
     @Persistent
     private long meliId;
 

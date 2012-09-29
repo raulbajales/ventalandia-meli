@@ -1,23 +1,20 @@
 package com.ventalandia.meli.service;
 
-import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.auth.AuthToken;
 
 /**
  * 
  * @author matias
- *
+ * 
  */
 public interface MeliService {
 
-	AuthToken getAuthToken(String code);
-	
-	AuthToken refreshAuthToken(String refreshToken);
+    String apiUrl = "https://api.mercadolibre.com";
 
-	boolean validate(AuthToken authToken);
-	
-	boolean validate(Token token);
-	
-	<T> T getEntityFromMELI(String resource, Class<T> clazz) ;
+    AuthToken getAuthToken(String code);
+
+    AuthToken refreshAuthToken(String refreshToken);
+
+    <T> T getEntityFromMELI(String resource, Class<T> clazz);
 
 }

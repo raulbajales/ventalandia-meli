@@ -24,28 +24,28 @@ import com.ventalandia.framework.persistence.PersistenceManagerProvider;
  */
 @Singleton
 public class PersistenceManagerFilter implements Filter {
-	
-	@Inject
-	private PersistenceManagerProvider persistenceManagerProvider;
 
-	public void destroy() {
-		// do nothing
-	}
+    @Inject
+    private PersistenceManagerProvider persistenceManagerProvider;
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) 
-	throws IOException, ServletException {
-		PersistenceManager pm = this.persistenceManagerProvider.get();
-		
+    public void destroy() {
+        // do nothing
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        PersistenceManager pm = this.persistenceManagerProvider.get();
+
         try {
             filterChain.doFilter(request, response);
             this.persistenceManagerProvider.remove();
-        } finally {
-        	pm.close();
         }
-	}
+        finally {
+            pm.close();
+        }
+    }
 
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// do nothing
-	}
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // do nothing
+    }
 
 }

@@ -80,14 +80,16 @@ public class AuthService {
             return this.gson.fromJson(tokenAsString, Token.class);
         }
         else {
+            // it has a token but was removed from cache
             if (key.startsWith(PREFFIX)) {
                 Token token = this.tokenRepository.getByMeliUserId(Long.valueOf(key.replace(PREFFIX, "")));
 
                 this.memcacheService.put(key, this.gson.toJson(token));
 
                 return token;
+            } else { // it's a hash and there is no way to get a user id
+                return null;
             }
-            return null;
         }
     }
 
@@ -120,19 +122,30 @@ public class AuthService {
     public String generateToken(String meliCode) {
         AuthToken authToken = this.meliService.getAuthToken(meliCode);
         Token token = this.tokenTransformer.transform(authToken);
-        AuthContext.setAuthToken(token);
         token.setMeliId(this.userMeliService.getCurrentUser().getId());
+
+        AuthContext.setAuthToken(token);
 
         // TODO add here some code to persist a token (insert/updated). Also it
         // should be placed on cache.
 
+        this.tokenRepository.update(token);
+
         return this.addToken(token);
     }
 
+    private void replaceTokenOnCache(Token token) {
+        this.tokenRepository.update(token);
+        this.memcacheService.put(token.getMeliId(), this.gson.toJson(token));
+    }
+
+    // TODO it could be wrong. It should return the token and when the
+    // Ventalandia hits MELI API it should be refreshed.
     public Token generateOfflineToken(long meliId) {
         Token token = this.getToken(meliId);
 
-        this.updateTokenValues(token);
+        // not sure about this line
+        // this.updateTokenValues(token);
 
         return token;
     }
@@ -147,9 +160,12 @@ public class AuthService {
         this.replaceTokenOnCache(token);
     }
 
-    private void replaceTokenOnCache(Token token) {
-        this.tokenRepository.update(token);
-        this.memcacheService.put(token.getMeliId(), this.gson.toJson(token));
+    public void refreshToken() {
+        this.updateTokenValues(AuthContext.getToken());
+    }
+
+    public void refreshToken(long meliId) {
+        this.updateTokenValues(this.getToken(meliId));
     }
 
 }

@@ -19,7 +19,7 @@ import com.ventalandia.service.AuthService;
  * @author matias
  * 
  */
-public class AuthServiceTest extends DomainTest {
+public class AuthServiceTest extends MeliDomainTest {
 
     @Inject
     private AuthService authService;
