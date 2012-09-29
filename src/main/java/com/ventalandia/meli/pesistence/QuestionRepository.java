@@ -17,7 +17,7 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
 
 		Query query = this.createQuery();
 
-		query.setFilter(" client == userKey && read == false");
+		query.setFilter(" seller == userKey && read == false");
 		query.declareParameters(Key.class.getName() + " userKey");
 		Key userKey = KeyFactory.createKey(User.class.getSimpleName(), userId);
 
