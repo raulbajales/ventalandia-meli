@@ -216,7 +216,6 @@
                 <configuration>
                     <serverId>appengine.google.com</serverId>
                     <sdkDir>${appengine.sdk.root}</sdkDir>
-                    <appDir>${basedir}/war</appDir>
                 </configuration>
 			</plugin>
 			<plugin>
