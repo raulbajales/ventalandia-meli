@@ -128,9 +128,28 @@ public class AuthService {
         // TODO add here some code to persist a token (insert/updated). Also it
         // should be placed on cache.
 
-        this.tokenRepository.update(token);
+        this.updateOnDS(token);
 
         return this.addToken(token);
+    }
+
+    private void updateOnDS(Token token) {
+        Token persisted = null;
+        try {
+            persisted = this.tokenRepository.getByMeliUserId(token.getMeliId());
+        }
+        catch (Exception e) {
+            // do nothing
+        }
+        
+        if (persisted != null) {
+            persisted.setAccess_token(token.getAccess_token());
+            persisted.setRefresh_token(token.getRefresh_token());
+            persisted.setExpires_in(token.getExpires_in());
+            this.tokenRepository.update(persisted);
+        } else {
+            this.tokenRepository.update(token);
+        }
     }
 
     private void replaceTokenOnCache(Token token) {

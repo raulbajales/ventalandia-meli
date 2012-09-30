@@ -59,11 +59,11 @@ public class AbstractMeliService {
         try {
             HTTPResponse httpResponse = this.urlFetchService.fetch(httpRequest);
 
-            if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
-                this.authService.refreshToken();
-                httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
-                httpResponse = this.urlFetchService.fetch(httpRequest);
-            }
+//            if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
+//                this.authService.refreshToken();
+//                httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
+//                httpResponse = this.urlFetchService.fetch(httpRequest);
+//            }
 
             return httpResponse;
         }
