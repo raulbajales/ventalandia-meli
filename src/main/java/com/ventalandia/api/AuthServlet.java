@@ -52,9 +52,7 @@ public class AuthServlet extends ApiServlet {
             
 			resp.addCookie(theCookie);
             try {
-//                resp.sendRedirect("/");
-                resp.getWriter().write("<body>Hola Mundo</body>");
-                resp.flushBuffer();
+                resp.sendRedirect("/");
             }
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
