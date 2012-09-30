@@ -48,7 +48,7 @@ public class AuthServlet extends ApiServlet {
             log.info("Generated hash: " + hash);
 
             Cookie theCookie = this.createCookie(hash);
-            log.info("Cookie to be added to the response: " + theCookie.toString());
+            log.info("Cookie to be added to the response (name / value): " + theCookie.getName() + " / " + theCookie.getValue());
             
 			resp.addCookie(theCookie);
             try {
@@ -67,6 +67,7 @@ public class AuthServlet extends ApiServlet {
             Cookie cookie = new Cookie(TOKEN, URLEncoder.encode(hash, "UTF-8"));
             cookie.setMaxAge(Integer.MAX_VALUE);
             cookie.setPath("/");
+            cookie.setDomain("*");
             return cookie;
         }
         catch (Exception e) {
