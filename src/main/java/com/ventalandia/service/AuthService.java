@@ -122,9 +122,8 @@ public class AuthService {
     public String generateToken(String meliCode) {
         AuthToken authToken = this.meliService.getAuthToken(meliCode);
         Token token = this.tokenTransformer.transform(authToken);
-        token.setMeliId(this.userMeliService.getCurrentUser().getId());
-
         AuthContext.setAuthToken(token);
+        token.setMeliId(this.userMeliService.getCurrentUser().getId());
 
         // TODO add here some code to persist a token (insert/updated). Also it
         // should be placed on cache.
