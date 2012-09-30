@@ -4,22 +4,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.inject.Inject;
-import com.ventalandia.domain.meli.DomainTest;
 import com.ventalandia.framework.http.MeliException;
 import com.ventalandia.meli.api.auth.AuthToken;
 import com.ventalandia.meli.api.helper.AuthTokenHelper;
+import com.ventalandia.service.MeliDomainTest;
 
 /**
  * 
  * @author matias
  * 
  */
-public class MeliServiceTest extends DomainTest {
+public class MeliServiceTest extends MeliDomainTest {
 
     @Inject
     private MeliService meliService;
 
-    // it will fail, we should have some cool thing to get tokens from MELI
     @Test
     public void test() {
         AuthToken authToken1 = AuthTokenHelper.create();

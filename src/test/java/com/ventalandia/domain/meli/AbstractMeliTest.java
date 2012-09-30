@@ -7,6 +7,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.ventalandia.meli.ioc.MeliModule;
 
+@Deprecated
 public class AbstractMeliTest {
 	private static Injector injector;
 

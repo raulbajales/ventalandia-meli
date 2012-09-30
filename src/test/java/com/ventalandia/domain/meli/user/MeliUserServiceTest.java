@@ -6,17 +6,17 @@ import org.junit.Test;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Token;
 import com.ventalandia.domain.helper.TokenHelper;
-import com.ventalandia.domain.meli.AbstractMeliTest;
 import com.ventalandia.meli.api.user.MeliUser;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.meli.service.UserMeliService;
+import com.ventalandia.service.MeliDomainTest;
 
 /**
  * 
  * @author matias
  * 
  */
-public class MeliUserServiceTest extends AbstractMeliTest {
+public class MeliUserServiceTest extends MeliDomainTest {
 
     @Inject
     private UserMeliService userMeliService;
@@ -28,7 +28,7 @@ public class MeliUserServiceTest extends AbstractMeliTest {
         AuthContext.setAuthToken(token);
         MeliUser user = this.userMeliService.getCurrentUser();
 
-        Assert.assertEquals("test", user.getNickname());
+        Assert.assertEquals("MSSULIK", user.getNickname());
     }
 
 }

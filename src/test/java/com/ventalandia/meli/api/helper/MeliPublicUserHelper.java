@@ -5,18 +5,20 @@ import java.io.FileReader;
 import java.io.Reader;
 
 import com.google.gson.Gson;
+import com.ventalandia.domain.helper.GsonHelper;
 import com.ventalandia.meli.api.user.MeliPublicUser;
-import com.ventalandia.service.GsonHelper;
 import com.ventalandia.util.file.FileUtils;
 
 /**
  * 
  * @author msulik
- *
+ * 
  */
 public class MeliPublicUserHelper {
 
     private static final Gson gson = GsonHelper.create();
+
+    public static final long USER_ID = 90661434;
 
     public static MeliPublicUser create() {
         try {

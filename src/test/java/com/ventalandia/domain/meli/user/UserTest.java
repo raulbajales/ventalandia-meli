@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -28,7 +29,7 @@ public class UserTest extends DomainTest {
         Reader json = this.getUserAsJson();
         MeliUser user = this.gson.fromJson(json, MeliUser.class);
 
-        System.out.println(user);
+        Assert.assertEquals("MSSULIK", user.getNickname());
     }
 
     private Reader getUserAsJson() throws FileNotFoundException {

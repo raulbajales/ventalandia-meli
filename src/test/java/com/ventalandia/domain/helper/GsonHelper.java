@@ -1,4 +1,4 @@
-package com.ventalandia.service;
+package com.ventalandia.domain.helper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

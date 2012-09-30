@@ -19,39 +19,32 @@ import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestCo
 /**
  * 
  * @author matias
- *
+ * 
  */
 public class LocalURLFetchServiceTest {
-	
-	private static final Logger LOGGER = Logger.getLogger(LocalURLFetchServiceTest.class.getName());
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalURLFetchServiceTestConfig());
-	
-	@Before
-	public void before() {
-		helper.setUp();
-	}
-	
-	@After
-	public void after() {
-		helper.tearDown();
-	}
-	
-	@Test
-	public void test() throws Exception {
-		URLFetchService urlFetchService = URLFetchServiceFactory.getURLFetchService();
-		
-		HTTPRequest request = new HTTPRequest(new URL("http://www.google.com"), HTTPMethod.GET);
-		HTTPResponse response = urlFetchService.fetch(request);
-		
-		Assert.assertEquals(200, response.getResponseCode());
-		Assert.assertTrue(response.getContent().length > 0);
-		
-		LOGGER.info("HTTP Code : " + response.getResponseCode());
-		LOGGER.info("Content : " + new String(response.getContent()));
-	}
-	
+    private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalURLFetchServiceTestConfig());
+
+    @Before
+    public void before() {
+        helper.setUp();
+    }
+
+    @After
+    public void after() {
+        helper.tearDown();
+    }
+
+    @Test
+    public void test() throws Exception {
+        URLFetchService urlFetchService = URLFetchServiceFactory.getURLFetchService();
+
+        HTTPRequest request = new HTTPRequest(new URL("http://www.google.com"), HTTPMethod.GET);
+        HTTPResponse response = urlFetchService.fetch(request);
+
+        Assert.assertEquals(200, response.getResponseCode());
+        Assert.assertTrue(response.getContent().length > 0);
+        Assert.assertTrue(new String(response.getContent()).contains("<title>Google</title>"));
+    }
+
 }
-
-

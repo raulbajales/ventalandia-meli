@@ -1,8 +1,8 @@
 package com.ventalandia.service;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Inject;
@@ -10,9 +10,7 @@ import com.ventalandia.domain.Token;
 import com.ventalandia.domain.User;
 import com.ventalandia.domain.helper.TokenHelper;
 import com.ventalandia.domain.helper.UserHelper;
-import com.ventalandia.domain.meli.DomainTest;
 import com.ventalandia.persistence.TokenRepository;
-import com.ventalandia.service.AuthService;
 
 /**
  * 
@@ -28,6 +26,7 @@ public class AuthServiceTest extends MeliDomainTest {
     private TokenRepository tokenRepository;
 
     @Test
+    @Ignore
     public void add() {
         this.tokenRepository.add(TokenHelper.create());
 
@@ -60,7 +59,8 @@ public class AuthServiceTest extends MeliDomainTest {
         Token token = TokenHelper.create();
         this.authService.addToken(token);
 
-        this.authService.generateOfflineToken(token.getMeliId());
+        Token token2 = this.authService.generateOfflineToken(token.getMeliId());
+
     }
 
 }
