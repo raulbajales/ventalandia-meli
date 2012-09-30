@@ -2,6 +2,7 @@ package com.ventalandia.filter;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,11 +14,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Token;
 import com.ventalandia.meli.service.AuthContext;
-import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.service.AuthService;
 
 /**
@@ -28,11 +27,7 @@ import com.ventalandia.service.AuthService;
  */
 public abstract class AbstractSecurityFilter implements Filter {
 
-    @Inject
-    private Gson gson;
-
-    @Inject
-    private MeliService meliService;
+    private static final Logger log = Logger.getLogger(AbstractSecurityFilter.class.getName());
 
     protected FilterConfig filterConfig;
 
@@ -54,14 +49,17 @@ public abstract class AbstractSecurityFilter implements Filter {
 
     private void doInnerFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String hash = this.getVtdToken(request);
+        log.info("Hash from request: " + hash);
+        
         Token token = this.authService.getToken(hash);
 
         if (token != null) {
+            log.info("Token from previous hash is: " + token.toString());
             AuthContext.setAuthToken(token);
             this.onValidSession(filterChain, request, response);
             AuthContext.remove();
-        }
-        else {
+        } else {
+            log.info("There is no token for the previous hash!");
             this.onInvalidSession(response);
         }
     }

@@ -8,7 +8,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.service.AuthService;
@@ -31,9 +30,6 @@ public class AuthServlet extends ApiServlet {
 
     @Inject
     private AuthService authService;
-
-    @Inject
-    private Gson gson;
 
     @Override
     protected Object get(HttpServletRequest req, HttpServletResponse resp) {
