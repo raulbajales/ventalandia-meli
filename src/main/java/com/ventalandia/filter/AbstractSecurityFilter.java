@@ -1,6 +1,7 @@
 package com.ventalandia.filter;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -77,7 +78,7 @@ public abstract class AbstractSecurityFilter implements Filter {
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals("vtd_token")) {
                 try {
-                    return cookie.getValue();
+                    return URLDecoder.decode(cookie.getValue(), "UTF-8");
                 }
                 catch (Exception e) {
                     // do nothing

@@ -1,5 +1,7 @@
 package com.ventalandia.api;
 
+import java.net.URLEncoder;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Cookie;
@@ -48,10 +50,8 @@ public class AuthServlet extends ApiServlet {
             log.info("Code from MELI: " + req.getParameter("code"));
             String hash = this.authService.generateToken(req.getParameter("code"));
             log.info("Generated hash: " + hash);
-            Cookie cookie = new Cookie(TOKEN, hash);
-            cookie.setMaxAge(Integer.MAX_VALUE);
-            cookie.setPath("/");
-            resp.addCookie(cookie);
+
+            resp.addCookie(this.createCookie(hash));
             try {
                 resp.sendRedirect("/");
             }
@@ -61,6 +61,19 @@ public class AuthServlet extends ApiServlet {
             }
         }
         return EMPTY_STRING;
+    }
+
+    private Cookie createCookie(String hash) {
+        try {
+            Cookie cookie = new Cookie(TOKEN, URLEncoder.encode(hash, "UTF-8"));
+            cookie.setMaxAge(Integer.MAX_VALUE);
+            cookie.setPath("/");
+            return cookie;
+        }
+        catch (Exception e) {
+            log.log(Level.WARNING, e.getMessage());
+        }
+        return null;
     }
 
 }
