@@ -1,7 +1,6 @@
 package com.ventalandia.api;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.logging.Logger;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ventalandia.domain.Token;
-import com.ventalandia.meli.api.auth.AuthToken;
-import com.ventalandia.meli.service.AuthContext;
-import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.service.AuthService;
-import com.ventalandia.view.WebappView;
 
 /**
  * 
@@ -27,6 +21,8 @@ public class AuthServlet extends ApiServlet {
 
     private static final long serialVersionUID = 6791535685445969788L;
 
+    private static final Logger log = Logger.getLogger(AuthServlet.class.getName());
+    
     private static final String TOKEN = "vtd_token";
 
     private static final Object EMPTY_STRING = "";
@@ -49,7 +45,9 @@ public class AuthServlet extends ApiServlet {
             return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
         }
         else if (req.getParameter("code") != null) {
+            log.info("Code from MELI: " + req.getParameter("code"));
             String hash = this.authService.generateToken(req.getParameter("code"));
+            log.info("Generated hash: " + hash);
             Cookie cookie = new Cookie(TOKEN, hash);
             cookie.setMaxAge(Integer.MAX_VALUE);
             cookie.setPath("/");
