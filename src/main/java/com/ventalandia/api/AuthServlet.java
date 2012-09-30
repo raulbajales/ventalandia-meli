@@ -47,7 +47,10 @@ public class AuthServlet extends ApiServlet {
             String hash = this.authService.generateToken(req.getParameter("code"));
             log.info("Generated hash: " + hash);
 
-            resp.addCookie(this.createCookie(hash));
+            Cookie theCookie = this.createCookie(hash);
+            log.info("Cookie to be added to the response: " + theCookie.toString());
+            
+			resp.addCookie(theCookie);
             try {
                 resp.sendRedirect("/");
             }
