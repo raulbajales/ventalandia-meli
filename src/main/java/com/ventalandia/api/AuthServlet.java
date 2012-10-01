@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.service.AuthService;
+import com.ventalandia.view.WebappView;
 
 /**
  * 
@@ -23,6 +24,9 @@ public class AuthServlet extends ApiServlet {
     private static final Logger LOGGER = Logger.getLogger(AuthServlet.class.getName());
 
     private static final Object EMPTY_STRING = "";
+
+	@Inject
+	private WebappView webappView;
 
     @Inject
     private AuthService authService;
@@ -51,8 +55,7 @@ public class AuthServlet extends ApiServlet {
             LOGGER.info("Generated hash: " + hash);
 
             try {
-                resp.getWriter().write(this.gson.toJson(new ClientToken(hash)));
-                resp.sendRedirect("/");
+                webappView.renderHome(resp, this.getServletContext());
             }
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

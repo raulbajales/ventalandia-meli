@@ -2,15 +2,28 @@ package com.ventalandia.view;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.inject.Inject;
+import com.ventalandia.meli.service.AuthContext;
+import com.ventalandia.view.filter.WebappSecurityFilter;
+
 public class WebappViewImpl implements WebappView {
+
+    @Inject
+    private Gson gson;
 
 	public void renderHome(HttpServletResponse response, ServletContext servletContext) {
 		try {
+            String theToken = this.gson.toJson(AuthContext.getToken());
+            Map<String, String> params = new HashMap<String, String>();
+            params.put(WebappSecurityFilter.VTD_TOKEN, theToken);
 			this.render(servletContext.getResourceAsStream("/home.tmpl"), response);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -27,8 +27,6 @@ public abstract class AbstractSecurityFilter implements Filter {
 
     private static final Logger log = Logger.getLogger(AbstractSecurityFilter.class.getName());
 
-    private static final String X_VTD_TOKEN = "x-vtd-token";
-
     protected FilterConfig filterConfig;
 
     public void destroy() {
@@ -69,14 +67,5 @@ public abstract class AbstractSecurityFilter implements Filter {
 
     protected abstract void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response);
 
-    private String getVtdToken(HttpServletRequest request) {
-        String hash = request.getHeader(X_VTD_TOKEN);
-        if (hash != null && hash.length() > 0) {
-            return hash;
-        }
-        else {
-            return null;
-        }
-    }
-
+    protected abstract String getVtdToken(HttpServletRequest request);
 }
