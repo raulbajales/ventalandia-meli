@@ -1,7 +1,6 @@
 package com.ventalandia.filter;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -10,7 +9,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +26,8 @@ import com.ventalandia.service.AuthService;
 public abstract class AbstractSecurityFilter implements Filter {
 
     private static final Logger log = Logger.getLogger(AbstractSecurityFilter.class.getName());
+
+    private static final String X_VTD_TOKEN = "x-vtd-token";
 
     protected FilterConfig filterConfig;
 
@@ -50,7 +50,7 @@ public abstract class AbstractSecurityFilter implements Filter {
     private void doInnerFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String hash = this.getVtdToken(request);
         log.info("Hash from request: " + hash);
-        
+
         Token token = this.authService.getToken(hash);
 
         if (token != null) {
@@ -58,7 +58,8 @@ public abstract class AbstractSecurityFilter implements Filter {
             AuthContext.setAuthToken(token);
             this.onValidSession(filterChain, request, response);
             AuthContext.remove();
-        } else {
+        }
+        else {
             log.info("There is no token for the previous hash!");
             this.onInvalidSession(response);
         }
@@ -69,21 +70,13 @@ public abstract class AbstractSecurityFilter implements Filter {
     protected abstract void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response);
 
     private String getVtdToken(HttpServletRequest request) {
-        if (request.getCookies() == null) {
+        String hash = request.getHeader(X_VTD_TOKEN);
+        if (hash != null && hash.length() > 0) {
+            return hash;
+        }
+        else {
             return null;
         }
-
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("vtd_token")) {
-                try {
-                    return URLDecoder.decode(cookie.getValue(), "UTF-8");
-                }
-                catch (Exception e) {
-                    // do nothing
-                }
-            }
-        }
-        return null;
     }
 
 }
