@@ -47,7 +47,13 @@
       'js/app/filters.js',
       'js/app/directives.js'
     ], function() {
-      // when all is done, execute bootstrap angular application
+      /* TODO (rbajales):
+         if (!(vtdCookie is set)) {
+            var theToken = this._vtdToken_; // this token was written by the backend
+            createCookie("vtdCookie", theToken);
+         } 
+         theApp.vtdToken = vtdCookie.getValue();
+      */
       angular.bootstrap(document, ['vldApp']);
     });
   </script>
