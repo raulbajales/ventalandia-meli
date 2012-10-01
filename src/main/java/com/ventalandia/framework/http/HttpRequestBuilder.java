@@ -140,8 +140,9 @@ public class HttpRequestBuilder {
         builder.append(this.spec);
 
         if (this.path != null && this.path.length() > 0) {
-            builder.append(this.path + "?");
+            builder.append(this.path);
             if (this.params.size() > 0) {
+            	builder.append("?");
                 builder.append(getQueryString(this.params));
             }
         }
