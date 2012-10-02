@@ -1,9 +1,7 @@
 package com.ventalandia.api;
 
-import java.util.Date;
 import java.util.logging.Logger;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,7 +58,7 @@ public class AuthServlet extends ApiServlet {
             try {
                 String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";
                 LOGGER.info("Setting header Set-Cookie to: " + theCookie);
-                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; document.location.reload();</script>";
+                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; window.location.href='/';</script>";
                 resp.getWriter().write(jsCookieBuilder);
                 resp.flushBuffer();
             }            

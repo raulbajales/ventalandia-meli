@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.ventalandia.meli.service.AuthContext;
-import com.ventalandia.view.filter.WebappSecurityFilter;
 
 public class WebappViewImpl implements WebappView {
 
@@ -21,10 +19,7 @@ public class WebappViewImpl implements WebappView {
 
 	public void renderHome(HttpServletResponse response, ServletContext servletContext) {
 		try {
-            String theToken = this.gson.toJson(AuthContext.getToken());
-            Map<String, String> params = new HashMap<String, String>();
-            params.put(WebappSecurityFilter.VTD_TOKEN, theToken);
-			this.render(servletContext.getResourceAsStream("/home.tmpl"), response, params);
+			this.render(servletContext.getResourceAsStream("/home.tmpl"), response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,24 +40,10 @@ public class WebappViewImpl implements WebappView {
 
 	private void render(InputStream resourceAsStream,
 			HttpServletResponse response, Map<String, String> params) throws IOException {
-//		String tmpl = fillTemplate(resourceAsStream, params);
 		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");		
 		response.getWriter().print(tmpl);
 		response.getWriter().flush();
 	}
-
-	private String fillTemplate(InputStream resourceAsStream,
-			Map<String, String> params) {
-		String keyPrefix = "{$";
-		String keySufix = "}";
-		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
-		for (String key : params.keySet()) {
-			String search = keyPrefix + key + keySufix;
-			tmpl = tmpl.replaceAll(search, params.get(key));
-		}
-		return tmpl;
-	}
-
 }
