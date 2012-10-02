@@ -59,7 +59,7 @@ public class WebappViewImpl implements WebappView {
 		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
 		for (String key : params.keySet()) {
 			String search = keyPrefix + key + keySufix;
-			tmpl.replaceAll(search, params.get(key));
+			tmpl = tmpl.replaceAll(search, params.get(key));
 		}
 		return tmpl;
 	}
