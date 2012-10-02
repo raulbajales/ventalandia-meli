@@ -47,6 +47,7 @@ public class WebappSecurityFilter extends AbstractSecurityFilter {
 	}
 
 	protected String getVtdToken(HttpServletRequest request) {
+		if (request.getCookies() == null) return null;
 		for (Cookie cookie : request.getCookies()) {
 			if (cookie.getName().equals(VTD_TOKEN)) {
 				try {
