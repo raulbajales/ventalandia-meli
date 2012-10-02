@@ -56,9 +56,10 @@ public class AuthServlet extends ApiServlet {
             LOGGER.info("Generated hash: " + hash);
 
             try {
+            	// FIXME (rbajales): Set proper expires date for the cookie here!
                 String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";
                 LOGGER.info("Setting header Set-Cookie to: " + theCookie);
-                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; window.location.href='/';</script>";
+                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "';</script><body onload='window.location.href='/''></body>";
                 resp.getWriter().write(jsCookieBuilder);
                 resp.flushBuffer();
             }            
