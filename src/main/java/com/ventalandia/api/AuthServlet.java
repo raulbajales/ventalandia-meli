@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +11,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ventalandia.service.AuthService;
 import com.ventalandia.view.WebappView;
+import com.ventalandia.view.filter.WebappSecurityFilter;
 
 /**
  * 
@@ -54,9 +56,13 @@ public class AuthServlet extends ApiServlet {
             String hash = this.authService.generateToken(req.getParameter("code"));
             LOGGER.info("Generated hash: " + hash);
 
+            Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
+            cookie.setMaxAge(Integer.MAX_VALUE);
+            cookie.setPath("/");
+            resp.addCookie(cookie);
             try {
-                webappView.renderHome(resp, this.getServletContext());
-            }
+                resp.sendRedirect("/");
+            }            
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return new ApiError(e.getMessage());
