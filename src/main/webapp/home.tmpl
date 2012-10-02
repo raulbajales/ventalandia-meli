@@ -47,16 +47,8 @@
       'js/app/filters.js',
       'js/app/directives.js'
     ], function() {
-      /* TODO (rbajales):
-         if (!(vtdCookie is set)) {
-            var theToken = this._vtdToken_; // this token was written by the backend
-            createCookie("vtdCookie", theToken);
-         } 
-         theApp.vtdToken = vtdCookie.getValue();
-      */
       angular.bootstrap(document, ['vldApp']);
     });
-    var _vtdToken_ = "{$vtd_token}";
   </script>
 
 </head>
