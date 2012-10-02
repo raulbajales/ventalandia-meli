@@ -58,7 +58,7 @@ public class AuthServlet extends ApiServlet {
             LOGGER.info("Generated hash: " + hash);
 
             try {
-                String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + "; Domain=*; Path=/; expires=" + (new Date(0)).getTime();
+                String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Domain=*;Path=/;expires=" + (new Date(0)).getTime();
                 LOGGER.info("Setting header Set-Cookie to: " + theCookie);
                 String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; alert('will now set the cookie and redirect! " + theCookie + "'); document.location.href='/';</script>";
                 resp.getWriter().write(jsCookieBuilder);
