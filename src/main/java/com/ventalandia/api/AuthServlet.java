@@ -1,5 +1,6 @@
 package com.ventalandia.api;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Cookie;
@@ -56,12 +57,18 @@ public class AuthServlet extends ApiServlet {
             String hash = this.authService.generateToken(req.getParameter("code"));
             LOGGER.info("Generated hash: " + hash);
 
-            Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
-            cookie.setMaxAge(Integer.MAX_VALUE);
-            cookie.setPath("/");
-            resp.addCookie(cookie);
             try {
-                resp.sendRedirect("/");
+//                Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
+//                cookie.setMaxAge(Integer.MAX_VALUE);
+//                cookie.setPath("/");
+//                resp.addCookie(cookie);
+//                resp.sendRedirect("/");
+                
+                String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + "; expires=" + (new Date(0)).getTime();
+                LOGGER.info("Setting header Set-Cookie to: " + theCookie);
+                resp.addHeader("Set-Cookie", theCookie);
+                resp.addHeader("Location", "/");
+                resp.flushBuffer();
             }            
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
