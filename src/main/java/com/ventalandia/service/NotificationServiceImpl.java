@@ -58,9 +58,10 @@ public class NotificationServiceImpl implements NotificationService {
 
 			if (json.getResponseCode() == 200) {
 				notification.markAsRead();
-				notificationRepository.update(notification);
 				Question question = gson.fromJson(json.getResponseMessage(), Question.class);
 				question.setUser_id(notification.getUser_id());
+				notification.setSellerId(question.getSeller_id());
+				notificationRepository.update(notification);
 //				questionRepository.add(question);
 				questions.add(question);
 			}else{
@@ -69,6 +70,7 @@ public class NotificationServiceImpl implements NotificationService {
 
 
 		}
+		
 		return questions;
 
 	}
@@ -84,6 +86,17 @@ public class NotificationServiceImpl implements NotificationService {
 		List<Notification> notifications = notificationRepository.getUnreadQuestionsByUserId(userId);
 		
 		return getQuestionsFromMeli(notifications);
+	}
+
+	@Override
+	public List<Notification> getUnreadQuestions() {
+		logger.fine("getting unread Notifications");
+		return notificationRepository.getUnreadNotifications("questions");
+	}
+
+	@Override
+	public List<Notification> getUnreadQuestionsBySellerId(long sellerMeliId) {
+		return notificationRepository.getUnreadQuestionsBySellerId(sellerMeliId);
 	}
 
 }

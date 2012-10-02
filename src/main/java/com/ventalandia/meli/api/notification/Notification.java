@@ -39,6 +39,10 @@ public class Notification {
 	
 	@Persistent
 	private boolean read;
+	
+	@Persistent
+	private long sellerId;
+	
 
 	public long getUser_id() {
 		return user_id;
@@ -100,4 +104,14 @@ public class Notification {
 	public String toString() {
 		return "topic: "+topic+" read: "+read+" user_id: "+user_id;
 	}
+
+	public long getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(long sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	
 }

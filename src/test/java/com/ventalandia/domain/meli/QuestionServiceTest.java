@@ -15,6 +15,7 @@ import com.ventalandia.domain.transformer.QuestionTransformer;
 import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.service.MeliService;
 import com.ventalandia.service.ItemService;
+import com.ventalandia.service.NotificationService;
 import com.ventalandia.service.QuestionServiceImpl;
 import com.ventalandia.service.UserService;
 
@@ -32,15 +33,18 @@ public class QuestionServiceTest {
     
     private QuestionRepository questionRepository;
 
+	private NotificationService notificationService;
+
     @Before
     public void setup() {
 
         meliService = mock(MeliService.class);
         itemService = mock(ItemService.class);
         userService = mock(UserService.class);
+        notificationService = mock(NotificationService.class);
         questionRepository = mock(QuestionRepository.class);
         questionTransformer = new QuestionTransformer(itemService, userService);
-        questionService = new QuestionServiceImpl(questionTransformer, userService, meliService,questionRepository);
+        questionService = new QuestionServiceImpl(questionTransformer, userService, meliService,questionRepository, notificationService);
 
     }
 

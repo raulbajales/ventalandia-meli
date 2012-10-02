@@ -25,6 +25,7 @@ public interface NotificationService {
 	 * @param userId
 	 * @return
 	 */
+	@Deprecated
 	List<Notification> getUnreadQuestionsByUserId(long userId);
 
 	/**
@@ -41,6 +42,19 @@ public interface NotificationService {
 	 * @return
 	 */
 	List<Question> getQuestionsFromMeli(long userId);
+
 	
+	/**
+	 * Gets all unread Questions
+	 * @return
+	 */
+	List<Notification> getUnreadQuestions();
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<Notification> getUnreadQuestionsBySellerId(long userId);
 	
 }

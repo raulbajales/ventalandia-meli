@@ -25,4 +25,24 @@ public class NotificationRepository extends JdoRepository<Notification> {
 		return (List<Notification>) query.execute("questions", userId);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Notification> getUnreadQuestionsBySellerId(long sellerMeliId) {
+
+		Query query = this.createQuery();
+		query.setFilter("topic == topicValue && sellerId == userId");
+		query.declareParameters("String topicValue, Long userId");
+
+		return (List<Notification>) query.execute("questions", sellerMeliId);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Notification> getUnreadNotifications(final String topic) {
+
+		Query query = this.createQuery();
+		query.setFilter("topic == topicValue && read == false");
+		query.declareParameters("String topicValue");
+		
+		return (List<Notification>) query.execute(topic);
+	}
+
 }

@@ -40,22 +40,19 @@ public class EchoServlet {
 	@Path("test")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String test() {
-		Token authToken = AuthContext.getToken();
-
-		long userId = 1234;
-		List<Notification> notifications = notificationService.getUnreadQuestionsByUserId(userId);
+		
+		List<Notification> notifications = notificationService.getUnreadQuestions();
 
 		String result = null;
 
 		if (notifications.isEmpty()) {
-			result = "Usted no tiene notificaciones pendientes";
+			result = "No existen notificaciones pendientes";
 
 		} else {
 
 			List<com.ventalandia.meli.api.notification.Question> questions = notificationService.getQuestionsFromMeli(notifications);
-
-			for (com.ventalandia.meli.api.notification.Question question : questions) {
-				result = "pregunta: " + question.getText() + "\n" + "respuesta: " + question.getAnswer().getText();
+			if(!questions.isEmpty()){
+				result = gson.toJson(questions);
 			}
 
 		}
@@ -64,21 +61,13 @@ public class EchoServlet {
 	}
 
 	@GET
-	@Path("users/{userId}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getUserById(@PathParam("userId") Long userId) {
-
-		return "El id de usuario es: " + userId;
-
-	}
-
-	@GET
-	@Path("question/{userId}/{questionId}")
+	@Path("questions")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getQuestion(@PathParam("userId") long userId, @PathParam("questionId") String questionId) {
-		
-		com.ventalandia.domain.Question question = questionService.getQuestionFromMeli(questionId, userId);
-		return this.gson.toJson(question);
+	public String getQuestions() {
+
+		long meliUserId = AuthContext.getToken().getMeliId();
+		List<com.ventalandia.domain.Question> questions = questionService.getQuestionsFromMeliByMeliUser(meliUserId);
+		return this.gson.toJson(questions);
 	}
 
 	@GET
@@ -88,10 +77,10 @@ public class EchoServlet {
 
 		List<com.ventalandia.domain.Question> unreadQuestions = questionService.getUnreadQuestions(userId);
 		List<NewsView> questionViews = new ArrayList<NewsView>(unreadQuestions.size());
-		
+
 		for (Question question : unreadQuestions) {
-		 NewsView news = new NewsView(question);
-		 questionViews.add(news);
+			NewsView news = new NewsView(question);
+			questionViews.add(news);
 		}
 		return gson.toJson(questionViews);
 

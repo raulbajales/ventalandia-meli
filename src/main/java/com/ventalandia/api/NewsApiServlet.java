@@ -3,15 +3,16 @@ package com.ventalandia.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.ventalandia.meli.api.notification.Question;
+import com.ventalandia.domain.Question;
 import com.ventalandia.meli.service.UserMeliService;
-import com.ventalandia.service.NewsType;
-import com.ventalandia.service.NotificationService;
+import com.ventalandia.service.QuestionService;
 import com.ventalandia.view.domain.NewsView;
 
 /**
@@ -19,38 +20,38 @@ import com.ventalandia.view.domain.NewsView;
  * @author msulik
  * 
  */
-@Singleton
-public class NewsApiServlet extends ApiServlet {
+public class NewsApiServlet {
 
-	private static final long serialVersionUID = -7592360020932936287L;
-	@Inject
+	private QuestionService questionService;
+	private Gson gson;
 	private UserMeliService userMeliService;
 
 	@Inject
-	private NotificationService notificationService;
-
-	@Override
-	protected Object get(HttpServletRequest req, HttpServletResponse resp) {
-		long userId = userMeliService.getCurrentUser().getId();
-
-		List<Question> questions = notificationService.getQuestionsFromMeli(userId);
-		return getNews(questions);
-
+	public NewsApiServlet(QuestionService questionService, Gson gson, UserMeliService userMeliService) {
+		this.questionService = questionService;
+		this.gson = gson;
+		this.userMeliService = userMeliService;
 	}
 
-	private Object getNews(List<Question> questions) {
+	@GET
+	@Path("api/news")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getNews() {
 
-		List<NewsView> result = new ArrayList<NewsView>();
+		long meliUserId = userMeliService.getCurrentUser().getId();
 
-		for (Question question : questions) {
+		List<com.ventalandia.domain.Question> unreadQuestions = questionService.getUnreadQuestions(meliUserId);
+		List<NewsView> questionViews = new ArrayList<NewsView>(unreadQuestions.size());
 
-			NewsView news = new NewsView(null);
-			news.setDate(question.getDate_created());
-			news.setType(NewsType.QUESTION);
-			result.add(news);
-
+		for (Question question : unreadQuestions) {
+			NewsView news = new NewsView(question);
+			questionViews.add(news);
 		}
-		return result;
+
+		return gson.toJson(questionViews);
+
 	}
+	
+	
 
 }
