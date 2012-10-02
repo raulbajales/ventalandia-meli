@@ -45,7 +45,8 @@ public class WebappViewImpl implements WebappView {
 
 	private void render(InputStream resourceAsStream,
 			HttpServletResponse response, Map<String, String> params) throws IOException {
-		String tmpl = fillTemplate(resourceAsStream, params);
+//		String tmpl = fillTemplate(resourceAsStream, params);
+		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");		
 		response.getWriter().print(tmpl);

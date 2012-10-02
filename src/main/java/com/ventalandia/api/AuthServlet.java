@@ -60,7 +60,7 @@ public class AuthServlet extends ApiServlet {
             try {
                 String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";
                 LOGGER.info("Setting header Set-Cookie to: " + theCookie);
-                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; document.location.href='/';</script>";
+                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; document.location.reload();</script>";
                 resp.getWriter().write(jsCookieBuilder);
                 resp.flushBuffer();
             }            
