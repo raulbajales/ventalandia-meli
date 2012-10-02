@@ -71,7 +71,7 @@ public class AuthServlet extends ApiServlet {
 //                resp.addHeader("Location", "/");
 //                resp.flushBuffer();
                 
-                String jsCookieBuilder = "<script>alert('will now set the cookie and redirect! " + theCookie + "');document.cookie='" + theCookie + "'; document.location.href='/';</script>";
+                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; alert('will now set the cookie and redirect! " + theCookie + "'); document.location.href='/';</script>";
                 resp.getWriter().write(jsCookieBuilder);
                 resp.flushBuffer();
             }            
