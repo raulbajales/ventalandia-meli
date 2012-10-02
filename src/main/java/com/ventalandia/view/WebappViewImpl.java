@@ -24,7 +24,7 @@ public class WebappViewImpl implements WebappView {
             String theToken = this.gson.toJson(AuthContext.getToken());
             Map<String, String> params = new HashMap<String, String>();
             params.put(WebappSecurityFilter.VTD_TOKEN, theToken);
-			this.render(servletContext.getResourceAsStream("/home.tmpl"), response);
+			this.render(servletContext.getResourceAsStream("/home.tmpl"), response, params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,11 +40,28 @@ public class WebappViewImpl implements WebappView {
 
 	private void render(InputStream resourceAsStream,
 			HttpServletResponse response) throws IOException {
-		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
+        this.render(resourceAsStream, response, new HashMap<String, String>());
+	}
+
+	private void render(InputStream resourceAsStream,
+			HttpServletResponse response, Map<String, String> params) throws IOException {
+		String tmpl = fillTemplate(resourceAsStream, params);
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");		
 		response.getWriter().print(tmpl);
 		response.getWriter().flush();
+	}
+
+	private String fillTemplate(InputStream resourceAsStream,
+			Map<String, String> params) {
+		String keyPrefix = "{$";
+		String keySufix = "}";
+		String tmpl = (new Scanner(resourceAsStream)).useDelimiter("\\A").next();
+		for (String key : params.keySet()) {
+			String search = keyPrefix + key + keySufix;
+			tmpl.replaceAll(search, params.get(key));
+		}
+		return tmpl;
 	}
 
 }

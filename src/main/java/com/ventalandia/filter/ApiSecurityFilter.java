@@ -12,6 +12,7 @@ import com.ventalandia.api.AuthServlet;
  * @see AuthServlet
  * 
  * @author matias
+ * @author raul
  * 
  */
 @Singleton
