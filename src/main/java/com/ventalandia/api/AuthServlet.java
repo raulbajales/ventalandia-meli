@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +27,8 @@ public class AuthServlet extends ApiServlet {
 
     private static final Object EMPTY_STRING = "";
 
-	@Inject
-	private WebappView webappView;
+    @Inject
+    private WebappView webappView;
 
     @Inject
     private AuthService authService;
@@ -39,7 +40,7 @@ public class AuthServlet extends ApiServlet {
     protected Object get(HttpServletRequest req, HttpServletResponse resp) {
         return process(req, resp);
     }
-    
+
     @Override
     protected Object post(HttpServletRequest req, HttpServletResponse resp) {
         return process(req, resp);
@@ -56,13 +57,13 @@ public class AuthServlet extends ApiServlet {
             LOGGER.info("Generated hash: " + hash);
 
             try {
-            	// FIXME (rbajales): Set proper expires date for the cookie here!
-                String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";
-                LOGGER.info("Setting header Set-Cookie to: " + theCookie);
-                String jsCookieBuilder = "<script>document.cookie='" + theCookie + "'; document.write('<meta http-equiv=\"refresh\" content=\"0;url=\' + window.location.origin + '\">'); document.close();</script>";
-                resp.getWriter().write(jsCookieBuilder);
-                resp.flushBuffer();
-            }            
+                Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
+                cookie.setDomain("/");
+                cookie.setMaxAge(Integer.MAX_VALUE);
+
+                resp.addCookie(cookie);
+                resp.sendRedirect("/");
+            }
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return new ApiError(e.getMessage());
