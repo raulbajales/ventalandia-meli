@@ -62,7 +62,7 @@ public class AuthServlet extends ApiServlet {
                 cookie.setMaxAge(Integer.MAX_VALUE);
 
                 resp.addCookie(cookie);
-                resp.sendRedirect("/");
+                webappView.renderHome(resp, this.getServletContext());
             }
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
