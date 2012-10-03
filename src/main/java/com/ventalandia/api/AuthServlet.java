@@ -58,7 +58,7 @@ public class AuthServlet extends ApiServlet {
 
             try {
                 Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
-                cookie.setDomain("/");
+                cookie.setPath("/");
                 cookie.setMaxAge(Integer.MAX_VALUE);
 
                 resp.addCookie(cookie);
