@@ -20,6 +20,7 @@ import com.ventalandia.view.domain.NewsView;
  * @author msulik
  * 
  */
+@Path("/api")
 public class NewsApiServlet {
 
 	private QuestionService questionService;
@@ -34,7 +35,7 @@ public class NewsApiServlet {
 	}
 
 	@GET
-	@Path("api/news")
+	@Path("news")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getNews() {
 
