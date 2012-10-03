@@ -8,7 +8,11 @@ import com.ventalandia.meli.pesistence.MeliEntityRepository;
 
 public abstract class MeliJdoRepository<T> extends JdoRepository<T> implements MeliEntityRepository<T> {
 
-    @SuppressWarnings("unchecked")
+    public MeliJdoRepository(PersistenceManagerProvider persistenceManagerProvider) {
+		super(persistenceManagerProvider);
+	}
+
+	@SuppressWarnings("unchecked")
     public T getByMeliId(Object meliId) {
 
         Query query = this.createQuery();

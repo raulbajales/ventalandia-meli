@@ -12,21 +12,21 @@ import com.ventalandia.meli.api.user.MeliUser;
  */
 public class UserMeliService extends AbstractMeliService {
 
-    public MeliUser getCurrentUser() {
-        HttpRequestBuilder httpRequestBuilder = this.createJsonGet().withPath("/users/me")//
-                .addParam("access_token", AuthContext.getToken().getAccess_token());
+	public MeliUser getCurrentUser() {
+		HttpRequestBuilder httpRequestBuilder = this.createJsonGet().withPath("/users/me")//
+				.addParam("access_token", AuthContext.getToken().getAccess_token());
 
-        HTTPResponse httpResponse = this.execute(httpRequestBuilder);
+		HTTPResponse httpResponse = this.execute(httpRequestBuilder);
 
-        return this.parseEntity(httpResponse, MeliUser.class);
-    }
+		return this.parseEntity(httpResponse, MeliUser.class);
+	}
 
-    public MeliPublicUser getPulicUser(long id) {
-        HttpRequestBuilder httpRequestBuilder = this.createJsonGet().withPath("/users/" + id);
+	public MeliPublicUser getPulicUser(long id) {
+		HttpRequestBuilder httpRequestBuilder = this.createJsonGet().withPath("/users/" + id);
 
-        HTTPResponse httpResponse = this.execute(httpRequestBuilder);
+		HTTPResponse httpResponse = this.execute(httpRequestBuilder);
 
-        return this.parseEntity(httpResponse, MeliPublicUser.class);
-    }
+		return this.parseEntity(httpResponse, MeliPublicUser.class);
+	}
 
 }

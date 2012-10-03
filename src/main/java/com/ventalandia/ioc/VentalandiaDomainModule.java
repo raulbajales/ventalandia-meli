@@ -57,9 +57,9 @@ public class VentalandiaDomainModule extends AbstractModule {
 		this.bind(QuestionService.class).to(QuestionServiceImpl.class);
 		
 		// repositories
-		this.bind(NotificationRepository.class).toInstance(new NotificationRepository());
-		this.bind(QuestionRepository.class).toInstance(new QuestionRepository());
-		this.bind(TokenRepository.class).toInstance(new TokenRepository());
+		this.bind(NotificationRepository.class);
+		this.bind(QuestionRepository.class);
+		this.bind(TokenRepository.class);
 		this.bind(UserRepository.class).to(UserRepositoryImpl.class);
         this.bind(CurrencyRepository.class).to(CurrencyRepositoryImpl.class);
         this.bind(CountryRepository.class).to(CountryRepositoryImpl.class);

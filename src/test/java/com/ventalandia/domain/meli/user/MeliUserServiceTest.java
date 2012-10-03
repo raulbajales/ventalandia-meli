@@ -21,7 +21,7 @@ public class MeliUserServiceTest extends MeliDomainTest {
     @Inject
     private UserMeliService userMeliService;
 
-    @Test
+//    @Test
     public void test() throws Exception {
         Token token = TokenHelper.create();
 

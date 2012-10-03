@@ -45,7 +45,7 @@ public abstract class DomainTest {
 	}
 
 	protected Module[] getModules() {
-		return new Module[] { new VentalandiaDomainModule(), new MeliModule(), new GaeModule() };
+		return new Module[] { new VentalandiaDomainModule(), new MeliModule(), new GaeModule()};
 	}
 	
 	@After

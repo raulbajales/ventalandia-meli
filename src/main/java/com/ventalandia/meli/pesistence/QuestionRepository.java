@@ -4,10 +4,17 @@ import java.util.List;
 
 import javax.jdo.Query;
 
+import com.google.inject.Inject;
 import com.ventalandia.domain.Question;
 import com.ventalandia.framework.persistence.MeliJdoRepository;
+import com.ventalandia.framework.persistence.PersistenceManagerProvider;
 
 public class QuestionRepository extends MeliJdoRepository<Question> {
+
+	@Inject
+	public QuestionRepository(PersistenceManagerProvider persistenceManagerProvider) {
+		super(persistenceManagerProvider);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Question> getUnreadQuestionsByUserMeliId(long userMeliId) {

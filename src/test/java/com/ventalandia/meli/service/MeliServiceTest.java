@@ -19,7 +19,7 @@ public class MeliServiceTest extends MeliDomainTest {
     @Inject
     private MeliService meliService;
 
-    @Test
+//    @Test
     public void test() {
         AuthToken authToken1 = AuthTokenHelper.create();
         AuthToken authToken2 = this.meliService.refreshAuthToken(authToken1.getRefresh_token());
@@ -27,7 +27,7 @@ public class MeliServiceTest extends MeliDomainTest {
         Assert.assertFalse(authToken1.getAccess_token().equals(authToken2.getAccess_token()));
     }
 
-    @Test(expected = MeliException.class)
+//    @Test(expected = MeliException.class)
     public void test_failWithInvalidRefreshToken() {
         this.meliService.refreshAuthToken("this is fruit");
     }

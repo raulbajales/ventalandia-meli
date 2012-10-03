@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.jdo.Query;
 
+import com.google.inject.Inject;
 import com.ventalandia.framework.persistence.JdoRepository;
+import com.ventalandia.framework.persistence.PersistenceManagerProvider;
 import com.ventalandia.meli.api.notification.Notification;
 
 /**
@@ -14,6 +16,11 @@ import com.ventalandia.meli.api.notification.Notification;
  * 
  */
 public class NotificationRepository extends JdoRepository<Notification> {
+
+	@Inject
+	public NotificationRepository(PersistenceManagerProvider persistenceManagerProvider) {
+		super(persistenceManagerProvider);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Notification> getUnreadQuestionsByUserId(long userId) {

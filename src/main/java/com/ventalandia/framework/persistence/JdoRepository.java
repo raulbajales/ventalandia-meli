@@ -22,10 +22,14 @@ import com.ventalandia.meli.pesistence.Repository;
  */
 public abstract class JdoRepository<T> implements Repository<T> {
 
-    @Inject
     private PersistenceManagerProvider persistenceManagerProvider;
+    
+    @Inject
+    public JdoRepository(PersistenceManagerProvider persistenceManagerProvider) {
+		this.persistenceManagerProvider = persistenceManagerProvider;
+	}
 
-    /**
+	/**
      * @return the {@linkplain PersistenceManager} associated with the current
      * {@linkplain Thread}.
      */
