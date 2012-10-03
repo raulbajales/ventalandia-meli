@@ -59,7 +59,7 @@ public class AuthServlet extends ApiServlet {
             try {
                 // FIXME: Set expires properly (a week/month after today?)
                 String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";                
-                resp.addHeader("Set-Cookie", thecookie);
+                resp.addHeader("Set-Cookie", theCookie);
                 webappView.renderHome(resp, this.getServletContext());
             }
             catch (Exception e) {
