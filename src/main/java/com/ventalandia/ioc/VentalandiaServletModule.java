@@ -40,7 +40,6 @@ public class VentalandiaServletModule extends JerseyServletModule {
 		filter("/*").through(PersistenceManagerFilter.class);
 
 		// api
-
 		serve("/api/test").with(ApiServlet.class);
 		bind(NewsApiServlet.class);
 		// serve("/api/users/me").with(UserApiServlet.class);
