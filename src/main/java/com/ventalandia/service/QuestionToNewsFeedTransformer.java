@@ -16,6 +16,7 @@ public class QuestionToNewsFeedTransformer implements Transformer<Question, News
 
         feed.setType(NewsType.QUESTION);
         feed.setEntityId(question.getMeliId());
+        feed.setUserId(question.getSeller().getMeliId());
         feed.setBuyerId(question.getClient().getMeliId());
         feed.setItemId(question.getItem().getMeliId());
 

@@ -25,7 +25,8 @@ public class NewsFeed {
     @Persistent
     private NewsType type;
 
-    // TODO Add order by date desc - I think we should add some index - please check
+    // TODO Add order by date desc - I think we should add some index - please
+    // check
     @Persistent
     private Date date;
 
@@ -34,6 +35,12 @@ public class NewsFeed {
      */
     @Persistent
     private long entityId;
+
+    /**
+     * Owner.
+     */
+    @Persistent
+    private long userId;
 
     @Persistent
     private long buyerId;
@@ -73,6 +80,14 @@ public class NewsFeed {
         return entityId;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
     public void setBuyerId(long buyerId) {
         this.buyerId = buyerId;
     }
@@ -91,7 +106,7 @@ public class NewsFeed {
 
     @Override
     public String toString() {
-        return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", buyerId=" + buyerId + ", itemId=" + itemId + "]";
+        return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", userId=" + userId + ", buyerId=" + buyerId + ", itemId=" + itemId + "]";
     }
 
 }

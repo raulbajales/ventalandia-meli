@@ -16,6 +16,7 @@ import com.ventalandia.service.NotificationService;
  * @author german
  * 
  */
+@Deprecated
 @Singleton
 public class NotificationApiServlet extends ApiServlet {
 
