@@ -59,11 +59,11 @@ public class AbstractMeliService {
         try {
             HTTPResponse httpResponse = this.urlFetchService.fetch(httpRequest);
 
-//            if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
-//                this.authService.refreshToken();
-//                httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
-//                httpResponse = this.urlFetchService.fetch(httpRequest);
-//            }
+            if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
+                this.authService.refreshToken();
+                httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
+                httpResponse = this.urlFetchService.fetch(httpRequest);
+            }
 
             return httpResponse;
         }
@@ -104,6 +104,19 @@ public class AbstractMeliService {
         else {
             throw new RuntimeException("Errors when getting the Entity " + entity.getName() + " from MELI.");
         }
+    }
+
+    /**
+     * Useful method to execute a GET call and parse the response. It does not
+     * need parameters, it just uses a path to complete the URL.
+     * 
+     * @param resource
+     * @param clazz
+     * @return
+     */
+    public <T> T getEntityFromMELI(String resource, Class<T> clazz) {
+        HTTPResponse httpResponse = this.execute(this.createJsonGet().withPath(resource));
+        return parseEntity(httpResponse, clazz);
     }
 
 }

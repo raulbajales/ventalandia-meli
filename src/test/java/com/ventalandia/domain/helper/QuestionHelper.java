@@ -6,6 +6,7 @@ import com.ventalandia.meli.api.notification.Answer;
 import com.ventalandia.meli.api.notification.Question;
 import com.ventalandia.meli.api.notification.UserFrom;
 
+// TODO move to a different package. this is not a questionHelper for domain this is for meli api.
 public class QuestionHelper {
 
     

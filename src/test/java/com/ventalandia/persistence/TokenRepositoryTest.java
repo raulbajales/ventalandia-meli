@@ -5,9 +5,9 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.google.inject.Inject;
+import com.ventalandia.domain.DomainTest;
 import com.ventalandia.domain.Token;
 import com.ventalandia.domain.helper.TokenHelper;
-import com.ventalandia.domain.meli.DomainTest;
 
 /**
  * 

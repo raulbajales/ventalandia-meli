@@ -1,7 +1,7 @@
 package com.ventalandia.service;
 
 import com.google.inject.Module;
-import com.ventalandia.domain.meli.DomainTest;
+import com.ventalandia.domain.DomainTest;
 import com.ventalandia.ioc.GaeModule;
 import com.ventalandia.ioc.VentalandiaDomainModule;
 

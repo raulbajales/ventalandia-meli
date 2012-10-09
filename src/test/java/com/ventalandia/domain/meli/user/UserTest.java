@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.ventalandia.domain.meli.DomainTest;
+import com.ventalandia.domain.DomainTest;
 import com.ventalandia.meli.api.user.MeliUser;
 import com.ventalandia.util.file.FileUtils;
 

@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.inject.Inject;
-import com.ventalandia.domain.meli.DomainTest;
+import com.ventalandia.domain.DomainTest;
 
 /**
  * 

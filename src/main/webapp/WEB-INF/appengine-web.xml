@@ -3,15 +3,15 @@
   <application>ventalandia-meli</application>
   <version>development</version>
 
-  <!--
-    Allows App Engine to send multiple requests to one instance in parallel:
-  -->
-  <threadsafe>false</threadsafe>
-
   <!-- Configure java.util.logging -->
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
   </system-properties>
+
+  <!--
+    Allows App Engine to send multiple requests to one instance in parallel:
+  -->
+  <threadsafe>false</threadsafe>
 
   <!--
     HTTP Sessions are disabled by default. To enable HTTP sessions specify:

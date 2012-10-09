@@ -28,7 +28,7 @@ public class ApiServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(ApiServlet.class.getName());
 
     @Inject
-    private Gson gson;
+    protected Gson gson;
 
     @Override
     protected final void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

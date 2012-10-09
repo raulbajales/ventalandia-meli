@@ -53,18 +53,4 @@ public class MeliServiceImpl extends AbstractMeliService implements MeliService 
 		return this.parseToken(httpResponse, AuthToken.class);
 	}
 
-	/**
-	 * Useful method to execute a GET call and parse the response. It does not
-	 * need parameters, it just uses a path to complete the URL.
-	 * 
-	 * @param resource
-	 * @param clazz
-	 * @return
-	 */
-	public <T> T getEntityFromMELI(String resource, Class<T> clazz) {
-		
-		HTTPResponse httpResponse = this.execute(this.createJsonGet().withPath(resource));
-		return parseEntity(httpResponse, clazz);
-	}
-
 }

@@ -9,6 +9,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+// TODO remove persistence, this is a DTO
 @PersistenceCapable
 public class Question {
 

@@ -10,7 +10,7 @@ import com.ventalandia.api.NewsApiServlet;
 import com.ventalandia.api.UsersApiServlet;
 import com.ventalandia.filter.ApiSecurityFilter;
 import com.ventalandia.filter.PersistenceManagerFilter;
-import com.ventalandia.meli.callback.NotificationApiServlet;
+import com.ventalandia.meli.callback.NotificationReceiverServlet;
 import com.ventalandia.view.filter.WebappSecurityFilter;
 
 /**
@@ -21,32 +21,32 @@ import com.ventalandia.view.filter.WebappSecurityFilter;
  */
 public class VentalandiaServletModule extends JerseyServletModule {
 
-	@Override
-	protected void configureServlets() {
-		// MELI
-		// authentication
-		serve("/meli/redirect").with(MeliRedirectorServlet.class);
-		serve("/meli/auth").with(AuthServlet.class);
-		serve("/meli/notifications").with(NotificationApiServlet.class);
+    @Override
+    protected void configureServlets() {
+        // MELI
+        // authentication
+        serve("/meli/redirect").with(MeliRedirectorServlet.class);
+        serve("/meli/auth").with(AuthServlet.class);
+        serve("/meli/notifications").with(NotificationReceiverServlet.class);
 
-		// Ventalandia
-		// tests or healthcheckers
-		// serve("/echo", "/echo/*").with(EchoServlet.class);
-		bind(EchoServlet.class);
+        // Ventalandia
+        // tests or healthcheckers
+        // serve("/echo", "/echo/*").with(EchoServlet.class);
+        bind(EchoServlet.class);
 
-		// support
-		filter("/").through(WebappSecurityFilter.class);
-		filter("/api/*").through(ApiSecurityFilter.class);
-		filter("/*").through(PersistenceManagerFilter.class);
+        // support
+        filter("/").through(WebappSecurityFilter.class);
+        filter("/api/*").through(ApiSecurityFilter.class);
+        filter("/*").through(PersistenceManagerFilter.class);
 
-		// api
-		serve("/api/test").with(ApiServlet.class);
-		bind(NewsApiServlet.class);
-		// serve("/api/users/me").with(UserApiServlet.class);
-		// serve("/jersey/*").with(GuiceContainer.class);
-		serve("/jersey/*").with(GuiceContainer.class);
-		bind(UsersApiServlet.class);
-		// serve("/api/users/*").with(UsersApiServlet.class);
-	}
+        // api
+        serve("/api/test").with(ApiServlet.class);
+        bind(NewsApiServlet.class);
+        // serve("/api/users/me").with(UserApiServlet.class);
+        // serve("/jersey/*").with(GuiceContainer.class);
+        serve("/jersey/*").with(GuiceContainer.class);
+        bind(UsersApiServlet.class);
+        // serve("/api/users/*").with(UsersApiServlet.class);
+    }
 
 }

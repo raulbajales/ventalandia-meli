@@ -15,103 +15,104 @@ import com.google.appengine.api.datastore.Key;
  * @author german
  * 
  */
+// we are not considering to persist Notifications
+@Deprecated
 @PersistenceCapable
 public class Notification {
 
-	@PrimaryKey
+    @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
-	
-	@Persistent
-	private long user_id;
-	
-	@Persistent
-	private String resource;
-	
-	@Persistent
-	private String topic;
-	
-	@Persistent
-	private Date received;
-	
-	@Persistent
-	private Date sent;
-	
-	@Persistent
-	private boolean read;
-	
-	@Persistent
-	private long sellerId;
-	
 
-	public long getUser_id() {
-		return user_id;
-	}
+    @Persistent
+    private long user_id;
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
+    @Persistent
+    private String resource;
 
-	public String getResource() {
-		return resource;
-	}
+    @Persistent
+    private String topic;
 
-	public void setResource(String resource) {
-		this.resource = resource;
-	}
+    @Persistent
+    private Date received;
 
-	public String getTopic() {
-		return topic;
-	}
+    @Persistent
+    private Date sent;
 
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
+    @Persistent
+    private boolean read;
 
-	public Date getReceived() {
-		return received;
-	}
+    @Persistent
+    private long sellerId;
 
-	public void setReceived(Date received) {
-		this.received = received;
-	}
+    public long getUser_id() {
+        return user_id;
+    }
 
-	public Date getSent() {
-		return sent;
-	}
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
+    }
 
-	public void setSent(Date sent) {
-		this.sent = sent;
-	}
+    public String getResource() {
+        return resource;
+    }
 
-	public Key getKey() {
-		return key;
-	}
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
 
-	public boolean isRead() {
-		return read;
-	}
+    public String getTopic() {
+        return topic;
+    }
 
-	public void setRead(boolean read) {
-		this.read = read;
-	}
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 
-	public void markAsRead(){
-		this.read = true;
-	}
+    public Date getReceived() {
+        return received;
+    }
 
-	@Override
-	public String toString() {
-		return "topic: "+topic+" read: "+read+" user_id: "+user_id;
-	}
+    public void setReceived(Date received) {
+        this.received = received;
+    }
 
-	public long getSellerId() {
-		return sellerId;
-	}
+    public Date getSent() {
+        return sent;
+    }
 
-	public void setSellerId(long sellerId) {
-		this.sellerId = sellerId;
-	}
+    public void setSent(Date sent) {
+        this.sent = sent;
+    }
 
-	
+    public Key getKey() {
+        return key;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public void markAsRead() {
+        this.read = true;
+    }
+
+    public long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification [key=" + key + ", user_id=" + user_id + ", resource=" + resource + ", topic=" + topic + ", received=" + received + ", sent=" + sent + ", read=" + read + ", sellerId="
+                + sellerId + "]";
+    }
+
 }

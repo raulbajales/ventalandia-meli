@@ -1,4 +1,4 @@
-package com.ventalandia.domain.meli;
+package com.ventalandia.domain;
 
 import org.junit.After;
 import org.junit.Before;

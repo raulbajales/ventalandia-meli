@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.ventalandia.domain.meli.DomainTest;
+import com.ventalandia.domain.DomainTest;
 
 /**
  * 
