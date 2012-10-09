@@ -27,7 +27,7 @@ public class NewsServiceStub implements NewsService {
     }
 
     private NewsView create(Date date, String message, boolean read, NewsType type, String product) {
-        NewsView news = new NewsView(null);
+        NewsView news = new NewsView();
 
         news.setDate(date);
         news.setType(type);

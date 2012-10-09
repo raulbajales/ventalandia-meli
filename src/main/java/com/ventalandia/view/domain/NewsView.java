@@ -2,7 +2,6 @@ package com.ventalandia.view.domain;
 
 import java.util.Date;
 
-import com.ventalandia.domain.Question;
 import com.ventalandia.service.NewsType;
 
 /**
@@ -17,16 +16,12 @@ public class NewsView {
 	private Date date;
 	private NewsType type;
 	private ItemView item;
-	
-	public NewsView(Question question) {
 
-		this.id = question.getKey().getId();
-		this.buyer = new UserView(question.getClient().getKey().getId(), question.getClient().getNickName());
-		this.date = question.getCreationDate();
-		this.type = NewsType.QUESTION;
-		this.item = new ItemView(question.getItem().getKey().getId(),question.getItem().getTitle());
-		
-	}
+
+    public NewsView() {
+        super();
+
+    }
 
 	public long getId() {
 		return id;

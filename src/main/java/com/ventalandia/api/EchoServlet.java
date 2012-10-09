@@ -79,11 +79,26 @@ public class EchoServlet {
 		List<NewsView> questionViews = new ArrayList<NewsView>(unreadQuestions.size());
 
 		for (Question question : unreadQuestions) {
-			NewsView news = new NewsView(question);
-			questionViews.add(news);
+//			NewsView news = new NewsView(question);
+//			questionViews.add(news);
 		}
 		return gson.toJson(questionViews);
 
 	}
 
+	@GET
+    @Path("api/testbla")
+	@Produces(MediaType.APPLICATION_JSON)
+    public List<NewsView> test2(){
+	    
+	    List<NewsView> list = new ArrayList<NewsView>();
+	    
+	    NewsView newsView = new NewsView();
+	    newsView.setId(1);
+	    list.add(newsView);
+	    
+	    return list; 
+	    
+	}
+	
 }

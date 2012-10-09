@@ -2,17 +2,17 @@ package com.ventalandia.view.domain;
 
 public class ItemView {
 	
-	private long id;
+	private String id;
 	private String description;
 
-	public ItemView(long id, String description) {
+	public ItemView(String id, String description) {
 		this.id = id;
 		this.description = description;
 	}
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getDescription() {
