@@ -64,6 +64,7 @@ public class DevSupportServlet {
         Cookie cookie = new Cookie(WebappSecurityFilter.VTD_TOKEN, hash);
         cookie.setPath("/");
         cookie.setMaxAge(Integer.MAX_VALUE);
+
         httpServletResponse.addCookie(cookie);
 
         return this.gson.toJson(this.authService.getToken(userId));
