@@ -4,6 +4,7 @@ import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.ventalandia.api.ApiServlet;
 import com.ventalandia.api.AuthServlet;
+import com.ventalandia.api.DevSupportServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
 import com.ventalandia.api.NewsApiServlet;
@@ -33,6 +34,7 @@ public class VentalandiaServletModule extends JerseyServletModule {
         // tests or healthcheckers
         // serve("/echo", "/echo/*").with(EchoServlet.class);
         bind(EchoServlet.class);
+        bind(DevSupportServlet.class);
 
         // support
         filter("/").through(WebappSecurityFilter.class);
