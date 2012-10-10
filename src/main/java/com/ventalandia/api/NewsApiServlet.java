@@ -24,7 +24,6 @@ import com.ventalandia.view.domain.UserView;
  * @author german
  * 
  */
-@Path("/api")
 public class NewsApiServlet {
     
     private NewsFeedRepository newsFeedRepository;
@@ -39,7 +38,7 @@ public class NewsApiServlet {
     }
     
     @GET
-    @Path("news")
+    @Path("/news")
     @Produces(MediaType.APPLICATION_JSON)
     public List<NewsView> getNews() {
 
