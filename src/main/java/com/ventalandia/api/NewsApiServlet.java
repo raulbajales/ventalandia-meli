@@ -43,7 +43,6 @@ public class NewsApiServlet {
     public List<NewsView> getNews() {
 
         long meliUserId = AuthContext.getToken().getMeliId();
-
         List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId);
         List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
