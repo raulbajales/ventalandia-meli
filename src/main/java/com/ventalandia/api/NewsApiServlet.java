@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -31,6 +32,8 @@ public class NewsApiServlet {
     private UserRepository userRepository;
     private ItemRepository itemRepository;
     
+    private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());
+    
     @Inject
     public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository) {
         this.newsFeedRepository = newsFeedRepository;
@@ -42,7 +45,11 @@ public class NewsApiServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public List<NewsView> getNews() {
 
+    	LOGGER.info("getting news...");
+    	
         long meliUserId = AuthContext.getToken().getMeliId();
+        LOGGER.info("Meli User Id: "+meliUserId);
+        
         List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId);
         List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
