@@ -49,7 +49,7 @@ public class LocalMeliModuleTest extends AbstractModule {
     private MeliQuestionService createMeliQuestionService() {
         MeliQuestionService meliQuestionService = mock(MeliQuestionService.class);
 
-        when(meliQuestionService.getQuestionByResource("/questions/2455498075")).thenReturn(QuestionHelper.create());
+//        when(meliQuestionService.getQuestionByResource("/questions/2455498075")).thenReturn(QuestionHelper.create());
 
         return meliQuestionService;
     }

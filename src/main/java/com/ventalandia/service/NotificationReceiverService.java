@@ -47,10 +47,10 @@ public class NotificationReceiverService extends AbstractMeliService {
     }
 
     private void receiveQuestion(MeliNotification meliNotification) {
-        Question meliQuestion = this.meliQuestionService.getQuestionByResource(meliNotification.getResource());
+        Question meliQuestion = this.meliQuestionService.getQuestionByNotification(meliNotification);
 
         com.ventalandia.domain.Question question = this.questionTransformer.transform(meliQuestion);
-        User buyer = this.userService.getByMeliId(meliNotification.getUser_id());
+        User buyer = this.userService.getByMeliId(meliQuestion.getFrom().getId());
         question.setClient(buyer);
 
         this.questionRepository.add(question);

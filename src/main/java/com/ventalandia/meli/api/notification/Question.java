@@ -13,113 +13,119 @@ import com.google.appengine.api.datastore.Key;
 @PersistenceCapable
 public class Question {
 
-	public static final String ANSWERED_STATUS = "ANSWERED";
+    public static final String ANSWERED_STATUS = "ANSWERED";
 
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Key key;
 
-	@Persistent
-	private long id;
+    @Persistent
+    private long id;
 
-	@Persistent
-	private Answer answer;
+    @Persistent
+    private Answer answer;
 
-	@Persistent
-	private Date date_created;
+    @Persistent
+    private Date date_created;
 
-	@Persistent
-	private String item_id;
+    @Persistent
+    private String item_id;
 
-	@Persistent
-	private long seller_id;
+    @Persistent
+    private long seller_id;
 
-	@Persistent
-	private long user_id;
+    @Persistent
+    private long user_id;
 
-	@Persistent
-	private String status;
+    @Persistent
+    private String status;
 
-	@Persistent
-	private String text;
+    @Persistent
+    private String text;
 
-	@Persistent
-	private UserFrom from;
+    @Persistent
+    private UserFrom from;
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Answer getAnswer() {
-		return answer;
-	}
+    public Answer getAnswer() {
+        return answer;
+    }
 
-	public void setAnswer(Answer answer) {
-		this.answer = answer;
-	}
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
 
-	public Date getDate_created() {
-		return date_created;
-	}
+    public Date getDate_created() {
+        return date_created;
+    }
 
-	public void setDate_created(Date date_created) {
-		this.date_created = date_created;
-	}
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
+    }
 
-	public String getItem_id() {
-		return item_id;
-	}
+    public String getItem_id() {
+        return item_id;
+    }
 
-	public void setItem_id(String item_id) {
-		this.item_id = item_id;
-	}
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+    }
 
-	public long getSeller_id() {
-		return seller_id;
-	}
+    public long getSeller_id() {
+        return seller_id;
+    }
 
-	public void setSeller_id(long seller_id) {
-		this.seller_id = seller_id;
-	}
+    public void setSeller_id(long seller_id) {
+        this.seller_id = seller_id;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public UserFrom getFrom() {
-		return from;
-	}
+    public UserFrom getFrom() {
+        return from;
+    }
 
-	public void setFrom(UserFrom from) {
-		this.from = from;
-	}
+    public void setFrom(UserFrom from) {
+        this.from = from;
+    }
 
-	public long getUser_id() {
-		return user_id;
-	}
+    public long getUser_id() {
+        return user_id;
+    }
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
+    }
 
-	public boolean isAnswered() {
-		return ANSWERED_STATUS.equals(status);
-	}
+    public boolean isAnswered() {
+        return ANSWERED_STATUS.equals(status);
+    }
+
+    @Override
+    public String toString() {
+        return "Question [key=" + key + ", id=" + id + ", answer=" + answer + ", date_created=" + date_created + ", item_id=" + item_id + ", seller_id=" + seller_id + ", user_id=" + user_id
+                + ", status=" + status + ", text=" + text + ", from=" + from + "]";
+    }
 
 }

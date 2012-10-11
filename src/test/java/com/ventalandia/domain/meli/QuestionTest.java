@@ -1,6 +1,7 @@
 package com.ventalandia.domain.meli;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,8 @@ public class QuestionTest {
         Reader json = this.getQuestionAsJson();
         Question notificationContent = gson.fromJson(json, Question.class);
         assertNotNull(notificationContent);
+        assertNotNull(notificationContent.getFrom());
+        assertEquals(79450083, notificationContent.getFrom().getId());
     }
 
     private Reader getQuestionAsJson() throws FileNotFoundException {
