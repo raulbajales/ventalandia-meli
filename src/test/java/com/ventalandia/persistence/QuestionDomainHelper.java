@@ -1,7 +1,6 @@
 package com.ventalandia.persistence;
 
 import com.ventalandia.domain.Question;
-import com.ventalandia.domain.helper.ItemHelper;
 import com.ventalandia.domain.helper.UserHelper;
 
 /**
@@ -17,6 +16,7 @@ public class QuestionDomainHelper {
         question.setMeliId(1234L);
         question.setClient(UserHelper.create());
         question.setItem(ItemDomainHelper.createItem());
+        question.setSeller(UserHelper.create());
 
         return question;
     }
