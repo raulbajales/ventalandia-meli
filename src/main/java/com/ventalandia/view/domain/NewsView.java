@@ -16,7 +16,7 @@ public class NewsView {
     private long id;
 
     private UserView buyer;
-    
+
     @JsonSerialize(using = CustomJsonDateSerializer.class)
     private Date date;
 
@@ -53,7 +53,6 @@ public class NewsView {
         this.item = item;
     }
 
-        
     public Date getDate() {
         return date;
     }
