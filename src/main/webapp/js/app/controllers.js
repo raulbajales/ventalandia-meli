@@ -2,11 +2,14 @@
 
 /* Controllers */
 
+function MiniProfileController($scope) {
+	$scope.firstName = "Fulgencio";
+	$scope.lastName = "Sarlanga";
+}
+
+
 function NewsController() {}
-NewsController.$inject = [];
 
 function CustomersController() {}
-CustomersController.$inject = [];
 
 function ProductsController() {}
-ProductsController.$inject = [];
