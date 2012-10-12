@@ -4,12 +4,12 @@ public class UserView {
 
     private long id;
 
-    private String nickName;
+    private String nickname;
 
-    public UserView(long id, String nickName) {
+    public UserView(long id, String nickname) {
         super();
         this.id = id;
-        this.nickName = nickName;
+        this.nickname = nickname;
     }
 
     public long getId() {
@@ -20,12 +20,12 @@ public class UserView {
         this.id = id;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
 }
