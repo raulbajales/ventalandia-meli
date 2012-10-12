@@ -24,6 +24,7 @@ public class VentalandiaServletModule extends JerseyServletModule {
 
     @Override
     protected void configureServlets() {
+        
         // MELI
         // authentication
         serve("/meli/redirect").with(MeliRedirectorServlet.class);
@@ -31,8 +32,6 @@ public class VentalandiaServletModule extends JerseyServletModule {
         bind(NotificationReceiverServlet.class);
         
         // Ventalandia
-        // tests or healthcheckers
-        // serve("/echo", "/echo/*").with(EchoServlet.class);
         bind(EchoServlet.class);
         bind(DevSupportServlet.class);
 
@@ -46,7 +45,6 @@ public class VentalandiaServletModule extends JerseyServletModule {
         bind(NewsApiServlet.class);
         
         // serve("/api/users/me").with(UserApiServlet.class);
-        // serve("/jersey/*").with(GuiceContainer.class);
         serve("/api/*","/meli/notifications").with(GuiceContainer.class);
         bind(UsersApiServlet.class);
         // serve("/api/users/*").with(UsersApiServlet.class);

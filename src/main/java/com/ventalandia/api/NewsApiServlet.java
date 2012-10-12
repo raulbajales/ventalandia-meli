@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -50,12 +51,20 @@ public class NewsApiServlet {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<NewsView> getNews() {
+        return getNews(0,10);
+    }
+    
+    @GET
+    @Path("/{fromPage}/{offset}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<NewsView> getNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset) {
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
+        
         LOGGER.info("Meli User Id: " + meliUserId);
 
-        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId);
+        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId,fromPage, offset);
         List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
         for (NewsFeed newsFeed : newsFeeds) {
@@ -78,6 +87,8 @@ public class NewsApiServlet {
     @Path("summary")
     @Produces(MediaType.APPLICATION_JSON)
     public Summary summary() {
+        
+        LOGGER.info("getting summary...");
         return this.newsFeedService.getSummary();
     }
 
