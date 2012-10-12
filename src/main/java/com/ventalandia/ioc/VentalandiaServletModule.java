@@ -28,8 +28,8 @@ public class VentalandiaServletModule extends JerseyServletModule {
         // authentication
         serve("/meli/redirect").with(MeliRedirectorServlet.class);
         serve("/meli/auth").with(AuthServlet.class);
-        serve("/meli/notifications").with(NotificationReceiverServlet.class);
-
+        bind(NotificationReceiverServlet.class);
+        
         // Ventalandia
         // tests or healthcheckers
         // serve("/echo", "/echo/*").with(EchoServlet.class);
@@ -44,9 +44,10 @@ public class VentalandiaServletModule extends JerseyServletModule {
         // api
         serve("/api/test").with(ApiServlet.class);
         bind(NewsApiServlet.class);
+        
         // serve("/api/users/me").with(UserApiServlet.class);
         // serve("/jersey/*").with(GuiceContainer.class);
-        serve("/api/*").with(GuiceContainer.class);
+        serve("/api/*","/meli/notifications").with(GuiceContainer.class);
         bind(UsersApiServlet.class);
         // serve("/api/users/*").with(UsersApiServlet.class);
     }

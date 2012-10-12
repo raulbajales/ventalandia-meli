@@ -2,6 +2,9 @@ package com.ventalandia.meli.api.notification;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.ventalandia.framework.json.CustomJsonDateDeserializer;
+
 /**
  * It's a notification received from MELI.
  * 
@@ -18,9 +21,11 @@ public class MeliNotification {
      * Inform the relation of the notification. It could be: orders, items, questions.
      */
     private String topic;
-
+    
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     private Date received;
-
+    
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     private Date sent;
 
     public long getUser_id() {
