@@ -9,6 +9,7 @@ import com.ventalandia.framework.http.MeliException;
 import com.ventalandia.meli.api.helper.AuthTokenHelper;
 import com.ventalandia.meli.api.helper.MeliPublicUserHelper;
 import com.ventalandia.meli.api.helper.MeliUserHelper;
+import com.ventalandia.meli.api.notification.MeliNotification;
 import com.ventalandia.meli.api.user.MeliUser;
 import com.ventalandia.meli.ioc.MeliCallbackUrlApi;
 import com.ventalandia.meli.ioc.MeliClientIdApi;
@@ -49,7 +50,8 @@ public class LocalMeliModuleTest extends AbstractModule {
     private MeliQuestionService createMeliQuestionService() {
         MeliQuestionService meliQuestionService = mock(MeliQuestionService.class);
 
-//        when(meliQuestionService.getQuestionByResource("/questions/2455498075")).thenReturn(QuestionHelper.create());
+        MeliNotification meliNotification = MeliNotificationHelper.create();
+        when(meliQuestionService.getQuestionByNotification(meliNotification)).thenReturn(QuestionHelper.create());
 
         return meliQuestionService;
     }
