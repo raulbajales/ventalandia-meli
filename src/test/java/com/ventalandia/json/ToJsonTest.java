@@ -39,7 +39,7 @@ public class ToJsonTest {
         
         ObjectMapper mapper = new ObjectMapper();
         try{
-            String jsonValue ="{\"user_id\": 1234, \"resource\": \"/questions/139876\", \"topic\": \"questions\", \"received\": \"2011-10-19T16:38:34.425Z\", \"sent\" : \"2011-10-19T16:40:34.425Z\"}";
+            String jsonValue ="{\"user_id\": 1234, \"resource\": \"/questions/139876\", \"topic\": \"questions\", \"received\": \"2011-10-19T16:38:34.425Z\", \"sent\" : \"2011-10-19T16:40:34.425Z\",\"application_id\": 5678}";
             MeliNotification meliNotification = mapper.readValue(jsonValue,MeliNotification.class);
             Assert.assertEquals(1234, meliNotification.getUser_id());
             Assert.assertEquals("/questions/139876", meliNotification.getResource());
@@ -54,6 +54,7 @@ public class ToJsonTest {
             
             Assert.assertEquals(expectedDatereceived , received);
             Assert.assertEquals(expectedDatesent , sent);
+            Assert.assertEquals("5678" , meliNotification.getApplication_id());
             
         }catch(Exception e){
             Assert.fail();

@@ -13,6 +13,8 @@ import com.ventalandia.framework.json.CustomJsonDateDeserializer;
  */
 public class MeliNotification {
 
+	private String application_id;
+	
     private long user_id;
 
     private String resource;
@@ -67,10 +69,19 @@ public class MeliNotification {
     public void setSent(Date sent) {
         this.sent = sent;
     }
+    
 
     @Override
     public String toString() {
         return "MeliNotification [user_id=" + user_id + ", resource=" + resource + ", topic=" + topic + ", received=" + received + ", sent=" + sent + "]";
     }
+
+	public String getApplication_id() {
+		return application_id;
+	}
+
+	public void setApplication_id(String application_id) {
+		this.application_id = application_id;
+	}
 
 }
