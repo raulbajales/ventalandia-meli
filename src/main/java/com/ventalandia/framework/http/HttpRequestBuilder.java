@@ -44,11 +44,11 @@ public class HttpRequestBuilder {
     private String body;
 
     public HttpRequestBuilder(String spec) {
-        this.spec = spec;
+        this.spec = spec.endsWith("/") ? spec : spec + "/";
     }
 
     public HttpRequestBuilder withPath(String path) {
-        this.path = path;
+        this.path = path.startsWith("/") ? path.substring(1) : path;
         return this;
     }
 
