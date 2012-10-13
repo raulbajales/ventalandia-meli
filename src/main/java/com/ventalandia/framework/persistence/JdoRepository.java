@@ -43,6 +43,15 @@ public abstract class JdoRepository<T> implements Repository<T> {
      */
     public final void add(T t) {
         this.getPersistenceManager().makePersistent(t);
+        this.afterAdd(t);
+    }
+
+    /**
+     * Template method. Add here what you want to do after an Entity is presisted.
+     * @param t a recently persisted entity
+     */
+    protected void afterAdd(T t) {
+        // do nothing
     }
 
     /**

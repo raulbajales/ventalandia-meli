@@ -43,6 +43,11 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
         return this.list(query, userId);
     }
 
+    @Override
+    protected void afterAdd(NewsFeed newsFeed) {
+
+    }
+
     public Summary getSummary(long userId) {
         // stub implementation
         Summary summary = new Summary();

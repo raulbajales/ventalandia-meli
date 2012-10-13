@@ -14,7 +14,8 @@ import com.ventalandia.service.NotificationReceiverService;
 
 /**
  * 
- * @author msulik, german
+ * @author german
+ * @author msulik
  * 
  */
 @Path("/")
@@ -28,10 +29,8 @@ public class NotificationReceiverServlet {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response process(MeliNotification meliNotification) {
-
         try {
-
-            LOGGER.info("Receiving a Notification...");
+            LOGGER.info("Receiving ... " + meliNotification);
             this.notificationReceiverService.receive(meliNotification);
         }
         catch (Exception e) {
@@ -40,7 +39,6 @@ public class NotificationReceiverServlet {
         }
 
         return Response.ok().build();
-
     }
 
 }
