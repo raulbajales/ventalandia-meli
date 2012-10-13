@@ -74,7 +74,7 @@ public class NewsApiServlet {
             news.setDate(newsFeed.getDate());
             news.setType(newsFeed.getType());
             news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
-            news.setBuyer(new UserView(newsFeed.getUserId(), userRepository.getByMeliId(newsFeed.getUserId()).getNickName()));
+            news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
 
             feeds.add(news);
         }
