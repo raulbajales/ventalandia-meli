@@ -7,7 +7,6 @@ import com.ventalandia.domain.User;
 import com.ventalandia.domain.transformer.QuestionTransformer;
 import com.ventalandia.meli.api.notification.MeliNotification;
 import com.ventalandia.meli.api.notification.Question;
-import com.ventalandia.meli.callback.NotificationReceiverServlet;
 import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.service.AbstractMeliService;
 import com.ventalandia.meli.service.MeliQuestionService;

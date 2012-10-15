@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 
 import com.google.inject.Inject;
 import com.ventalandia.meli.api.notification.MeliNotification;
+import com.ventalandia.meli.service.AuthContext;
+import com.ventalandia.service.AuthService;
 import com.ventalandia.service.NotificationReceiverService;
 
 /**
@@ -26,12 +28,16 @@ public class NotificationReceiverServlet {
 
     @Inject
     private NotificationReceiverService notificationReceiverService;
+    
+    @Inject
+    private AuthService authService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response process(MeliNotification meliNotification) {
         try {
             LOGGER.info("Receiving ... " + meliNotification);
+            AuthContext.setAuthToken(this.authService.getToken(meliNotification.getUser_id()));
             this.notificationReceiverService.receive(meliNotification);
         }
         catch (Exception e) {
