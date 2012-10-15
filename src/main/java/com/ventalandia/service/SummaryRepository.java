@@ -2,6 +2,7 @@ package com.ventalandia.service;
 
 import java.util.List;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.Query;
 
 import com.google.inject.Inject;
@@ -27,12 +28,17 @@ public class SummaryRepository extends JdoRepository<Summary> {
         query.setFilter("userId == aMeliId");
         query.declareParameters("Long aMeliId");
 
-        List<Summary> result = this.list(query, aMeliUserId);
+        try {
+            List<Summary> result = this.list(query, aMeliUserId);
 
-        if (result != null && result.size() == 1) {
-            return result.get(0);
+            if (result != null && result.size() == 1) {
+                return result.get(0);
+            }
+            else {
+                return null;
+            }
         }
-        else {
+        catch (JDOObjectNotFoundException e) {
             return null;
         }
     }
