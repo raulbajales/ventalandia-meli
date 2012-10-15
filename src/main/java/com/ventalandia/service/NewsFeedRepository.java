@@ -35,7 +35,7 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
         Query query = this.createQuery();
 
         query.setOrdering("date desc");
-        query.setRange(from, offset);
+        query.setRange(from, from + offset);
 
         query.setFilter("userId == aMeliId");
         query.declareParameters("Long aMeliId");

@@ -1,10 +1,13 @@
 package com.ventalandia.service;
 
+import java.util.logging.Logger;
+
 import com.google.inject.Inject;
 import com.ventalandia.domain.User;
 import com.ventalandia.domain.transformer.QuestionTransformer;
 import com.ventalandia.meli.api.notification.MeliNotification;
 import com.ventalandia.meli.api.notification.Question;
+import com.ventalandia.meli.callback.NotificationReceiverServlet;
 import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.service.AbstractMeliService;
 import com.ventalandia.meli.service.MeliQuestionService;
@@ -16,6 +19,8 @@ import com.ventalandia.meli.service.MeliQuestionService;
  */
 public class NotificationReceiverService extends AbstractMeliService {
 
+    private static final Logger LOGGER = Logger.getLogger(NotificationReceiverService.class.getName());
+    
     @Inject
     private QuestionTransformer questionTransformer;
 
@@ -60,10 +65,12 @@ public class NotificationReceiverService extends AbstractMeliService {
 
     private void receiveOrder(MeliNotification meliNotification) {
         // TODO code it
+        LOGGER.info("Receiving order notification ... Not supported yet.");
     }
 
     private void receiveItem(MeliNotification meliNotification) {
         // TODO code it
+        LOGGER.info("Receiving item notification ... Not supported yet.");
     }
 
 }

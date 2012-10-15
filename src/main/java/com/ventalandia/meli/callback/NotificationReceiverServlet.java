@@ -34,7 +34,7 @@ public class NotificationReceiverServlet {
             this.notificationReceiverService.receive(meliNotification);
         }
         catch (Exception e) {
-            LOGGER.severe(e.getMessage());
+            LOGGER.severe(e.toString());
             return Response.serverError().build();
         }
 

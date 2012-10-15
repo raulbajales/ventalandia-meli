@@ -71,7 +71,7 @@ public class HttpRequestBuilder {
         this.params.replace(key, value);
         return this;
     }
-    
+
     /**
      * Convenient method to add 'Accept: application/json' to the header.
      */
@@ -142,7 +142,7 @@ public class HttpRequestBuilder {
         if (this.path != null && this.path.length() > 0) {
             builder.append(this.path);
             if (this.params.size() > 0) {
-            	builder.append("?");
+                builder.append("?");
                 builder.append(getQueryString(this.params));
             }
         }

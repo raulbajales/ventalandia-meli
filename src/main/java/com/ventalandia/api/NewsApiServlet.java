@@ -87,7 +87,6 @@ public class NewsApiServlet {
     @Path("summary")
     @Produces(MediaType.APPLICATION_JSON)
     public Summary summary() {
-        
         LOGGER.info("getting summary...");
         return this.newsFeedService.getSummary();
     }
