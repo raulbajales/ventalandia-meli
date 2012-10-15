@@ -29,7 +29,7 @@ public class NewsFeedService {
     }
 
     private void updateSummary(NewsFeed feed) {
-        Summary summary = this.summaryRepository.get(feed.getUserId());
+        Summary summary = this.summaryRepository.getByMeliUserId(feed.getUserId());
 
         if (summary == null) {
             summary = new Summary();
