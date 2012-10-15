@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Question;
-import com.ventalandia.domain.Token;
 import com.ventalandia.meli.api.notification.Notification;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NotificationService;
@@ -35,6 +35,8 @@ public class EchoServlet {
 
 	@Inject
 	private Gson gson;
+	
+	private static final Logger logger = Logger.getLogger(EchoServlet.class.getName());
 
 	@GET
 	@Path("test")
@@ -90,6 +92,11 @@ public class EchoServlet {
     @Path("api/testbla")
 	@Produces(MediaType.APPLICATION_JSON)
     public List<NewsView> test2(){
+		
+		logger.fine("This is a Fine Message");
+		logger.info("This is a Info Message");
+		logger.warning("This is Warning Message");
+		logger.severe("This is a Severe Message");
 	    
 	    List<NewsView> list = new ArrayList<NewsView>();
 	    
