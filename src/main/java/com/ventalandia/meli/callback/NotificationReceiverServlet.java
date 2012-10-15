@@ -1,5 +1,6 @@
 package com.ventalandia.meli.callback;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -34,7 +35,7 @@ public class NotificationReceiverServlet {
             this.notificationReceiverService.receive(meliNotification);
         }
         catch (Exception e) {
-            LOGGER.severe(e.toString());
+            LOGGER.log(Level.SEVERE, "Error when receiving a notification...", e);
             return Response.serverError().build();
         }
 
