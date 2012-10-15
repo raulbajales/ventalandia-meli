@@ -21,7 +21,7 @@ import com.ventalandia.service.AuthService;
  * 
  */
 public class AbstractMeliService {
-    
+
     private static final Logger LOGGER = Logger.getLogger(AbstractMeliService.class.getName());
 
     @Inject
@@ -61,8 +61,9 @@ public class AbstractMeliService {
         HTTPRequest httpRequest = httpRequestBuilder.build();
 
         try {
+            LOGGER.info("Hiting... " + httpRequest.getURL());
             HTTPResponse httpResponse = this.urlFetchService.fetch(httpRequest);
-            LOGGER.info(httpResponse.toString());
+            LOGGER.info("Response code: " + httpResponse.getResponseCode() + " and " + new String(httpResponse.getContent()));
             if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
                 LOGGER.info("Refreshing tokens");
                 this.authService.refreshToken();
