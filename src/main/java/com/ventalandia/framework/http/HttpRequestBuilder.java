@@ -177,4 +177,9 @@ public class HttpRequestBuilder {
         return this.params.containsKey(key);
     }
 
+    @Override
+    public String toString() {
+        return "HttpRequestBuilder [spec=" + spec + ", path=" + path + ", headers=" + headers + ", params=" + params + ", httpMethod=" + httpMethod + ", body=" + body + "]";
+    }
+
 }
