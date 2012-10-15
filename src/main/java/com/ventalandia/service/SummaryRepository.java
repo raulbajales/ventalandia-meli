@@ -21,13 +21,13 @@ public class SummaryRepository extends JdoRepository<Summary> {
         super(persistenceManagerProvider);
     }
 
-    public Summary getByMeliUserId(long aMeliId) {
+    public Summary getByMeliUserId(long aMeliUserId) {
         Query query = this.createQuery();
 
-        query.setFilter("meliId == aMeliId");
+        query.setFilter("userId == aMeliId");
         query.declareParameters("Long aMeliId");
 
-        List<Summary> result = this.list(query, aMeliId);
+        List<Summary> result = this.list(query, aMeliUserId);
 
         if (result != null && result.size() == 1) {
             return result.get(0);
