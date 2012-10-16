@@ -58,9 +58,7 @@ public class NewsApiServlet {
     @GET
     @Path("/{fromPage}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@PathParam("fromPage")
-    Integer fromPage, @PathParam("offset")
-    Integer offset) {
+    public List<NewsView> getNews(@PathParam("fromPage")Integer fromPage, @PathParam("offset")Integer offset) {
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
@@ -94,6 +92,17 @@ public class NewsApiServlet {
         Summary summary = this.newsFeedService.getSummary();
 
         return new SummaryView(summary);
+    }
+
+    @GET
+    @Path("/{newsId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object getNews(@PathParam("newsId") Long newsId) {
+        
+        LOGGER.info("getting newsId: " + newsId);
+        return "{\"item\": {\"desc\": \"una bici loca\",\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"buyer\": {\"fullName\": \"Jose Lagarcha\","
+                + "\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"question\": \"te quedan en color rojo?\"}";
+
     }
 
 }
