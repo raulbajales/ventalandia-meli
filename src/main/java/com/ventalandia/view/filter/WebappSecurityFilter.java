@@ -1,6 +1,7 @@
 package com.ventalandia.view.filter;
 
 import java.net.URLDecoder;
+import java.util.logging.Logger;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.Cookie;
@@ -20,6 +21,7 @@ import com.ventalandia.view.WebappView;
 @Singleton
 public class WebappSecurityFilter extends AbstractSecurityFilter {
 
+    private static final Logger logger = Logger.getLogger(WebappSecurityFilter.class.getName());
     public static final String VTD_TOKEN = "vtd_token";
 	
 	@Inject
@@ -47,8 +49,16 @@ public class WebappSecurityFilter extends AbstractSecurityFilter {
 	}
 
 	protected String getVtdToken(HttpServletRequest request) {
-		if (request.getCookies() == null) return null;
+	    
+		if (request.getCookies() == null){
+		    logger.warning("there is not cookies");
+		    return null;
+		}
+		
 		for (Cookie cookie : request.getCookies()) {
+		    
+		    logger.info("cookie name:"+cookie.getName());
+		    
 			if (cookie.getName().equals(VTD_TOKEN)) {
 				try {
 					return URLDecoder.decode(cookie.getValue(), "UTF-8");
