@@ -1,7 +1,5 @@
 package com.ventalandia.api;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
@@ -10,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 import com.google.inject.Inject;
 import com.ventalandia.service.AuthService;
@@ -34,8 +33,8 @@ public class AuthServlet {
 
     @GET
     @Produces("text/html")
-    public Response get(@QueryParam("error") String error, @QueryParam("code") String code, @QueryParam("error_description") String error_description) throws URISyntaxException {
-        
+    public Response get(@QueryParam("error") String error, @QueryParam("code") String code, @QueryParam("error_description") String error_description) {
+
         if (error != null) {
             logger.severe("There was an issue when you try to login: " + error_description);
             return Response.serverError().build();
@@ -45,7 +44,7 @@ public class AuthServlet {
             String hash = this.authService.generateToken(code);
             logger.info("Generated hash: " + hash);
             // FIXME: Set expires properly (a week/month after today?)
-            return Response.seeOther(new URI("/")).cookie(new NewCookie(WebappSecurityFilter.VTD_TOKEN, hash)).build();
+            return Response.seeOther(UriBuilder.fromUri("/").build()).cookie(new NewCookie(WebappSecurityFilter.VTD_TOKEN, hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;")).build();
         }
     }
 }
