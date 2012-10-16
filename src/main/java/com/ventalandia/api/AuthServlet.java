@@ -44,7 +44,8 @@ public class AuthServlet {
             String hash = this.authService.generateToken(code);
             logger.info("Generated hash: " + hash);
             // FIXME: Set expires properly (a week/month after today?)
-            return Response.seeOther(UriBuilder.fromUri("/").build()).cookie(new NewCookie(WebappSecurityFilter.VTD_TOKEN, hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;")).build();
+            NewCookie newCookie = new NewCookie(WebappSecurityFilter.VTD_TOKEN, hash,"/","","",10000,false);
+            return Response.seeOther(UriBuilder.fromUri("/").build()).cookie(newCookie).build();
         }
     }
 }
