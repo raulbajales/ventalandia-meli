@@ -2,7 +2,9 @@ package com.ventalandia.service;
 
 import java.util.UUID;
 
+import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Token;
@@ -26,6 +28,8 @@ import com.ventalandia.persistence.TokenRepository;
 public class AuthService {
 
     private static final String PREFFIX = "ID_";
+
+    private static final int TWO_WEEKS_IN_SECONDS = 60 * 60 * 24 * 14;
 
     @Inject
     @TokenCache
@@ -84,7 +88,7 @@ public class AuthService {
             if (key.startsWith(PREFFIX)) {
                 Token token = this.tokenRepository.getByMeliUserId(Long.valueOf(key.replace(PREFFIX, "")));
 
-                this.memcacheService.put(key, this.gson.toJson(token));
+                this.cacheToken(token);
 
                 return token;
             }
@@ -106,10 +110,10 @@ public class AuthService {
         // generate cache's keys
         String hash = UUID.randomUUID().toString();
         String userId = PREFFIX + token.getMeliId();
-
+        
         // adding to cache service
-        this.memcacheService.put(hash, userId);
-        this.memcacheService.put(userId, this.gson.toJson(token));
+        this.memcacheService.put(hash, userId, Expiration.byDeltaSeconds(TWO_WEEKS_IN_SECONDS));
+        this.cacheToken(token);
 
         return hash;
     }
@@ -150,31 +154,36 @@ public class AuthService {
             this.tokenRepository.update(persisted);
         }
         else {
-            this.tokenRepository.update(token);
+            this.tokenRepository.add(token);
         }
     }
 
     private void replaceTokenOnCache(Token token) {
-        this.tokenRepository.update(token);
-        this.memcacheService.put(token.getMeliId(), this.gson.toJson(token));
+        Token persisted = this.tokenRepository.getByMeliUserId(token.getMeliId());
+
+        persisted.setAccess_token(token.getAccess_token());
+        persisted.setRefresh_token(token.getRefresh_token());
+        persisted.setExpires_in(token.getExpires_in());
+
+        this.tokenRepository.update(persisted);
+        this.cacheToken(persisted);
+    }
+
+    private void cacheToken(Token token) {
+        this.memcacheService.put(token.getMeliId(), this.gson.toJson(token), Expiration.byDeltaSeconds(token.getExpires_in().intValue()), SetPolicy.SET_ALWAYS);
     }
 
     private void updateTokenValues(Token token) {
         Token refreshedToken = this.tokenTransformer.transform(this.meliService.refreshAuthToken(token.getRefresh_token()));
 
-        token.setAccess_token(refreshedToken.getAccess_token());
-        token.setRefresh_token(refreshedToken.getRefresh_token());
-        token.setExpires_in(refreshedToken.getExpires_in());
+        refreshedToken.setMeliId(token.getMeliId());
+        AuthContext.setAuthToken(refreshedToken);
 
-        this.replaceTokenOnCache(token);
+        this.replaceTokenOnCache(refreshedToken);
     }
 
     public void refreshToken() {
         this.updateTokenValues(AuthContext.getToken());
-    }
-
-    public void refreshToken(long meliId) {
-        this.updateTokenValues(this.getToken(meliId));
     }
 
 }

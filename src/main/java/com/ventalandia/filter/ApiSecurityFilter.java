@@ -62,9 +62,6 @@ public class ApiSecurityFilter extends AbstractSecurityFilter {
                     throw new RuntimeException("Unable to get token from cookie", e);
                 }
             }
-            else {
-                return null;
-            }
         }
         return null;
     }
