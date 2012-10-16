@@ -23,52 +23,50 @@ public class WebappSecurityFilter extends AbstractSecurityFilter {
 
     private static final Logger logger = Logger.getLogger(WebappSecurityFilter.class.getName());
     public static final String VTD_TOKEN = "vtd_token";
-	
-	@Inject
-	private WebappView webappView;
 
-	@Override
-	protected void onValidSession(FilterChain filterChain,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			webappView.renderHome(response,
-					this.filterConfig.getServletContext());
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to handle session request", e);
-		}
-	}
+    @Inject
+    private WebappView webappView;
 
-	@Override
-	protected void onInvalidSession(HttpServletResponse response) {
-		try {
-			webappView.renderGuest(response,
-					this.filterConfig.getServletContext());
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to handle no-session request", e);
-		}
-	}
+    @Override
+    protected void onValidSession(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            webappView.renderHome(response, this.filterConfig.getServletContext());
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Unable to handle session request", e);
+        }
+    }
 
-	protected String getVtdToken(HttpServletRequest request) {
-	    
-		if (request.getCookies() == null){
-		    logger.warning("there is not cookies");
-		    return null;
-		}
-		
-		for (Cookie cookie : request.getCookies()) {
-		    
-		    logger.info("cookie name:"+cookie.getName());
-		    
-			if (cookie.getName().equals(VTD_TOKEN)) {
-				try {
-					return URLDecoder.decode(cookie.getValue(), "UTF-8");
-				} catch (Exception e) {
-					throw new RuntimeException("Unable to get token from cookie", e);
-				}
-			} else {
-				return null;
-			}
-		}
-		return null;
-	}
+    @Override
+    protected void onInvalidSession(HttpServletResponse response) {
+        try {
+            webappView.renderGuest(response, this.filterConfig.getServletContext());
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Unable to handle no-session request", e);
+        }
+    }
+
+    protected String getVtdToken(HttpServletRequest request) {
+
+        if (request.getCookies() == null) {
+            logger.warning("there is not cookies");
+            return null;
+        }
+
+        for (Cookie cookie : request.getCookies()) {
+
+            logger.info("cookie name:" + cookie.getName());
+
+            if (cookie.getName().equals(VTD_TOKEN)) {
+                try {
+                    return URLDecoder.decode(cookie.getValue(), "UTF-8");
+                }
+                catch (Exception e) {
+                    throw new RuntimeException("Unable to get token from cookie", e);
+                }
+            }
+        }
+        return null;
+    }
 }
