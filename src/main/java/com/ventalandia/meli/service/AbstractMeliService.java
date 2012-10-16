@@ -1,13 +1,13 @@
 package com.ventalandia.meli.service;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.ventalandia.framework.http.HttpConnector;
 import com.ventalandia.framework.http.HttpRequestBuilder;
 import com.ventalandia.meli.ioc.MeliCallbackUrlApi;
 import com.ventalandia.meli.ioc.MeliClientIdApi;
@@ -20,6 +20,8 @@ import com.ventalandia.service.AuthService;
  * 
  */
 public class AbstractMeliService {
+
+    private static final Logger LOGGER = Logger.getLogger(AbstractMeliService.class.getName());
 
     @Inject
     @MeliClientSecretApi
@@ -37,9 +39,6 @@ public class AbstractMeliService {
     protected Gson gson;
 
     @Inject
-    protected HttpConnector http;
-
-    @Inject
     private AuthService authService;
 
     @Inject
@@ -54,13 +53,19 @@ public class AbstractMeliService {
      * @return a response from the remote end point.
      */
     protected HTTPResponse execute(HttpRequestBuilder httpRequestBuilder) {
+        LOGGER.info("Executing... " + httpRequestBuilder);
         HTTPRequest httpRequest = httpRequestBuilder.build();
 
         try {
+            LOGGER.info("Hiting... " + httpRequest.getURL());
             HTTPResponse httpResponse = this.urlFetchService.fetch(httpRequest);
+            LOGGER.info("Response code: " + httpResponse.getResponseCode() + " and " + new String(httpResponse.getContent()));
 
             if (httpResponse.getResponseCode() == 404 && httpRequestBuilder.containsParam("access_token")) {
+                LOGGER.info("Refreshing tokens");
+
                 this.authService.refreshToken();
+
                 httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
                 httpResponse = this.urlFetchService.fetch(httpRequest);
             }

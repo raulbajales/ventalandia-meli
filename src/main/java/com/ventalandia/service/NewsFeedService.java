@@ -15,6 +15,9 @@ public class NewsFeedService {
     @Inject
     private NewsFeedRepository newsFeedRepository;
 
+    @Inject
+    private SummaryRepository summaryRepository;
+
     private QuestionToNewsFeedTransformer questionToNewsFeedTransformer = new QuestionToNewsFeedTransformer();
 
     public void create(Question question) {
@@ -22,10 +25,33 @@ public class NewsFeedService {
         this.newsFeedRepository.add(feed);
 
         // TODO add some place where UI can ask for a summary of feeds
+        this.updateSummary(feed);
+    }
+
+    private void updateSummary(NewsFeed feed) {
+        Summary summary = this.summaryRepository.getByMeliUserId(feed.getUserId());
+
+        if (summary == null) {
+            summary = new Summary();
+            summary.setUserId(feed.getUserId());
+        }
+
+        if (feed.getType().equals(NewsType.QUESTION)) {
+            summary.incNewQuestions();
+        }
+        // else if (feed.getType().equals(NewsType.ITEM)) {
+        //
+        // }
+        this.summaryRepository.update(summary);
     }
 
     public Summary getSummary() {
-        return this.newsFeedRepository.getSummary(AuthContext.getToken().getMeliId());
+        Summary summary = this.summaryRepository.getByMeliUserId(AuthContext.getToken().getMeliId());
+        if (summary == null) {
+            summary = new Summary();
+            summary.setUserId(AuthContext.getToken().getMeliId());
+        }
+        return summary;
     }
 
 }

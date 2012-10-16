@@ -5,7 +5,6 @@ import java.util.List;
 import javax.jdo.Query;
 
 import com.google.inject.Inject;
-import com.ventalandia.api.Summary;
 import com.ventalandia.framework.persistence.JdoRepository;
 import com.ventalandia.framework.persistence.PersistenceManagerProvider;
 
@@ -46,15 +45,6 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
     @Override
     protected void afterAdd(NewsFeed newsFeed) {
 
-    }
-
-    public Summary getSummary(long userId) {
-        // stub implementation
-        Summary summary = new Summary();
-
-        summary.setNew_questions(3);
-
-        return summary;
     }
 
 }

@@ -17,6 +17,7 @@ import com.google.inject.Inject;
  * @author matias
  * 
  */
+@Deprecated
 public class HttpConnector {
 
     public static String apiUrl = "https://api.mercadolibre.com";

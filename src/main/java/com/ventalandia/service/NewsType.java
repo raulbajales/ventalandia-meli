@@ -7,6 +7,6 @@ package com.ventalandia.service;
  */
 public enum NewsType {
 
-    QUESTION, SELLING
+    QUESTION, SELLING, ITEM, ORDER
 
 }
