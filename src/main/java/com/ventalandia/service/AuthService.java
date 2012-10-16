@@ -87,7 +87,8 @@ public class AuthService {
                 this.memcacheService.put(key, this.gson.toJson(token));
 
                 return token;
-            } else { // it's a hash and there is no way to get a user id
+            }
+            else { // it's a hash and there is no way to get a user id
                 return null;
             }
         }
@@ -141,13 +142,14 @@ public class AuthService {
         catch (Exception e) {
             // do nothing
         }
-        
+
         if (persisted != null) {
             persisted.setAccess_token(token.getAccess_token());
             persisted.setRefresh_token(token.getRefresh_token());
             persisted.setExpires_in(token.getExpires_in());
             this.tokenRepository.update(persisted);
-        } else {
+        }
+        else {
             this.tokenRepository.update(token);
         }
     }
@@ -155,17 +157,6 @@ public class AuthService {
     private void replaceTokenOnCache(Token token) {
         this.tokenRepository.update(token);
         this.memcacheService.put(token.getMeliId(), this.gson.toJson(token));
-    }
-
-    // TODO it could be wrong. It should return the token and when the
-    // Ventalandia hits MELI API it should be refreshed.
-    public Token generateOfflineToken(long meliId) {
-        Token token = this.getToken(meliId);
-
-        // not sure about this line
-        // this.updateTokenValues(token);
-
-        return token;
     }
 
     private void updateTokenValues(Token token) {
