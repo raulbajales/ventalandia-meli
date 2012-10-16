@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import com.google.inject.Inject;
@@ -33,15 +34,13 @@ public class AuthServlet {
 
     @GET
     @Produces("text/html")
-    public Response get(String error, String code, String error_description) {
-
+    public Response get(@QueryParam("error") String error,@QueryParam("code") String code,@QueryParam("error_description") String error_description) {
         
         if (error != null) {
             logger.severe("There was an issue when you try to login: " + error_description);
             return Response.serverError().build();
         }
         else {
-
             logger.info("Code from MELI: " + code);
             String hash = this.authService.generateToken(code);
             logger.info("Generated hash: " + hash);
@@ -51,8 +50,6 @@ public class AuthServlet {
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("Set-Cookie", theCookie);
             return Response.ok(new Viewable("/", model)).build();
-
         }
     }
-
 }
