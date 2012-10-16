@@ -21,7 +21,7 @@ import com.ventalandia.service.NotificationReceiverService;
  * @author msulik
  * 
  */
-@Path("/")
+@Path("/meli/notifications")
 public class NotificationReceiverServlet {
 
     private static final Logger LOGGER = Logger.getLogger(NotificationReceiverServlet.class.getName());

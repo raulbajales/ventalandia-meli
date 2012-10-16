@@ -27,7 +27,7 @@ import com.ventalandia.view.domain.UserView;
  * @author german
  * 
  */
-@Path("/news")
+@Path("/api/notifications/news")
 public class NewsApiServlet {
 
     private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());

@@ -17,7 +17,7 @@ import com.ventalandia.meli.service.UserMeliService;
  * @author matias
  * 
  */
-@Path("/users")
+@Path("/api/users")
 @Produces(MediaType.TEXT_PLAIN)
 public class UsersApiServlet {
 

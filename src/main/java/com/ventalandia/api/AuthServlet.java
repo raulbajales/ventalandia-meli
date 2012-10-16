@@ -1,73 +1,58 @@
 package com.ventalandia.api;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import com.sun.jersey.api.view.Viewable;
 import com.ventalandia.service.AuthService;
-import com.ventalandia.view.WebappView;
 import com.ventalandia.view.filter.WebappSecurityFilter;
 
 /**
  * 
- * @author matias
+ * @author matias, german
  * 
  */
-@Singleton
-public class AuthServlet extends ApiServlet {
+@Path("/meli/auth")
+public class AuthServlet {
 
-    private static final long serialVersionUID = 6791535685445969788L;
+    private static final Logger logger = Logger.getLogger(AuthServlet.class.getName());
 
-    private static final Logger LOGGER = Logger.getLogger(AuthServlet.class.getName());
-
-    private static final Object EMPTY_STRING = "";
-
-    @Inject
-    private WebappView webappView;
-
-    @Inject
     private AuthService authService;
 
     @Inject
-    private Gson gson;
-
-    @Override
-    protected Object get(HttpServletRequest req, HttpServletResponse resp) {
-        return process(req, resp);
+    public AuthServlet(AuthService authService) {
+        this.authService = authService;
     }
 
-    @Override
-    protected Object post(HttpServletRequest req, HttpServletResponse resp) {
-        return process(req, resp);
-    }
+    @GET
+    @Produces("text/html")
+    public Response get(String error, String code, String error_description) {
 
-    protected Object process(HttpServletRequest req, HttpServletResponse resp) {
-        String error = req.getParameter("error");
+        
         if (error != null) {
-            return new ApiError("There was an issue when you try to login: " + req.getParameter("error_description"));
+            logger.severe("There was an issue when you try to login: " + error_description);
+            return Response.serverError().build();
         }
-        else if (req.getParameter("code") != null) {
-            LOGGER.info("Code from MELI: " + req.getParameter("code"));
-            String hash = this.authService.generateToken(req.getParameter("code"));
-            LOGGER.info("Generated hash: " + hash);
+        else {
 
-            try {
-                // FIXME: Set expires properly (a week/month after today?)
-                String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";                
-                resp.addHeader("Set-Cookie", theCookie);
-                resp.sendRedirect("/");
-            }
-            catch (Exception e) {
-                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return new ApiError(e.getMessage());
-            }
+            logger.info("Code from MELI: " + code);
+            String hash = this.authService.generateToken(code);
+            logger.info("Generated hash: " + hash);
+            
+            // FIXME: Set expires properly (a week/month after today?)
+            String theCookie = WebappSecurityFilter.VTD_TOKEN + "=" + hash + ";Path=/;expires=Sat, 02 May 2029 23:38:25 GMT;";
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("Set-Cookie", theCookie);
+            return Response.ok(new Viewable("/", model)).build();
+
         }
-        return EMPTY_STRING;
     }
 
 }
