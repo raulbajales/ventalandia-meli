@@ -24,6 +24,8 @@ public class NewsView {
 
     private ItemView item;
 
+    private long entityId;
+
     public NewsView() {
         super();
 
@@ -67,6 +69,14 @@ public class NewsView {
 
     public void setType(NewsType type) {
         this.type = type;
+    }
+
+    public void setEntityId(long entityId) {
+        this.entityId = entityId;
+    }
+
+    public long getEntityId() {
+        return entityId;
     }
 
 }
