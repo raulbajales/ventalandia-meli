@@ -54,13 +54,4 @@ public class AuthServiceTest extends MeliDomainTest {
         this.authService.getToken(userId);
     }
 
-    @Test
-    public void offline() throws Exception {
-        Token token = TokenHelper.create();
-        this.authService.addToken(token);
-
-        Token token2 = this.authService.generateOfflineToken(token.getMeliId());
-
-    }
-
 }

@@ -47,7 +47,7 @@ public abstract class JdoRepository<T> implements Repository<T> {
     }
 
     /**
-     * Template method. Add here what you want to do after an Entity is presisted.
+     * Template method. Add here what you want to do after an Entity is persisted.
      * @param t a recently persisted entity
      */
     protected void afterAdd(T t) {

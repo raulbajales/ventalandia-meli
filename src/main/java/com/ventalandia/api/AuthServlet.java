@@ -16,13 +16,14 @@ import com.ventalandia.view.filter.WebappSecurityFilter;
 
 /**
  * 
- * @author matias, german
+ * @author matias
+ * @author german
  * 
  */
 @Path("/meli/auth")
 public class AuthServlet {
 
-    private static final Logger logger = Logger.getLogger(AuthServlet.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AuthServlet.class.getName());
 
     private AuthService authService;
 
@@ -34,15 +35,14 @@ public class AuthServlet {
     @GET
     @Produces("text/html")
     public Response get(@QueryParam("error") String error, @QueryParam("code") String code, @QueryParam("error_description") String error_description) {
-
         if (error != null) {
-            logger.severe("There was an issue when you try to login: " + error_description);
+            LOGGER.severe("There was an issue when you try to login: " + error_description);
             return Response.serverError().build();
         }
         else {
-            logger.info("Code from MELI: " + code);
+            LOGGER.info("Code from MELI: " + code);
             String hash = this.authService.generateToken(code);
-            logger.info("Generated hash: " + hash);
+            LOGGER.info("Generated hash: " + hash);
             // FIXME: Set expires properly (a week/month after today?)
             NewCookie newCookie = new NewCookie(WebappSecurityFilter.VTD_TOKEN, hash,"/","","",10000,false);
             return Response.seeOther(UriBuilder.fromUri("/").build()).cookie(newCookie).build();

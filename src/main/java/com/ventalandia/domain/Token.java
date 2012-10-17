@@ -34,7 +34,7 @@ public class Token implements StoreCallback {
     private String access_token;
 
     /**
-     * Time-to-live.
+     * Time-to-live in seconds.
      */
     @Persistent
     private Long expires_in;
