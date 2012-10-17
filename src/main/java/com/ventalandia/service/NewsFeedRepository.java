@@ -62,6 +62,7 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
 		Query query = this.createQuery();
 		query.setFilter("key == aKey");
 		query.setFilter("userId == aMeliId");
+		query.declareParameters(Key.class.getName() +" aKey");
 		query.declareParameters("Long aMeliId");
 		List<NewsFeed> list = this.list(query, key, meliUserId);
 		
