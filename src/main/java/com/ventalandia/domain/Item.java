@@ -55,6 +55,10 @@ public class Item {
     @Persistent
     private String meliId;
 
+    @Persistent
+    private String pictureUrl;
+    
+    
     public User getSeller() {
         return seller;
     }
@@ -154,6 +158,14 @@ public class Item {
 	public Key getKey() {
 		return key;
 	}
-    
-    
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+   
 }

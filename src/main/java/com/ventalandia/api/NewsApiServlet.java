@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
@@ -11,7 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import com.ventalandia.domain.Item;
+import com.ventalandia.domain.Question;
+import com.ventalandia.domain.User;
+import com.ventalandia.framework.util.MapBuilder;
 import com.ventalandia.meli.pesistence.ItemRepository;
+import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.pesistence.UserRepository;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NewsFeed;
@@ -31,78 +37,102 @@ import com.ventalandia.view.domain.UserView;
 @Path("/api/news")
 public class NewsApiServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());
 
-    private NewsFeedRepository newsFeedRepository;
+	private NewsFeedRepository newsFeedRepository;
 
-    private UserRepository userRepository;
+	private UserRepository userRepository;
 
-    private ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 
-    private NewsFeedService newsFeedService;
+	private QuestionRepository questionRepository;
 
-    @Inject
-    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService) {
-        this.newsFeedRepository = newsFeedRepository;
-        this.userRepository = userRepository;
-        this.itemRepository = itemRepository;
-        this.newsFeedService = newsFeedService;
-    }
+	private NewsFeedService newsFeedService;
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews() {
-        return getNews(0, 10);
-    }
+	@Inject
+	public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
+		this.newsFeedRepository = newsFeedRepository;
+		this.userRepository = userRepository;
+		this.itemRepository = itemRepository;
+		this.newsFeedService = newsFeedService;
+		this.questionRepository = questionRepository;
+	}
 
-    @GET
-    @Path("/{fromPage}/{offset}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@PathParam("fromPage")Integer fromPage, @PathParam("offset")Integer offset) {
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<NewsView> getNews() {
+		return getNews(0, 10);
+	}
 
-        LOGGER.info("getting news...");
-        long meliUserId = AuthContext.getToken().getMeliId();
+	@GET
+	@Path("/{fromPage}/{offset}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<NewsView> getNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset) {
 
-        LOGGER.info("Meli User Id: " + meliUserId);
+		LOGGER.info("getting news...");
+		long meliUserId = AuthContext.getToken().getMeliId();
 
-        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, fromPage, offset);
-        List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
+		LOGGER.info("Meli User Id: " + meliUserId);
 
-        for (NewsFeed newsFeed : newsFeeds) {
+		List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, fromPage, offset);
+		List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
-            NewsView news = new NewsView();
-            news.setId(newsFeed.getKey().getId());
-            news.setDate(newsFeed.getDate());
-            news.setType(newsFeed.getType());
-            news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
-            news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
+		for (NewsFeed newsFeed : newsFeeds) {
 
-            feeds.add(news);
-        }
+			NewsView news = new NewsView();
+			news.setId(newsFeed.getKey().getId());
+			news.setDate(newsFeed.getDate());
+			news.setType(newsFeed.getType());
+			news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
+			news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
 
-        return feeds;
+			feeds.add(news);
+		}
 
-    }
+		return feeds;
 
-    @GET
-    @Path("summary")
-    @Produces(MediaType.APPLICATION_JSON)
-    public SummaryView summary() {
-        LOGGER.info("getting summary...");
-        Summary summary = this.newsFeedService.getSummary();
+	}
 
-        return new SummaryView(summary);
-    }
+	@GET
+	@Path("summary")
+	@Produces(MediaType.APPLICATION_JSON)
+	public SummaryView summary() {
+		LOGGER.info("getting summary...");
+		Summary summary = this.newsFeedService.getSummary();
 
-    @GET
-    @Path("/{newsId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object getNews(@PathParam("newsId") Long newsId) {
-        
-        LOGGER.info("getting newsId: " + newsId);
-        return "{\"item\": {\"desc\": \"una bici loca\",\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"buyer\": {\"fullName\": \"Jose Lagarcha\","
-                + "\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"question\": \"te quedan en color rojo?\"}";
+		return new SummaryView(summary);
+	}
 
-    }
+	@GET
+	@Path("/{newsId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Object getNews(@PathParam("newsId") Long newsId) {
+
+		LOGGER.info("getting newsId: " + newsId);
+		NewsFeed newsFeed = newsFeedRepository.get(newsId);
+		Map<String, Object> newsDetail = MapBuilder.build();
+
+		switch (newsFeed.getType()) {
+
+		case QUESTION:
+
+			Item item = itemRepository.getByMeliId(newsFeed.getItemId());
+			User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
+			Question question = questionRepository.getByMeliId(newsFeed.getEntityId());
+			Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
+			Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName());
+
+			newsDetail.put("item", itemMap);
+			newsDetail.put("buyer", buyerMap);
+			newsDetail.put("question", question.getText());
+			break;
+
+		default:
+			break;
+		}
+
+		return newsDetail;
+
+	}
 
 }
