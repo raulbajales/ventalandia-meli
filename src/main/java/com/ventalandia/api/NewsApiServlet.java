@@ -113,7 +113,7 @@ public class NewsApiServlet {
 		NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId,meliUserId);
 		
 		if(newsFeed == null){
-			return null;
+			return "error";
 		}
 		
 		Map<String, Object> newsDetail = MapBuilder.build();
