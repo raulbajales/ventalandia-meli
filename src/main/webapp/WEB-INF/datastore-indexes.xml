@@ -4,6 +4,7 @@
     <datastore-index kind="NewsFeed" ancestor="false" source="manual">
         <property name="userId" direction="asc"/>
         <property name="date" direction="desc"/>
+        <property name="key" direction="asc"/>
     </datastore-index>
     
 </datastore-indexes>

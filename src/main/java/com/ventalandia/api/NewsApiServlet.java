@@ -109,7 +109,13 @@ public class NewsApiServlet {
 	public Object getNews(@PathParam("newsId") Long newsId) {
 
 		LOGGER.info("getting newsId: " + newsId);
-		NewsFeed newsFeed = newsFeedRepository.get(newsId);
+		Long meliUserId = AuthContext.getToken().getMeliId();
+		NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId,meliUserId);
+		
+		if(newsFeed == null){
+			return null;
+		}
+		
 		Map<String, Object> newsDetail = MapBuilder.build();
 
 		switch (newsFeed.getType()) {
