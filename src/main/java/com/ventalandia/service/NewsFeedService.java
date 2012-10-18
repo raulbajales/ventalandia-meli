@@ -54,4 +54,11 @@ public class NewsFeedService {
         return summary;
     }
 
+    public void reset(Summary summary) {
+        if (summary != null && summary.getKey() != null) {
+            summary.setNewQuestions(0);
+            this.summaryRepository.update(summary);
+        }
+    }
+
 }

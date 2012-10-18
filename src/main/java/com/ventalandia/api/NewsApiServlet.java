@@ -98,11 +98,18 @@ public class NewsApiServlet {
     @GET
     @Path("summary")
     @Produces(MediaType.APPLICATION_JSON)
-    public SummaryView summary() {
+    public SummaryView summary(@PathParam("reset")
+    Boolean reset) {
         LOGGER.info("getting summary...");
         Summary summary = this.newsFeedService.getSummary();
 
-        return new SummaryView(summary);
+        SummaryView summaryView = new SummaryView(summary);
+
+        if (reset != null && reset) {
+            this.newsFeedService.reset(summary);
+        }
+
+        return summaryView;
     }
 
     @GET
