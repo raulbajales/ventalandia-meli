@@ -108,7 +108,7 @@ public class NewsApiServlet {
 
     @GET
     @Path("/{newsId}")
-    @Produces("application/json;charset=UTF-8")
+    @Produces(MediaType.APPLICATION_JSON)
     public Object getNews(@PathParam("newsId")
     Long newsId) throws UnsupportedEncodingException {
 
@@ -130,7 +130,7 @@ public class NewsApiServlet {
             User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
             Question question = questionRepository.getByMeliId(newsFeed.getEntityId());
             Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
-            Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getNickName());
+            Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
             
             newsDetail.put("item", itemMap);
             newsDetail.put("buyer", buyerMap);
