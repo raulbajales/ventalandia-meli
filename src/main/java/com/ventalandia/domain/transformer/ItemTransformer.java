@@ -1,9 +1,12 @@
 package com.ventalandia.domain.transformer;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import com.ventalandia.domain.Currency;
 import com.ventalandia.domain.Item;
 import com.ventalandia.domain.User;
+import com.ventalandia.meli.api.notification.Picture;
 import com.ventalandia.service.CurrencyService;
 import com.ventalandia.service.UserService;
 
@@ -41,6 +44,10 @@ public class ItemTransformer implements Transformer<com.ventalandia.meli.api.not
         item.setSubTitle(itemAPI.getSubtitle());
         item.setTitle(itemAPI.getTitle());
         item.setMeliId(itemAPI.getId());
+        List<Picture> pictures = itemAPI.getPictures();
+        if(pictures!=null && pictures.size()>0){
+        	item.setPictureUrl(pictures.get(0).getUrl());
+        }
 
         return item;
     }

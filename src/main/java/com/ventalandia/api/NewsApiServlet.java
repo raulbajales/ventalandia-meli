@@ -2,6 +2,7 @@ package com.ventalandia.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
@@ -11,7 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Inject;
+import com.ventalandia.domain.Item;
+import com.ventalandia.domain.Question;
+import com.ventalandia.domain.User;
+import com.ventalandia.framework.util.MapBuilder;
 import com.ventalandia.meli.pesistence.ItemRepository;
+import com.ventalandia.meli.pesistence.QuestionRepository;
 import com.ventalandia.meli.pesistence.UserRepository;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NewsFeed;
@@ -39,14 +45,17 @@ public class NewsApiServlet {
 
     private ItemRepository itemRepository;
 
+    private QuestionRepository questionRepository;
+
     private NewsFeedService newsFeedService;
 
     @Inject
-    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService) {
+    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
         this.newsFeedRepository = newsFeedRepository;
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.newsFeedService = newsFeedService;
+        this.questionRepository = questionRepository;
     }
 
     @GET
@@ -58,7 +67,9 @@ public class NewsApiServlet {
     @GET
     @Path("/{fromPage}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@PathParam("fromPage")Integer fromPage, @PathParam("offset")Integer offset) {
+    public List<NewsView> getNews(@PathParam("fromPage")
+    Integer fromPage, @PathParam("offset")
+    Integer offset) {
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
@@ -74,7 +85,6 @@ public class NewsApiServlet {
             news.setId(newsFeed.getKey().getId());
             news.setDate(newsFeed.getDate());
             news.setType(newsFeed.getType());
-            news.setEntityId(newsFeed.getEntityId());
             news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
             news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
 
@@ -98,11 +108,39 @@ public class NewsApiServlet {
     @GET
     @Path("/{newsId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Object getNews(@PathParam("newsId") Long newsId) {
-        
+    public Object getNews(@PathParam("newsId")
+    Long newsId) {
+
         LOGGER.info("getting newsId: " + newsId);
-        return "{\"item\": {\"desc\": \"una bici loca\",\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"buyer\": {\"fullName\": \"Jose Lagarcha\","
-                + "\"pictureUrl\": \"http://lalala.com/sarasa.jpg\" },\"question\": \"te quedan en color rojo?\"}";
+        Long meliUserId = AuthContext.getToken().getMeliId();
+        NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId, meliUserId);
+
+        if (newsFeed == null) {
+            return "error";
+        }
+
+        Map<String, Object> newsDetail = MapBuilder.build();
+
+        switch (newsFeed.getType()) {
+
+        case QUESTION:
+
+            Item item = itemRepository.getByMeliId(newsFeed.getItemId());
+            User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
+            Question question = questionRepository.getByMeliId(newsFeed.getEntityId());
+            Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
+            Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName());
+
+            newsDetail.put("item", itemMap);
+            newsDetail.put("buyer", buyerMap);
+            newsDetail.put("question", question.getText());
+            break;
+
+        default:
+            break;
+        }
+
+        return newsDetail;
 
     }
 

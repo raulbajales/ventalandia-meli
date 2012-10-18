@@ -2,17 +2,21 @@ package com.ventalandia.json;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ventalandia.framework.util.MapBuilder;
 import com.ventalandia.meli.api.notification.MeliNotification;
 import com.ventalandia.view.domain.NewsView;
 
 public class ToJsonTest {
 
+	private ObjectMapper mapper = new ObjectMapper();
+	
     @Test
     public void testNewsViewToJson(){
         
@@ -20,7 +24,6 @@ public class ToJsonTest {
         newsView.setId(1004);
         newsView.setDate(new Date(1349963011745l));
         
-        ObjectMapper mapper = new ObjectMapper();
         try{
             String json = mapper.writeValueAsString(newsView);
             String jsonExpected ="{\"id\":1004,\"buyer\":null,\"date\":\"2012-10-11T10:43:31.745\",\"type\":null,\"item\":null}";
@@ -36,10 +39,7 @@ public class ToJsonTest {
     @Test
     public void testJsonToNotification(){
         
-        
-        ObjectMapper mapper = new ObjectMapper();
-
-        try{
+    	try{
             String jsonValue ="{\"user_id\": 1234, \"resource\": \"/questions/139876\", \"topic\": \"questions\", \"received\": \"2011-10-19T16:38:34.425Z\", \"sent\" : \"2011-10-19T16:40:34.425Z\",\"application_id\": 5678}";
             MeliNotification meliNotification = mapper.readValue(jsonValue,MeliNotification.class);
             Assert.assertEquals(1234, meliNotification.getUser_id());
@@ -63,5 +63,27 @@ public class ToJsonTest {
         }
         
     }
+    
+    @Test
+    public void testToJsonAlternative() throws Exception {
+    	    	
+    	Map<String,Object> newsDetail = MapBuilder.build();
+    	Map<String,Object> item = MapBuilder.build().putValue("desc", "una bici loca").putValue("pictureUrl", "http://lalala.com/sarasa.jpg");
+    	Map<String,Object> buyer = MapBuilder.build().putValue("fullName", "Jose Lagarcha").putValue("pictureUrl", "http://lalala.com/sarasa.jpg");
+    	
+    	newsDetail.put("item", item);
+    	newsDetail.put("buyer", buyer);
+    	newsDetail.put("question", "te quedan en rojo?");
+    	
+    	String generatedJson = mapper.writeValueAsString(newsDetail);
+		String expected = "{\"item\":{\"desc\":\"una bici loca\",\"pictureUrl\":\"http://lalala.com/sarasa.jpg\"},\"buyer\":{\"pictureUrl\":\"http://lalala.com/sarasa.jpg\",\"fullName\":\"Jose Lagarcha\"}"+
+    		",\"question\":\"te quedan en rojo?\"}";
+		
+		
+		System.out.println(generatedJson);
+		Assert.assertEquals(expected , generatedJson);
+    	
+    	
+	}
     
 }
