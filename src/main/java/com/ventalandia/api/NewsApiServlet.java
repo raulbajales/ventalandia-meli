@@ -108,7 +108,7 @@ public class NewsApiServlet {
 
     @GET
     @Path("/{newsId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces("application/json;charset=UTF-8")
     public Object getNews(@PathParam("newsId")
     Long newsId) throws UnsupportedEncodingException {
 
