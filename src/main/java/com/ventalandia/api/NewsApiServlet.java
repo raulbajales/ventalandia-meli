@@ -108,9 +108,9 @@ public class NewsApiServlet {
 
     @GET
     @Path("/{newsId}")
-    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON)
     public Object getNews(@PathParam("newsId")
-    Long newsId) {
+    Long newsId) throws UnsupportedEncodingException {
 
         LOGGER.info("getting newsId: " + newsId);
         Long meliUserId = AuthContext.getToken().getMeliId();
@@ -134,7 +134,7 @@ public class NewsApiServlet {
 
             newsDetail.put("item", itemMap);
             newsDetail.put("buyer", buyerMap);
-            newsDetail.put("question", question.getText());
+            newsDetail.put("question", new String(question.getText().getBytes(),"UTF-8"));
             break;
 
         default:
