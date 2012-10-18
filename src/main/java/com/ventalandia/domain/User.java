@@ -33,6 +33,9 @@ public class User {
 
     @Persistent
     private Date registrationDate;
+    
+    @Persistent
+    private String pictureUrl;
 
     public long getMeliId() {
         return meliId;
@@ -69,6 +72,14 @@ public class User {
 	public Key getKey() {
 		return key;
 	}
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
     
 
 }

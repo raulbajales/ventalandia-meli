@@ -24,6 +24,7 @@ public class UserTransformer implements Transformer<User, com.ventalandia.domain
         result.setNickName(user.getNickname());
         result.setRegistrationDate(user.getRegistration_date());
         result.setCountry(country);
+        result.setPictureUrl(user.getLogo());
 
         return result;
     }
