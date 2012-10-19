@@ -98,13 +98,13 @@ public class NewsApiServlet {
 	@GET
 	@Path("summary")
 	@Produces(MediaType.APPLICATION_JSON)
-	public SummaryView summary(@DefaultValue("false") @QueryParam("reset") Boolean reset) {
+	public SummaryView summary(@DefaultValue("false") @QueryParam("reset") boolean reset) {
 		LOGGER.info("Getting summary. Reset was: " + reset);
 		Summary summary = this.newsFeedService.getSummary();
 
 		SummaryView summaryView = new SummaryView(summary);
 
-		if (reset != null && reset) {
+		if (reset) {
 			this.newsFeedService.reset(summary);
 		}
 
