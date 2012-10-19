@@ -1,6 +1,5 @@
 package com.ventalandia.api;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +111,7 @@ public class NewsApiServlet {
 
 	@GET
 	@Path("/{newsId}")
-	@Produces(MediaType.APPLICATION_JSON+ ";charset=UTF-8")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Object getNews(@PathParam("newsId") Long newsId) {
 
 		LOGGER.info("getting newsId: " + newsId);
