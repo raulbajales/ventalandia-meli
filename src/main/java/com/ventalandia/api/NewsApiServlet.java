@@ -38,118 +38,114 @@ import com.ventalandia.view.domain.UserView;
 @Path("/api/news")
 public class NewsApiServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(NewsApiServlet.class.getName());
 
-    private NewsFeedRepository newsFeedRepository;
+	private NewsFeedRepository newsFeedRepository;
 
-    private UserRepository userRepository;
+	private UserRepository userRepository;
 
-    private ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 
-    private QuestionRepository questionRepository;
+	private QuestionRepository questionRepository;
 
-    private NewsFeedService newsFeedService;
+	private NewsFeedService newsFeedService;
 
-    @Inject
-    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
-        this.newsFeedRepository = newsFeedRepository;
-        this.userRepository = userRepository;
-        this.itemRepository = itemRepository;
-        this.newsFeedService = newsFeedService;
-        this.questionRepository = questionRepository;
-    }
+	@Inject
+	public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
+		this.newsFeedRepository = newsFeedRepository;
+		this.userRepository = userRepository;
+		this.itemRepository = itemRepository;
+		this.newsFeedService = newsFeedService;
+		this.questionRepository = questionRepository;
+	}
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews() {
-        return getNews(0, 10);
-    }
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<NewsView> getNews() {
+		return getNews(0, 10);
+	}
 
-    @GET
-    @Path("/{fromPage}/{offset}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@PathParam("fromPage")
-    Integer fromPage, @PathParam("offset")
-    Integer offset) {
+	@GET
+	@Path("/{fromPage}/{offset}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<NewsView> getNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset) {
 
-        LOGGER.info("getting news...");
-        long meliUserId = AuthContext.getToken().getMeliId();
+		LOGGER.info("getting news...");
+		long meliUserId = AuthContext.getToken().getMeliId();
 
-        LOGGER.info("Meli User Id: " + meliUserId);
+		LOGGER.info("Meli User Id: " + meliUserId);
 
-        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, fromPage, offset);
-        List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
+		List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, fromPage, offset);
+		List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
-        for (NewsFeed newsFeed : newsFeeds) {
+		for (NewsFeed newsFeed : newsFeeds) {
 
-            NewsView news = new NewsView();
-            news.setId(newsFeed.getKey().getId());
-            news.setDate(newsFeed.getDate());
-            news.setType(newsFeed.getType());
-            news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
-            news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
+			NewsView news = new NewsView();
+			news.setId(newsFeed.getKey().getId());
+			news.setDate(newsFeed.getDate());
+			news.setType(newsFeed.getType());
+			news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
+			news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
 
-            feeds.add(news);
-        }
+			feeds.add(news);
+		}
 
-        return feeds;
+		return feeds;
 
-    }
+	}
 
-    @GET
-    @Path("summary")
-    @Produces(MediaType.APPLICATION_JSON)
-    public SummaryView summary(@PathParam("reset")
-    Boolean reset) {
-        LOGGER.info("Getting summary. Reset was: " + reset);
-        Summary summary = this.newsFeedService.getSummary();
+	@GET
+	@Path("summary")
+	@Produces(MediaType.APPLICATION_JSON)
+	public SummaryView summary(@PathParam("reset") Boolean reset) {
+		LOGGER.info("Getting summary. Reset was: " + reset);
+		Summary summary = this.newsFeedService.getSummary();
 
-        SummaryView summaryView = new SummaryView(summary);
+		SummaryView summaryView = new SummaryView(summary);
 
-        if (reset != null && reset) {
-            this.newsFeedService.reset(summary);
-        }
+		if (reset != null && reset) {
+			this.newsFeedService.reset(summary);
+		}
 
-        return summaryView;
-    }
+		return summaryView;
+	}
 
-    @GET
-    @Path("/{newsId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object getNews(@PathParam("newsId")
-    Long newsId) throws UnsupportedEncodingException {
+	@GET
+	@Path("/{newsId}")
+	@Produces(MediaType.APPLICATION_JSON+ ";charset=UTF-8")
+	public Object getNews(@PathParam("newsId") Long newsId) {
 
-        LOGGER.info("getting newsId: " + newsId);
-        Long meliUserId = AuthContext.getToken().getMeliId();
-        NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId, meliUserId);
+		LOGGER.info("getting newsId: " + newsId);
+		Long meliUserId = AuthContext.getToken().getMeliId();
+		NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId, meliUserId);
 
-        if (newsFeed == null) {
-            return "error";
-        }
+		if (newsFeed == null) {
+			return "error";
+		}
 
-        Map<String, Object> newsDetail = MapBuilder.build();
+		Map<String, Object> newsDetail = MapBuilder.build();
 
-        switch (newsFeed.getType()) {
+		switch (newsFeed.getType()) {
 
-        case QUESTION:
+		case QUESTION:
 
-            Item item = itemRepository.getByMeliId(newsFeed.getItemId());
-            User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
-            Question question = questionRepository.getByMeliId(newsFeed.getEntityId());
-            Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
-            Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
-            
-            newsDetail.put("item", itemMap);
-            newsDetail.put("buyer", buyerMap);
-            newsDetail.put("question",question.getText());
-            break;
+			Item item = itemRepository.getByMeliId(newsFeed.getItemId());
+			User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
+			Question question = questionRepository.getByMeliId(newsFeed.getEntityId());
+			Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
+			Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
 
-        default:
-            break;
-        }
+			newsDetail.put("item", itemMap);
+			newsDetail.put("buyer", buyerMap);
+			newsDetail.put("question", question.getText());
+			break;
 
-        return newsDetail;
+		default:
+			break;
+		}
 
-    }
-    
+		return newsDetail;
+
+	}
+
 }
