@@ -8,6 +8,7 @@ import com.ventalandia.api.DevSupportServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
 import com.ventalandia.api.NewsApiServlet;
+import com.ventalandia.api.AnswersApiServlet;
 import com.ventalandia.api.UsersApiServlet;
 import com.ventalandia.filter.ApiSecurityFilter;
 import com.ventalandia.filter.PersistenceManagerFilter;
@@ -42,6 +43,7 @@ public class VentalandiaServletModule extends JerseyServletModule {
         // api
         serve("/api/test").with(ApiServlet.class);
         bind(NewsApiServlet.class);
+        bind(AnswersApiServlet.class);
         
         // serve("/api/users/me").with(UserApiServlet.class);
         serve("/*").with(GuiceContainer.class);
