@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
@@ -112,8 +111,7 @@ public class HttpRequestBuilder {
      */
     public HTTPRequest build() {
         try {
-            FetchOptions fetchOptions = FetchOptions.Builder.followRedirects();
-            HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod, fetchOptions);
+            HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod);
 
             for (HTTPHeader header : this.headers) {
                 request.addHeader(header);
