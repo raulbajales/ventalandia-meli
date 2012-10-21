@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
+import com.ventalandia.api.AnswersApiServlet;
 
 /**
  * 
@@ -103,6 +105,8 @@ public class HttpRequestBuilder {
         return this;
     }
 
+    private static final Logger LOGGER = Logger.getLogger(HttpRequestBuilder.class.getName());
+    
     /**
      * Creates a new instance of a {@link HTTPRequest}. Every time you invoke
      * this method you get a new Instance.
@@ -118,6 +122,7 @@ public class HttpRequestBuilder {
             }
 
             if (this.body != null && this.body.length() > 0) {
+                LOGGER.info("setting body " + this.body);
                 request.setPayload(this.body.getBytes());
             }
 
@@ -128,6 +133,14 @@ public class HttpRequestBuilder {
         }
     }
 
+    /**
+     * Creates a full url (uri + path + query string) based on previously
+     * defined options.</br>
+     * 
+     * This definition follows this format: http://spect/path?params where
+     * parameters it's a pair of key=value option.
+     * 
+     */
     private String createSpec() {
         StringBuilder builder = new StringBuilder();
 
