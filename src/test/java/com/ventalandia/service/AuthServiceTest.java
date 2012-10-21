@@ -39,7 +39,9 @@ public class AuthServiceTest extends MeliDomainTest {
 
     @Test
     public void hash() throws Exception {
+    	
         Token token = TokenHelper.create();
+        this.tokenRepository.add(token);
         String hash = this.authService.addToken(token);
 
         Token tokenFromCache = this.authService.getToken(hash);

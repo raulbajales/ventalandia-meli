@@ -26,7 +26,7 @@ public class ToJsonTest {
         
         try{
             String json = mapper.writeValueAsString(newsView);
-            String jsonExpected ="{\"id\":1004,\"buyer\":null,\"date\":\"2012-10-11T10:43:31.745\",\"type\":null,\"item\":null}";
+            String jsonExpected ="{\"id\":1004,\"buyer\":null,\"date\":\"2012-10-11T10:43:31.745\",\"type\":null,\"item\":null,\"entityId\":0}";
             Assert.assertEquals(jsonExpected , json);
             
         }catch(Exception e){
