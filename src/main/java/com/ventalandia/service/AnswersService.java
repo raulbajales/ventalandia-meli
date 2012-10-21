@@ -26,9 +26,13 @@ public class AnswersService {
 
         Question question = this.questionRepository.getByMeliId(questionId);
 
+        if (question.getAnswer() != null) {
+            throw new RuntimeException("The question was answered: " + question);
+        }
+        
         Answer answer = new Answer();
         answer.setCreationDate(new Date());
-        answer.setStatus("ACTIVE"); // check status
+        answer.setStatus("ACTIVE"); // TODO check status
         answer.setText(text);
 
         question.setAnswer(answer);
