@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
-import com.ventalandia.api.AnswersApiServlet;
 
 /**
  * 
@@ -106,7 +106,7 @@ public class HttpRequestBuilder {
     }
 
     private static final Logger LOGGER = Logger.getLogger(HttpRequestBuilder.class.getName());
-    
+
     /**
      * Creates a new instance of a {@link HTTPRequest}. Every time you invoke
      * this method you get a new Instance.
@@ -115,7 +115,11 @@ public class HttpRequestBuilder {
      */
     public HTTPRequest build() {
         try {
-            HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod);
+            FetchOptions fetchOptions = FetchOptions.Builder.withDefaults();
+            fetchOptions.doNotValidateCertificate();
+            fetchOptions.setDeadline(60D);
+
+            HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod, fetchOptions);
 
             for (HTTPHeader header : this.headers) {
                 request.addHeader(header);

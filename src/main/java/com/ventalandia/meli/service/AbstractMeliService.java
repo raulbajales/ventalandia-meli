@@ -1,11 +1,8 @@
 package com.ventalandia.meli.service;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
@@ -70,21 +67,7 @@ public class AbstractMeliService {
                 this.authService.refreshToken();
 
                 httpRequest = httpRequestBuilder.replaceParam("access_token", AuthContext.getToken().getRefresh_token()).build();
-                if (shouldBeAsync(httpRequest)) {
-                    Future<HTTPResponse> future = this.urlFetchService.fetchAsync(httpRequest);
-                    try {
-                        httpResponse = future.get();
-                    }
-                    catch (InterruptedException e) {
-                        throw new RuntimeException("Error executing an HTTP call: " + httpRequest.getURL(), e);
-                    }
-                    catch (ExecutionException e) {
-                        throw new RuntimeException("Error executing an HTTP call: " + httpRequest.getURL(), e);
-                    }
-                }
-                else {
-                    httpResponse = this.urlFetchService.fetch(httpRequest);
-                }
+                httpResponse = this.urlFetchService.fetch(httpRequest);
             }
 
             return httpResponse;
@@ -92,10 +75,6 @@ public class AbstractMeliService {
         catch (IOException e) {
             throw new RuntimeException("Error executing an HTTP call: " + httpRequest.getURL(), e);
         }
-    }
-
-    private boolean shouldBeAsync(HTTPRequest httpRequest) {
-        return (httpRequest.getMethod().equals(HTTPMethod.POST) || httpRequest.getMethod().equals(HTTPMethod.PUT)) && (httpRequest.getPayload() != null && httpRequest.getPayload().length > 0);
     }
 
     protected HttpRequestBuilder createJsonPost() {
