@@ -331,10 +331,13 @@ header {
 }
 
 .main-container .details {
-   width: 300px;
-   float: right;
-   min-height: 300px;
-   background: #E6E6FA;
+  position: fixed;
+  left: 733;
+  z-index: -1; 
+  width: 300px;
+  float: right;
+  min-height: 300px;
+  background: #E6E6FA;
 }
 
 .main-container .sidebar {
