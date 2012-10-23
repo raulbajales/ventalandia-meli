@@ -30,6 +30,7 @@ public class MeliQuestionService extends AbstractMeliService {
         String accessToken = AuthContext.getToken().getAccess_token();
         HttpRequestBuilder builder = this.createJsonPost().withPath("answers") //
                 .addParam("access_token", accessToken) //
+                .contentTypeAsJson() //
                 .body("{question_id: " + question_id +", text:\""+ text + "\"}");
 //                        this.gson.toJson(new AnswerBody(question_id, text)));
 

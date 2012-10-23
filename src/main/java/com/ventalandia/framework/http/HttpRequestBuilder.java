@@ -79,6 +79,10 @@ public class HttpRequestBuilder {
     public HttpRequestBuilder acceptJson() {
         return this.addHeader("Accept", "application/json");
     }
+    
+    public HttpRequestBuilder contentTypeAsJson() {
+        return this.addHeader("Content-Type", "application/json");
+    }
 
     public HttpRequestBuilder get() {
         this.httpMethod = HTTPMethod.GET;
