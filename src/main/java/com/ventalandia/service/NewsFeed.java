@@ -104,6 +104,10 @@ public class NewsFeed {
         return itemId;
     }
 
+    public Long getKeyId(){
+        return key!=null?key.getId():null;
+    }
+    
     @Override
     public String toString() {
         return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", userId=" + userId + ", buyerId=" + buyerId + ", itemId=" + itemId + "]";
