@@ -31,7 +31,7 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
     public List<Question> getQuestionsByItemAndUserMeliId(Key itemkey, Key buyerKey) {
 
         Query query = this.createQuery();
-        query.setFilter("item == itemkey && seller == buyerKey && read == false");
+        query.setFilter("item == itemkey && client == buyerKey");
         query.declareParameters(Key.class.getName()+" itemMeliId, "+Key.class.getName()+" buyerKey");
 
         return (List<Question>) query.execute(itemkey,buyerKey);
