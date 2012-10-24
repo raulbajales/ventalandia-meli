@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.ventalandia.domain.Answer;
 import com.ventalandia.domain.Item;
 import com.ventalandia.domain.Question;
 import com.ventalandia.domain.User;
@@ -99,6 +100,7 @@ public class NewsApiServletTest {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testNewsDetail() {
 
@@ -112,18 +114,27 @@ public class NewsApiServletTest {
         buyer.setMeliId(5678L);
         buyer.setNickName("TESTBUYER");
         Item item = new Item();
+        item.setMeliId("itemMeliId");
         item.setTitle("ItemTitle");
         Question question = new Question();
         question.setText("what is this?");
+        question.setMeliId(8888L);
+        Answer answer = new Answer();
+        answer.setText("It is Ventalandia MAN!!!");
+        question.setAnswer(answer);
 
         Mockito.when(itemRepository.getByMeliId("1234")).thenReturn(item);
         Mockito.when(userRepository.getByMeliId(5678L)).thenReturn(buyer);
-        Mockito.when(questionRepository.getByMeliId(4444l)).thenReturn(question);
+        Mockito.when(questionRepository.getQuestionsByItemAndUserMeliId("itemMeliId",5678L)).thenReturn(Arrays.asList(question));
 
         Mockito.when(newsFeedRepository.getByIdAndMeliId(12345L, UserHelper.MELI_USER_ID)).thenReturn(newsFeed);
 
         Map<String, Object> newsDetail = newsApiServlet.getNewsDetail(12345L);
-        Assert.assertEquals("what is this?", newsDetail.get("question"));
+        Map<String,Object> questions = (Map<String, Object>) newsDetail.get("questions");
+        Assert.assertNotNull(questions);
+        Map<String,Object> questionMap = (Map<String, Object>)questions.get("8888");
+        Assert.assertNotNull(questionMap);
+        Assert.assertEquals("what is this?", questionMap.get("text"));
         Assert.assertNotNull(newsDetail.get("buyer"));
         Assert.assertNotNull(newsDetail.get("item"));
 
