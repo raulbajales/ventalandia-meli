@@ -125,7 +125,7 @@ public class NewsApiServletTest {
 
         Mockito.when(itemRepository.getByMeliId("1234")).thenReturn(item);
         Mockito.when(userRepository.getByMeliId(5678L)).thenReturn(buyer);
-        Mockito.when(questionRepository.getQuestionsByItemAndUserMeliId("itemMeliId",5678L)).thenReturn(Arrays.asList(question));
+//        Mockito.when(questionRepository.getQuestionsByItemAndUserMeliId("itemMeliId",5678L)).thenReturn(Arrays.asList(question));
 
         Mockito.when(newsFeedRepository.getByIdAndMeliId(12345L, UserHelper.MELI_USER_ID)).thenReturn(newsFeed);
 

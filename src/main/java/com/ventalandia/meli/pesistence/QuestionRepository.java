@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.jdo.Query;
 
+import com.google.appengine.api.datastore.Key;
 import com.google.inject.Inject;
 import com.ventalandia.domain.Question;
 import com.ventalandia.framework.persistence.MeliJdoRepository;
@@ -27,13 +28,13 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
 	}
 	
     @SuppressWarnings("unchecked")
-    public List<Question> getQuestionsByItemAndUserMeliId(String itemMeliId, long userMeliId) {
+    public List<Question> getQuestionsByItemAndUserMeliId(Key itemkey, Key buyerKey) {
 
         Query query = this.createQuery();
-        query.setFilter("item.meliId == itemMeliId && seller.meliId == userMeliId && read == false");
-        query.declareParameters("String itemMeliId, "+Long.class.getName() + " userMeliId");
+        query.setFilter("item == itemkey && seller == buyerKey && read == false");
+        query.declareParameters(Key.class.getName()+" itemMeliId, "+Key.class.getName()+" buyerKey");
 
-        return (List<Question>) query.execute(itemMeliId,userMeliId);
+        return (List<Question>) query.execute(itemkey,buyerKey);
     }	
 
 }

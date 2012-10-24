@@ -130,7 +130,7 @@ public class NewsApiServlet {
 
             Item item = itemRepository.getByMeliId(newsFeed.getItemId());
             User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
-            List<Question> questions = questionRepository.getQuestionsByItemAndUserMeliId(item.getMeliId(), buyer.getMeliId());
+            List<Question> questions = questionRepository.getQuestionsByItemAndUserMeliId(item.getKey(), buyer.getKey());
             Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
             Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
             Map<String, Object> questionMaps = MapBuilder.build();
