@@ -52,7 +52,7 @@ public class AuthServiceTest extends MeliDomainTest {
 
     @Test(expected = RuntimeException.class)
     public void offline_failWhenUserIdIsNotCorrect() {
-        int userId = UserHelper.MELI_USER_ID;
+        long userId = UserHelper.MELI_USER_ID;
         this.authService.getToken(userId);
     }
 

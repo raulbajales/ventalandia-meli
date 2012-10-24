@@ -1,14 +1,12 @@
 package com.ventalandia.persistence;
 
-import java.util.List;
-
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 
 import org.junit.Test;
 
 import com.google.inject.Inject;
 import com.ventalandia.domain.DomainTest;
-import com.ventalandia.domain.helper.UserHelper;
 import com.ventalandia.service.NewsFeed;
 import com.ventalandia.service.NewsFeedRepository;
 import com.ventalandia.service.NewsType;

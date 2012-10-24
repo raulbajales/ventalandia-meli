@@ -11,7 +11,7 @@ import com.ventalandia.domain.User;
  */
 public class UserHelper {
 
-    public static final int MELI_USER_ID = 1234;
+    public static final long MELI_USER_ID = 1234;
 
     public static User create() {
         User user = new User();

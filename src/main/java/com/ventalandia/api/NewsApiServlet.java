@@ -1,6 +1,7 @@
 package com.ventalandia.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -109,14 +110,16 @@ public class NewsApiServlet {
     @GET
     @Path("/{newsId}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-    public Object getNewsDetail(@PathParam("newsId") Long newsId) {
+    public Map<String, Object> getNewsDetail(@PathParam("newsId") Long newsId) {
 
         LOGGER.info("getting newsId: " + newsId);
         Long meliUserId = AuthContext.getToken().getMeliId();
         NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId, meliUserId);
 
         if (newsFeed == null) {
-            return "error";
+            HashMap<String, Object> errorMap = new HashMap<String, Object>();
+            errorMap.put("error", "Inexistent news");
+            return errorMap;
         }
 
         Map<String, Object> newsDetail = MapBuilder.build();
