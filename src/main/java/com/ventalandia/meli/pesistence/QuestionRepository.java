@@ -30,7 +30,7 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
     public List<Question> getQuestionsByItemAndUserMeliId(String itemMeliId, long userMeliId) {
 
         Query query = this.createQuery();
-        query.setFilter("item.meliId == itemMeliId  seller.meliId == userMeliId && read == false");
+        query.setFilter("item.meliId == itemMeliId && seller.meliId == userMeliId && read == false");
         query.declareParameters("String itemMeliId, "+Long.class.getName() + " userMeliId");
 
         return (List<Question>) query.execute(itemMeliId,userMeliId);

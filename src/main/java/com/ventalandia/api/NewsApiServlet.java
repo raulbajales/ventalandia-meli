@@ -134,8 +134,12 @@ public class NewsApiServlet {
             Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
             Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
             Map<String, Object> questionMaps = MapBuilder.build();
+            
             for (Question question : questions) {
-                questionMaps.put(String.valueOf(question.getMeliId()), MapBuilder.build().putValue("text", question.getText()).putValue("answer", question.getAnswer()!=null?question.getAnswer().getText():null));
+                Map<String, Object> qMap = MapBuilder.build()
+                        .putValue("text", question.getText())
+                        .putValue("answer", question.getAnswer()!=null?question.getAnswer().getText():null);
+                questionMaps.put(String.valueOf(question.getMeliId()), qMap);
             }
 
             newsDetail.put("item", itemMap);
