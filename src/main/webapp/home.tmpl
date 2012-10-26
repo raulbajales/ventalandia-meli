@@ -7,7 +7,7 @@
 <html ng-app="vldApp" class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><!--<![endif]--><head>
   <meta charset="utf-8">
 
-  <title>ventalandia.com</title>
+  <title>Ventalandia</title>
   <meta name="description" content="Te ayuda a concretar mas ventas y mas rapido!, vende mas y mejor en Mercadolibre!">
 
   <meta name="viewport" content="width=device-width">
@@ -54,8 +54,15 @@
   </header>
 
   <div class="main-container">
-    <div class="main">
+    <div class="main" ng-controller="NewsController">
       <div class="newsfeed">
+        <div ng-repeat="entry in newsfeed">
+          <p>id: {{entry.id}}</p>
+          <p>type: {{entry.type}}</p>
+          <p>buyer: {{entry.buyer.nickname}}</p>
+          <p>title: {{entry.item.title}}</p>
+          <br>
+        </div>
       </div>
       <div class="details">
       </div>

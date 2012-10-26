@@ -322,6 +322,7 @@ header {
    width: 670px;
    float: right;
    min-height: 500px;
+   margin-top: 40px; 
 }
 
 .main-container .newsfeed {
