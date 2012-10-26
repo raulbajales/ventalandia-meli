@@ -312,34 +312,34 @@ header {
 }
 
 .main-container {
-  width: 850px;
+  width: 900px;
   overflow: auto;  
   margin-left:auto;
   margin-right:auto;
 }
 
 .main-container .main {
-   width: 670px;
+   width: 715px;
    float: right;
    min-height: 500px;
-   margin-top: 40px; 
 }
 
 .main-container .newsfeed {
    width: 370px;
    float: left;
    min-height: 300px;
+   margin-top: 47px; 
 }
 
 .main-container .details {
   position: fixed;
-  left: 734;
   z-index: -1; 
-  width: 300px;
+  width: 317px;
   height: 100%;
   float: right;
   min-height: 300px;
   background: #E6E6FA;
+  margin-left: 397px;
 }
 
 .main-container .sidebar {
@@ -440,7 +440,7 @@ header {
 
 header .header-container {
    background: #08C;
-   width: 850px;
+   width: 900px;
    height: 100%;
    margin-left:auto;
    margin-right:auto;   
@@ -448,7 +448,7 @@ header .header-container {
 
 header .header-container .generic-search {
   float: left;
-  margin-left: 12px;
+  margin-left: 31px;
   margin-top: 8px;
 }
 
@@ -507,7 +507,7 @@ header .header-container .counter {
 }
 
 footer .footer-container {
-    width: 850px;
+    width: 900px;
     height: 100%;
     margin-left:auto;
     margin-right:auto;   
@@ -627,4 +627,31 @@ footer .footer-guest {
 .main-content-guest .content .info .btn {
   margin-left: 17px;
   margin-top: 34px;
+}
+
+.newsfeed .news {
+  width: 385px;
+  margin-top: 15px;
+}
+
+.newsfeed .news .icon {
+  width: 42px;
+  float: left;
+  height: 70px;  
+  margin-top: 0;
+}
+
+.newsfeed .news .icon.QUESTION {
+  background: url('/img/question.png') no-repeat center top;
+}
+
+.newsfeed .news .info {
+
+}
+
+.newsfeed .news .info .date {
+  text-align: right;
+  color: grey;
+  font-style: italic;
+  font-size: 0.9em;
 }

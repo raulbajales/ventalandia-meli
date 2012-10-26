@@ -56,12 +56,14 @@
   <div class="main-container">
     <div class="main" ng-controller="NewsController">
       <div class="newsfeed">
-        <div ng-repeat="entry in newsfeed">
-          <p>id: {{entry.id}}</p>
-          <p>type: {{entry.type}}</p>
-          <p>buyer: {{entry.buyer.nickname}}</p>
-          <p>title: {{entry.item.title}}</p>
-          <br>
+        <div class="news" ng-repeat="entry in newsfeed">
+          <span class="icon {{entry.type}}"></span>
+          <span class="info">
+            <div class="header"><a href="#">{{entry.buyer.nickname}}</a></div>
+            <div class="message">Agrego una nueva pregunta a la publicacion:</div>
+            <div class="footer"><a href="#">{{entry.item.title}}</a></div>
+            <div class="date">{{entry.date}}</div>
+          </span>
         </div>
       </div>
       <div class="details">
