@@ -11,18 +11,19 @@ function MiniProfileController($scope, $cookies, $http) {
 		4: "lightgreen",
 		5: "green"
 	};
-	$http({method: "GET", url: "/api/users/me", headers: {"x-vtd-token": $cookies["vtd_token"]}}).success(function(data, status, headers, config) {
-		$scope.firstName = data.name;
-		$scope.lastName = data.surname;
-		var repColor = repLevels[data.sellerReputationLevel];
-		$(".reputation.badge").css("background-color", repColor);
-	}).error(function(data, status, headers, config) {
-		alert("error! " + JSON.stringify(data));
-	});
 	$scope.firstName = "...";
 	$scope.lastName = "...";
+	$http({method: "GET", url: "/api/users/me", 
+		   headers: {"x-vtd-token": $cookies["vtd_token"]}
+	    }).success(function(data, status, headers, config) {
+			$scope.firstName = data.name;
+			$scope.lastName = data.surname;
+			$scope.reputationClass = repLevels[data.sellerReputationLevel];
+		}).error(function(data, status, headers, config) {
+			console.log("[ERROR] - Unable to get profile data");
+			console.log(JSON.stringify(data)); // invoke a general ui error handler
+		});
 }
-
 
 function NewsController() {}
 

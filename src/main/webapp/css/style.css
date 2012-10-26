@@ -378,11 +378,34 @@ header {
 }
 
 .main-container .sidebar .miniprofile .info .reputation {
-  background-color: #73A000;
   margin-left: 15;
   position: relative;
   top: -5; 
   cursor: pointer; 
+}
+
+.reputation.badge.grey {
+  background-color: grey;
+}
+
+.reputation.badge.red {
+  background-color: red;
+}
+
+.reputation.badge.orange {
+  background-color: orange;
+}
+
+.reputation.badge.yellow {
+  background-color: yellow;
+}
+
+.reputation.badge.lightgreen {
+  background-color: lightgreen;
+}
+
+.reputation.badge.green {
+  background-color: green;
 }
 
 .main-container .sidebar .miniprofile .info ul li {
