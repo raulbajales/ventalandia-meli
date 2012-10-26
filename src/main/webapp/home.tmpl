@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="css/bootstrap.css" rel="stylesheet">  
 
-  <script src="http://www.google-analytics.com/ga.js"></script>
+  <!-- script src="http://www.google-analytics.com/ga.js"></script -->
   <script src="js/libs/modernizr-2.5.3.min.js"></script>
-
   <script src="js/libs/angular.js"></script>
   <script src="js/libs/angular-resource.js"></script>
   <script src="js/libs/angular-cookies.js"></script>
+
   <script src="js/app/app.js"></script>
   <script src="js/app/services.js"></script>
   <script src="js/app/controllers.js"></script>
@@ -56,57 +56,8 @@
   <div class="main-container">
     <div class="main">
       <div class="newsfeed">
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
-        <br>lalal<br>
       </div>
       <div class="details">
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
-        Details here<br>       
       </div>
     </div>
     <div class="sidebar">
@@ -173,16 +124,16 @@
   <!-- jQuery tooltips initialization -->
   <script>
     $(function() {
-      $(".generic-search").tooltip({title:"Puede buscar Novedades, Clientes o Prodctos. Escriba lo que busca y presione Enter.", placement: "bottom"});
+      $(".generic-search").tooltip({title:"Puede buscar Novedades, Publicaciones o Clientes. Escriba lo que busca y presione Enter.", placement: "bottom"});
       $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
       
       // Handle logout: (FIXME: move this out to a controller) 
       $(".logout").click(function() {
-        if (confirm("Esta seguro de que desea salir?")) {
+        ventalandia.ui.confirm(null, "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
           document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
           document.location.href="/";
           document.location.reload();
-        }
+        });
       });
       
     });
