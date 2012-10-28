@@ -17,10 +17,10 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 	$http({method: "GET", url: "/api/news", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
-	    	//var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
+	    	var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
 
 			/* Mock data for test: */
-			
+			/*
 			var newsfeed = ventalandia.model.Newsfeed.fromObject([{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"juancito"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"lulu"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
@@ -30,6 +30,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0}]);
+			*/
 
 			$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 		}).error(function(data, status, headers, config) {
@@ -42,7 +43,10 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 		$http({method: "GET", url: "/api/news/" + entry.id, 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
 		    }).success(function(data, status, headers, config) {
-		    	//var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
+		    	var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
+
+				/* Mock data for test: */
+				/*
 				var newsDetails = ventalandia.model.NewsDetails.fromObject({
 				    "item": {
 				        "title": "Bicicleta rodado 26",
@@ -70,6 +74,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
                          }
 				    ]
 				});
+				*/
 
 				$scope.newsDetails = newsDetails;
 				$scope.miniProfile = SharedModel.get("miniProfile");
