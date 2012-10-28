@@ -70,23 +70,34 @@
         </div>
       </div>
       <div class="details">
+        <div class="space"></div>
         <div class="wrapper" ng-show="newsDetails != null">
           <div class="publication">
-            <div class="header">Publicaci&oacute;n</div>
-            <div class="picture">una imagen</div>
-            <div class="title">{{newsDetails.item.title}}</div>
+            <div class="header">Publicaci&oacute;n:</div>
+            <img class="picture" ng-src="{{newsDetails.item.pictureUrl}}"></img>
+            <div class="info">
+              <div class="title">{{newsDetails.item.title}}</div>
+            </div>
           </div>
           <div class="buyer">
-            <div class="header">Cliente</div>
-            <div class="picture">una imagen</div>
-            <div class="nickname">{{newsDetails.buyer.nickName}}</div>
+            <div class="header">Cliente:</div>
+            <img class="picture" ng-src="{{newsDetails.buyer.pictureUrl}}"></img>
+            <div class="info">
+              <div class="nickname">{{newsDetails.buyer.nickName}}</div>
+            </div>
           </div>
           <div class="conversation">
-            <div class="header">Conversaci&oacute;n</div>
-            <span class="thread" ng-repeat="question in newsDetails.questions">
-              <div class="question">{{question.text}}</div>
-              <div class="answer">{{question.answer}}</div>
-            </span>          
+            <div class="header">Conversaci&oacute;n:</div>
+            <div class="thread" ng-repeat="question in newsDetails.questions">
+              <div class="question">
+                <div class="icon"></div>
+                <div class="text">{{question.text}}</div>
+              </div>
+              <div class="answer">
+                <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
+                <div class="text">{{question.answer}}</div>
+              </div>
+            </div>          
           </div>
         </div>  
       </div>
@@ -160,7 +171,7 @@
       
       // Handle logout: (FIXME: move this out to a controller) 
       $(".logout").click(function() {
-        ventalandia.ui.confirm(null, "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
+        ventalandia.ui.confirm("Salir", "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
           document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
           document.location.href="/";
           document.location.reload();

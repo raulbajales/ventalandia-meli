@@ -325,7 +325,7 @@ header {
 }
 
 .main-container .newsfeed {
-   width: 370px;
+   width: 398px;
    float: left;
    min-height: 300px;
    margin-top: 47px; 
@@ -359,8 +359,8 @@ header {
 
 .main-container .sidebar .miniprofile .thumbnail {
    margin-top: 52px;
-   width: 50px;
-   height: 50px;
+   width: 60px;
+   height: 60px;
    float: left;
    display: block;
    margin-left: 11px;
@@ -668,7 +668,7 @@ footer .footer-guest {
 }
 
 .newsfeed .news .icon {
-  width: 42px;
+  width: 49px;
   float: left;
   height: 70px;  
   margin-top: 3;
@@ -701,9 +701,100 @@ footer .footer-guest {
 
 .details .wrapper {
   margin-left: 15px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.details .space {
+  height: 40px;
+}
+
+.details .wrapper > div {
+  margin-top: 10px
+}
+
+.details .header {
+  font-weight: bold;
+  color: #08C;
+  text-shadow: -1px 1px white;
+  height: 23px;
+}
+
+.details .conversation .question .icon {
+  width: 24px;
+  float: left;
+  height: 24px;  
+  margin-top: -1;
+  background: url('/img/question-small.png') no-repeat center center;  
+}
+
+.details .conversation .question .text, .details .conversation .answer .text {
+  margin-left: 4px;
+}
+
+.details .conversation .answer .thumbnail {
+  width: 19px;
+  float: left;
+  height: 19px;  
+  margin-top: 0;
+  padding: 0px;
+}
+
+.thread .question, .thread .answer, .thread .question .text, .thread .answer .text {
+  margin-top: 7px !important; 
+}
+
+.thread .text {
+  margin-left: 5px;
+}
+
+.thread .icon, .thread .answer .icon .thumbnail {
+  padding-right: 3px;
 }
 
 .details .publication {
-  margin-top: 50px;
+  height: 80px;
 }
+
+.details .publication .info {
+  position: relative;
+}
+
+.details .publication .info .title {
+  position: absolute;
+  bottom: -58;
+  left: 69px;
+}
+
+.details .publication .picture {
+  width: 60px;
+  float: left;
+  height: 60px;  
+  margin-top: 0;
+  padding-right: 5px;
+}
+
+.details .buyer {
+  height: 80px;
+}
+
+.details .buyer .info {
+  position: relative;
+}
+
+.details .buyer .info .nickname {
+  position: absolute;
+  bottom: -58;
+  left: 69px;
+}
+
+.details .buyer .picture {
+  width: 60px;
+  float: left;
+  height: 60px;  
+  margin-top: 0;
+  padding-right: 5px;
+}
+
+
 
