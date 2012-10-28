@@ -1,23 +1,19 @@
 /* Controllers */
 
-ventalandia.controller.MiniProfileController = function($scope, $cookies, $http) {
+ventalandia.controller.MiniProfileController = function($scope, $cookies, $http, SharedModel) {
 	$http({method: "GET", url: "/api/users/me", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
 			$scope.miniProfile = ventalandia.model.MiniProfile.fromObject(data);
 			$scope.reputationClass = ventalandia.ui.reputationClassFor($scope.miniProfile.sellerReputationLevel);
-			$scope.$emit("miniprofile-ready", $scope.miniProfile);
+			SharedModel.set("miniProfile", $scope.miniProfile);
 		}).error(function(data, status, headers, config) {
 			console.log("[ERROR] - Unable to get profile data");
 			console.log(JSON.stringify(data)); // invoke a general ui error handler
 		});
 }
 
-ventalandia.controller.NewsController = function($scope, $cookies, $http) {
-	$scope.$on("miniprofile-ready", function(event, miniProfile) {
-		console.log("lalala!");
-		$scope.miniProfile = miniProfile;
-	});
+ventalandia.controller.NewsController = function($scope, $cookies, $http, SharedModel) {
 	$http({method: "GET", url: "/api/news", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
@@ -42,8 +38,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 		});
 
 	$scope.showNewsDetails = function($event, entry) {
-		$(".newsfeed .news").removeClass("active");
-		$($event.currentTarget).addClass("active");
+		ventalandia.ui.newsfeed.activate($event.currentTarget);
 		$http({method: "GET", url: "/api/news/" + entry.id, 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
 		    }).success(function(data, status, headers, config) {
@@ -77,6 +72,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 				});
 
 				$scope.newsDetails = newsDetails;
+				$scope.miniProfile = SharedModel.get("miniProfile");
 			}).error(function(data, status, headers, config) {
 				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
 				console.log(JSON.stringify(data)); // invoke a general ui error handler

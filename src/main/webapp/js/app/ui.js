@@ -51,6 +51,13 @@ ventalandia.ui.reputationClassFor = function(sellerReputationLevel) {
   }[sellerReputationLevel];
 }
 
+/**
+ * @param {*} element The DOM element for the newsfeed entry to activate.
+ */
+ventalandia.ui.newsfeed.activate = function(element) {
+    $(".newsfeed .news").removeClass("active");
+    $(element).addClass("active");  
+}
 
 
 
