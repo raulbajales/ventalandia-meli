@@ -133,18 +133,20 @@ public class NewsApiServlet {
             List<Question> questions = questionRepository.getQuestionsByItemAndUserMeliId(item.getKey(), buyer.getKey());
             Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
             Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
-            Map<String, Object> questionMaps = MapBuilder.build();
-            
+            List<Object> questionsList = new ArrayList<Object>();
+
             for (Question question : questions) {
-                Map<String, Object> qMap = MapBuilder.build()
+                Map<String, Object> questionAsMap = MapBuilder.build()
+                        .putValue("id", question.getMeliId())
                         .putValue("text", question.getText())
                         .putValue("answer", question.getAnswer()!=null?question.getAnswer().getText():null);
-                questionMaps.put(String.valueOf(question.getMeliId()), qMap);
+                
+                questionsList.add(questionAsMap);
             }
 
             newsDetail.put("item", itemMap);
             newsDetail.put("buyer", buyerMap);
-            newsDetail.put("questions", questionMaps);
+            newsDetail.put("questions", questionsList);
             break;
 
         default:
