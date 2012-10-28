@@ -630,15 +630,52 @@ footer .footer-guest {
 }
 
 .newsfeed .news {
-  width: 385px;
+  width: 381px;
   margin-top: 15px;
+  padding-right: 8;
+  margin-left: 7;
+
+  border-bottom-left-radius: 7px;
+  border-top-left-radius: 7px;  
+
+  background-color: white;
+
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: white;
+
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: white;
+
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-left-color: white;
+}
+
+.newsfeed .news:hover {
+    background-color: lavender;
+    cursor: pointer;
+}
+
+.newsfeed .news.active {
+    width: 382px;
+    background-color: lavender;
+    cursor: pointer;
+    border-top-color: #08C;
+    border-bottom-color: #08C;
+    border-left-color: #08C;
 }
 
 .newsfeed .news .icon {
   width: 42px;
   float: left;
   height: 70px;  
-  margin-top: 0;
+  margin-top: 3;
+}
+
+.newsfeed .header {
+  padding-top: 5px;
 }
 
 .newsfeed .news .icon.QUESTION {
@@ -655,3 +692,18 @@ footer .footer-guest {
   font-style: italic;
   font-size: 0.9em;
 }
+
+.details {
+  border-left-color: #08C;
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+.details .wrapper {
+  margin-left: 15px;
+}
+
+.details .publication {
+  margin-top: 50px;
+}
+
