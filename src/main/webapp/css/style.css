@@ -752,6 +752,11 @@ footer .footer-guest {
   margin-right: 3px;
 }
 
+.thread .answer textarea {
+  width: 269px;
+  height: 55px;
+}
+
 .details .publication {
   height: 80px;
 }
