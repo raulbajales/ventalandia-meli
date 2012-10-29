@@ -54,15 +54,31 @@ public class NotificationReceiverService extends AbstractMeliService {
     }
 
     private void receiveQuestion(MeliNotification meliNotification) {
-        Question meliQuestion = this.meliQuestionService.getQuestionByNotification(meliNotification);
 
-        com.ventalandia.domain.Question question = this.questionTransformer.transform(meliQuestion);
-        User buyer = this.userService.getByMeliId(meliQuestion.getFrom().getId());
-        question.setClient(buyer);
+        com.ventalandia.domain.Question question = questionRepository.getByMeliId(getQuestionMeliId(meliNotification));
 
-        this.questionRepository.add(question);
+        if(question == null ){
+            
+            Question meliQuestion = this.meliQuestionService.getQuestionByNotification(meliNotification);
+            question = this.questionTransformer.transform(meliQuestion);
+            User buyer = this.userService.getByMeliId(meliQuestion.getFrom().getId());
+            question.setClient(buyer);
+            this.questionRepository.add(question);
+            
+        }
 
         this.newsFeedService.create(question);
+    }
+
+    //TODO improve this method
+    private Long getQuestionMeliId(MeliNotification meliNotification){
+        
+        String resource = meliNotification.getResource();
+        
+        if (resource.contains("/questions/")) {
+            return Long.valueOf(resource.substring(11));
+        }
+        return Long.valueOf(resource.substring(10));
     }
 
     private void receiveOrder(MeliNotification meliNotification) {
