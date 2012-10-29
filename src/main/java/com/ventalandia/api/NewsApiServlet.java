@@ -112,10 +112,11 @@ public class NewsApiServlet {
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
     public Map<String, Object> getNewsDetail(@PathParam("newsId") Long newsId) {
 
-        LOGGER.info("getting newsId: " + newsId);
         Long meliUserId = AuthContext.getToken().getMeliId();
+        LOGGER.info("getting newsId: " + newsId+ " meliUserId: "+meliUserId );
         NewsFeed newsFeed = newsFeedRepository.getByIdAndMeliId(newsId, meliUserId);
-
+        LOGGER.info("newsFeed: "+newsFeed );
+        
         if (newsFeed == null) {
             HashMap<String, Object> errorMap = new HashMap<String, Object>();
             errorMap.put("error", "Inexistent news");
@@ -130,7 +131,13 @@ public class NewsApiServlet {
 
             Item item = itemRepository.getByMeliId(newsFeed.getItemId());
             User buyer = userRepository.getByMeliId(newsFeed.getBuyerId());
+            
+            LOGGER.info("item: "+ item.getTitle());
+            LOGGER.info("buyer: "+buyer.getNickName());
+            
+            
             List<Question> questions = questionRepository.getQuestionsByItemAndUserMeliId(item.getKey(), buyer.getKey());
+            
             Map<String, Object> itemMap = MapBuilder.build().putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
             Map<String, Object> buyerMap = MapBuilder.build().putValue("nickname", buyer.getNickName()).putValue("pictureUrl", buyer.getPictureUrl());
             List<Object> questionsList = new ArrayList<Object>();
