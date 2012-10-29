@@ -60,8 +60,7 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
 		Key key = KeyFactory.createKey(NewsFeed.class.getSimpleName(),newsId);
 		
 		Query query = this.createQuery();
-		query.setFilter("key == aKey");
-		query.setFilter("userId == aMeliId");
+		query.setFilter("key == aKey && userId == aMeliId");
 		query.declareParameters(Key.class.getName() +" aKey, Long aMeliId");
 		
 		List<NewsFeed> list = this.list(query, key, meliUserId);
