@@ -64,10 +64,10 @@ public class NotificationReceiverService extends AbstractMeliService {
             User buyer = this.userService.getByMeliId(meliQuestion.getFrom().getId());
             question.setClient(buyer);
             this.questionRepository.add(question);
+            this.newsFeedService.create(question);
             
         }
 
-        this.newsFeedService.create(question);
     }
 
     //TODO improve this method
