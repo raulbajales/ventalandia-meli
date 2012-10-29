@@ -59,5 +59,12 @@ ventalandia.ui.newsfeed.activate = function(element) {
     $(element).addClass("active");  
 }
 
+/**
+ * General UI initialization
+ */
+ventalandia.ui.initialize = function() {
+  $(".generic-search").tooltip({title:"Puede buscar Novedades, Publicaciones o Clientes. Escriba lo que busca y presione Enter.", placement: "bottom"});
+  $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});      
+}
 
 

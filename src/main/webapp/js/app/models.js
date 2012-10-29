@@ -177,3 +177,29 @@ ventalandia.model.NewsDetails.fromObject = function(obj) {
 	});
 	return new ventalandia.model.NewsDetails(item, buyer, questions);
 }
+
+/* -------------------------------------------------- */
+//
+//  Summary
+//
+/* -------------------------------------------------- */
+
+/**
+ * Models summary of general changes
+ *
+ * @param {number} item
+ */
+ventalandia.model.Summary = function(newQuestions) {
+	this.newQuestions = newQuestions;
+}
+
+/**
+ * Creates new Summary instance from a JSON object
+ *
+ * @param {object} obj
+ */
+ventalandia.model.Summary.fromObject = function(obj) {
+	return new ventalandia.model.Summary(obj.new_questions);
+}
+
+

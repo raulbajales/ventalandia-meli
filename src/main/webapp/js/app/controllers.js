@@ -84,13 +84,29 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 }
 
 ventalandia.controller.TopbarController = function($scope, $cookies, $http, SharedModel) {
+	$http({method: "GET", url: "/api/news/summary", 
+		   headers: {"x-vtd-token": $cookies["vtd_token"]}
+	    }).success(function(data, status, headers, config) {
+	    	var summary = ventalandia.model.Summary.fromObject(data);
 
-	$scope.notificationsCount = 120;
+			/* Mock data for test: */
+			/*
+			var summary = ventalandia.model.Summary.fromObject({"new_questions":0,"user_id":118519141});
+			*/
 
-	// /api/news/summary
-	
-	//{"new_questions":0,"user_id":118519141}
+			$scope.summary = summary;
+		}).error(function(data, status, headers, config) {
+			console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
+			console.log(JSON.stringify(data)); // invoke a general ui error handler
+		});
 
+	$scope.confirmLogout = function() {
+        ventalandia.ui.confirm("Salir", "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
+          document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.location.href="/";
+          document.location.reload();
+        });
+	}
 }
 
 ventalandia.controller.CustomersController = function() {}

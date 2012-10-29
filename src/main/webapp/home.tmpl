@@ -51,7 +51,7 @@
           <i class="icon-exclamation-sign icon-white"></i>  
           Notificaciones
         </span>      
-        <span class="badge badge-important counter" ng-show="notificationsCount > 0">{{notificationsCount}}</span >       
+        <span class="badge badge-important counter" ng-show="notificationsCount > 0">{{summary.newQuestions}}</span >       
       </div>  
     </div>
   </header>
@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  <div class="footer">
+  <footer>
     <div class="footer-container">
       <ul>
         <li><a href="#">Sobre Ventalandia</a></li>
@@ -147,7 +147,7 @@
         <li><a target="_blank" href="https://plus.google.com/106885144869417236506"><div class="social-googleplus"></div></a></li>
       </ul>
     </div>
-  </div>
+  </footer>
 
   <script src="js/libs/jquery-1.7.1.js"></script>
   <script src="js/plugins.js"></script>
@@ -167,18 +167,7 @@
   <!-- jQuery tooltips initialization -->
   <script>
     $(function() {
-      $(".generic-search").tooltip({title:"Puede buscar Novedades, Publicaciones o Clientes. Escriba lo que busca y presione Enter.", placement: "bottom"});
-      $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});
-      
-      // Handle logout: (FIXME: move this out to a controller) 
-      $(".logout").click(function() {
-        ventalandia.ui.confirm("Salir", "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
-          document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-          document.location.href="/";
-          document.location.reload();
-        });
-      });
-      
+      ventalandia.ui.initialize();
     });
   </script>
 </body>
