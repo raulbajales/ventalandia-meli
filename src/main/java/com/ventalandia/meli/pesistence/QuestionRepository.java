@@ -32,7 +32,7 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
 
         Query query = this.createQuery();
         query.setFilter("item == itemkey && client == buyerKey");
-        query.declareParameters(Key.class.getName()+" itemMeliId, "+Key.class.getName()+" buyerKey");
+        query.declareParameters(Key.class.getName()+" itemkey, "+Key.class.getName()+" buyerKey");
 
         return (List<Question>) query.execute(itemkey,buyerKey);
     }	
