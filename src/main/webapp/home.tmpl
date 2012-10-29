@@ -36,7 +36,7 @@
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Tu browser es <em>viejo!</em> <a href="http://browsehappy.com/">Bajate un browser nuevo</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instala Google Chrome Frame</a> para poder usar Ventalandia.</p><![endif]-->
   <header>
-    <div class="header-container">
+    <div class="header-container" ng-controller="ventalandia.controller.TopbarController">
       <div class="logo"></div>
       <div class="generic-search">
         <i class="icon-search icon-white"></i>
@@ -51,7 +51,7 @@
           <i class="icon-exclamation-sign icon-white"></i>  
           Notificaciones
         </span>      
-        <span class="badge badge-important counter">16</span >       
+        <span class="badge badge-important counter" ng-show="notificationsCount > 0">{{notificationsCount}}</span >       
       </div>  
     </div>
   </header>
@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  <footer>
+  <div class="footer">
     <div class="footer-container">
       <ul>
         <li><a href="#">Sobre Ventalandia</a></li>
@@ -147,7 +147,7 @@
         <li><a target="_blank" href="https://plus.google.com/106885144869417236506"><div class="social-googleplus"></div></a></li>
       </ul>
     </div>
-  </footer>
+  </div>
 
   <script src="js/libs/jquery-1.7.1.js"></script>
   <script src="js/plugins.js"></script>

@@ -506,7 +506,11 @@ header .header-container .counter {
   background: red;
 }
 
-footer .footer-container {
+body > .footer {
+  height: 70px;
+}
+
+.footer .footer-container {
     width: 900px;
     height: 100%;
     margin-left:auto;
@@ -517,31 +521,31 @@ footer .footer-container {
     background-color: #E6E6E6;   
 }
 
-footer .footer-container .social-facebook {
+.footer .footer-container .social-facebook {
   background: url(../img/facebook.png) top right no-repeat; 
   width: 32px;
   height: 32px;  
 }
 
-footer .footer-container .social-twitter {
+.footer .footer-container .social-twitter {
   background: url(../img/twitter.png) top right no-repeat; 
   width: 32px;
   height: 32px;  
 }
 
-footer .footer-container .social-googleplus {
+.footer .footer-container .social-googleplus {
   background: url(../img/google_plus.png) top right no-repeat; 
   width: 32px;
   height: 32px;  
 }
 
-footer .footer-container ul {
+.footer .footer-container ul {
   display: table;
   text-align: center;
   margin: 0 auto;
 }
 
-footer .footer-container ul li {
+.footer .footer-container ul li {
   display: block;
   float: left;
   font-size: 15px;
@@ -549,7 +553,7 @@ footer .footer-container ul li {
   line-height: 33px;  
 }
 
-footer .footer-guest {
+.footer .footer-guest {
   height: 34px;
   position: absolute;
   bottom: 0;

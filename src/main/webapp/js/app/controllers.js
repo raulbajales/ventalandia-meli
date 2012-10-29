@@ -31,7 +31,6 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0}]);
 			*/
-
 			$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 		}).error(function(data, status, headers, config) {
 			console.log("[ERROR] - Unable to get newsfeed");
@@ -75,7 +74,6 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 				    ]
 				});
 				*/
-
 				$scope.newsDetails = newsDetails;
 				$scope.miniProfile = SharedModel.get("miniProfile");
 			}).error(function(data, status, headers, config) {
@@ -83,6 +81,16 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 				console.log(JSON.stringify(data)); // invoke a general ui error handler
 			});
 	}		
+}
+
+ventalandia.controller.TopbarController = function($scope, $cookies, $http, SharedModel) {
+
+	$scope.notificationsCount = 120;
+
+	// /api/news/summary
+	
+	//{"new_questions":0,"user_id":118519141}
+
 }
 
 ventalandia.controller.CustomersController = function() {}
