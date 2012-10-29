@@ -68,4 +68,21 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	
+	/**
+	 * 
+	 * @param meliBuyerId
+	 * @param meliItemId
+	 * @return
+	 */
+	public NewsFeed getByBuyerAndItem(Long meliBuyerId, String meliItemId){
+	    
+	    Query query = this.createQuery();
+        query.setFilter("buyerId == meliBuyerId && itemId == meliItemId");
+        query.declareParameters("Long meliBuyerId, String meliItemId");
+        List<NewsFeed> list = this.list(query, meliBuyerId, meliItemId);
+        
+        return list.isEmpty() ? null : list.get(0);
+	}
+	
 }

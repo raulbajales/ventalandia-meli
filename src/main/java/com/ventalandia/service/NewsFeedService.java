@@ -1,8 +1,12 @@
 package com.ventalandia.service;
 
+import java.util.Date;
+
 import com.google.inject.Inject;
 import com.ventalandia.api.Summary;
+import com.ventalandia.domain.Item;
 import com.ventalandia.domain.Question;
+import com.ventalandia.domain.User;
 import com.ventalandia.meli.service.AuthContext;
 
 /**
@@ -21,9 +25,19 @@ public class NewsFeedService {
     private QuestionToNewsFeedTransformer questionToNewsFeedTransformer = new QuestionToNewsFeedTransformer();
 
     public void create(Question question) {
-        NewsFeed feed = this.questionToNewsFeedTransformer.transform(question);
-        this.newsFeedRepository.add(feed);
-
+        
+        User client = question.getClient();
+        Item item = question.getItem();
+        NewsFeed feed = newsFeedRepository.getByBuyerAndItem(client.getMeliId(), item.getMeliId());
+        
+        if(feed == null){
+            feed = this.questionToNewsFeedTransformer.transform(question);
+            this.newsFeedRepository.add(feed);
+        }else{
+            feed.setDate(new Date());
+            this.newsFeedRepository.update(feed);
+        }
+        
         // TODO add some place where UI can ask for a summary of feeds
         this.updateSummary(feed);
     }
