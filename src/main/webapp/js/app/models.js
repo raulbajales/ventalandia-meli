@@ -158,6 +158,7 @@ ventalandia.model.NewsDetails.Question = function(id, text, answer) {
 	this.id = id;
 	this.text = text;
 	this.answer = answer;
+	this.answered = (this.answer != null && this.answer != undefined)	
 }
 
 /**

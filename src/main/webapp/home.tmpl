@@ -95,9 +95,9 @@
               </div>
               <div class="answer">
                 <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
-                <div class="text">{{question.answer}}</div>
-                <textarea ng-hide="question.answer != null" placeholder="Escriba su respuesta y presione Enviar!"></textarea>
-                <button ng-hide="question.answer != null" class="send btn btn-primary btn-small" type="button">Enviar!</button>
+                <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
+                <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
+                <button ng-hide="question.answered" class="send btn btn-primary btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
               </div>
             </div>          
           </div>

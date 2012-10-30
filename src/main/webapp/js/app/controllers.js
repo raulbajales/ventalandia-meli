@@ -80,6 +80,22 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
 				console.log(JSON.stringify(data)); // invoke a general ui error handler
 			});
+
+		$scope.sendAnswer = function(question) {
+			if (!question.answer) return;
+			var theBody = {"question_id": question.id, "text": question.answer};
+			$http({method: "POST", url: "/api/answers/", 
+				   headers: {"x-vtd-token": $cookies["vtd_token"],
+				             "Content-Type": "application/json"},
+				   data: theBody
+			    }).success(function(data, status, headers, config) {
+			    	question.answered = true;
+			    	console.log("Just sent answer: " + JSON.stringify(theBody));
+				}).error(function(data, status, headers, config) {
+					console.log("[ERROR] - Unable send answer '" + JSON.stringify(question) + "'");
+					console.log(JSON.stringify(data)); // invoke a general ui error handler
+				});			
+		}
 	}		
 }
 
