@@ -7,4 +7,10 @@
         <property name="key" direction="asc"/>
     </datastore-index>
     
+    <datastore-index kind="Question" ancestor="false" source="manual">
+        <property name="client_key_OID" direction="asc"/>
+        <property name="item_key_OID" direction="asc"/>
+        <property name="creationDate" direction="desc"/>
+    </datastore-index>
+    
 </datastore-indexes>
