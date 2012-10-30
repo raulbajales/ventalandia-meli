@@ -125,7 +125,7 @@ public class HttpRequestBuilder {
 
             HTTPRequest request = new HTTPRequest(new URL(this.createSpec()), this.httpMethod, fetchOptions);
             
-            addHeader("Accept-Charset", "utf-8");
+//            addHeader("Accept-Charset", "utf-8");
 
             for (HTTPHeader header : this.headers) {
                 request.addHeader(header);
