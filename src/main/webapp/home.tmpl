@@ -42,7 +42,7 @@
         <i class="icon-search icon-white"></i>
         <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
       </div>
-      <div class="btn btn-link logout">
+      <div class="btn btn-link logout" ng-click="confirmLogout()">
         <i class="icon-off icon-white"></i>  
         Salir
       </div>
@@ -51,7 +51,7 @@
           <i class="icon-exclamation-sign icon-white"></i>  
           Notificaciones
         </span>      
-        <span class="badge badge-important counter" ng-show="notificationsCount > 0">{{summary.newQuestions}}</span >       
+        <span class="badge badge-important counter" ng-show="summary.newQuestions > 0">{{summary.newQuestions}}</span >       
       </div>  
     </div>
   </header>
@@ -97,6 +97,7 @@
                 <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
                 <div class="text">{{question.answer}}</div>
                 <textarea ng-hide="question.answer != null" placeholder="Escriba su respuesta y presione Enviar!"></textarea>
+                <button ng-hide="question.answer != null" class="send btn btn-primary btn-small" type="button">Enviar!</button>
               </div>
             </div>          
           </div>

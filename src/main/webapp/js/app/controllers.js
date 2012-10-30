@@ -91,7 +91,7 @@ ventalandia.controller.TopbarController = function($scope, $cookies, $http, Shar
 
 			/* Mock data for test: */
 			/*
-			var summary = ventalandia.model.Summary.fromObject({"new_questions":0,"user_id":118519141});
+			var summary = ventalandia.model.Summary.fromObject({"new_questions":10,"user_id":118519141});
 			*/
 
 			$scope.summary = summary;
