@@ -96,7 +96,7 @@ ventalandia.controller.TopbarController = function($scope, $cookies, $http, Shar
 
 			$scope.summary = summary;
 		}).error(function(data, status, headers, config) {
-			console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
+			console.log("[ERROR] - Unable to get news summary ");
 			console.log(JSON.stringify(data)); // invoke a general ui error handler
 		});
 
