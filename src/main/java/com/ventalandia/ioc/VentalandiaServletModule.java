@@ -6,6 +6,7 @@ import com.ventalandia.api.ApiServlet;
 import com.ventalandia.api.AuthServlet;
 import com.ventalandia.api.DevSupportServlet;
 import com.ventalandia.api.EchoServlet;
+import com.ventalandia.api.EmailServlet;
 import com.ventalandia.api.MeliRedirectorServlet;
 import com.ventalandia.api.NewsApiServlet;
 import com.ventalandia.api.AnswersApiServlet;
@@ -43,6 +44,7 @@ public class VentalandiaServletModule extends JerseyServletModule {
         // api
         serve("/api/test").with(ApiServlet.class);
         bind(NewsApiServlet.class);
+        bind(EmailServlet.class);
         bind(AnswersApiServlet.class);
         
         // serve("/api/users/me").with(UserApiServlet.class);
