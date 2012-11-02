@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
 /**
@@ -21,14 +22,17 @@ import javax.ws.rs.core.Context;
  * @author msulik
  * 
  */
-@Path("/_ah/mail/*")
+@Path("/_ah/mail")
 public class EmailServlet {
 
     private static final Logger LOGGER = Logger.getLogger(EmailServlet.class.getName());
 
     @POST
-    public void bla(@Context
+    @Path("/{sendTo}")
+    public void process(@PathParam("sendTo")
+    String sendTo, @Context
     HttpServletRequest request) {
+        LOGGER.info("sendTo param: " + sendTo);
         Properties props = new Properties();
 
         Session email = Session.getDefaultInstance(props, null);
