@@ -11,28 +11,23 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 
  * @author msulik
  * 
  */
-@Path("/_ah/mail")
-public class EmailServlet {
+public class EmailServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = Logger.getLogger(EmailServlet.class.getName());
 
-    @POST
-    @Path("/{sendTo}")
-    public void process(@PathParam("sendTo")
-    String sendTo, @Context
-    HttpServletRequest request) {
-        LOGGER.info("sendTo param: " + sendTo);
+    public void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
+        // LOGGER.info("sendTo param: " + sendTo);
         Properties props = new Properties();
 
         Session email = Session.getDefaultInstance(props, null);
@@ -44,7 +39,7 @@ public class EmailServlet {
             Address[] addresses = message.getFrom();
 
             LOGGER.info("Subject: " + summary);
-            LOGGER.info("From: " + addresses[0]);
+            LOGGER.info("From: " + addresses[0].toString());
             LOGGER.info("Message: " + description);
         }
         catch (Exception e) {
@@ -52,12 +47,10 @@ public class EmailServlet {
         }
     }
 
-    private boolean textIsHtml = false;
-
     private String getText(Part p) throws MessagingException, IOException {
         if (p.isMimeType("text/*")) {
             String s = (String) p.getContent();
-            textIsHtml = p.isMimeType("text/html");
+            // textIsHtml = p.isMimeType("text/html");
             return s;
         }
 
