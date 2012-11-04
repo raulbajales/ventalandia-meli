@@ -17,10 +17,10 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 	$http({method: "GET", url: "/api/news", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
-	    	var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
+	    	//var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
 
 			/* Mock data for test: */
-			/*
+			/**/
 			var newsfeed = ventalandia.model.Newsfeed.fromObject([{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"juancito"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"lulu"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
@@ -30,7 +30,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0}]);
-			*/
+			/**/
 			$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 		}).error(function(data, status, headers, config) {
 			console.log("[ERROR] - Unable to get newsfeed");
@@ -39,13 +39,19 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 
 	$scope.showNewsDetails = function($event, entry) {
 		ventalandia.ui.newsfeed.activate($event.currentTarget);
+ 		$scope.$emit('broadcast', {id: "showNewsDetails", data: entry});
+	}		
+}
+
+ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http, SharedModel) {
+	$scope.$on('showNewsDetails', function(event, entry) {
 		$http({method: "GET", url: "/api/news/" + entry.id, 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
 		    }).success(function(data, status, headers, config) {
-		    	var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
+		    	//var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
 
 				/* Mock data for test: */
-				/*
+				/**/
 				var newsDetails = ventalandia.model.NewsDetails.fromObject({
 				    "item": {
 				        "title": "Bicicleta rodado 26",
@@ -57,58 +63,59 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 				    },
 				    "questions": [
 				         {
-                            "id": "2496684004",
-                            "text": "hola cuanto sale el envio hasta neuquen? saludos",
-                            "answer": "Hola! hasta tu domiclio sale $75 por correo argentino"
-                         },
+	                        "id": "2496684004",
+	                        "text": "hola cuanto sale el envio hasta neuquen? saludos",
+	                        "answer": "Hola! hasta tu domiclio sale $75 por correo argentino"
+	                     },
 				         {
-                            "id": "2496684005",
-                            "text": "una preg mas",
-                            "answer": "Hola! tu respuesta"
-                         },
-                         {
-                            "id": "2496684006",
-                            "text": "otra preg",
-                            "answer": null
-                         }
+	                        "id": "2496684005",
+	                        "text": "una preg mas",
+	                        "answer": "Hola! tu respuesta"
+	                     },
+	                     {
+	                        "id": "2496684006",
+	                        "text": "otra preg",
+	                        "answer": null
+	                     }
 				    ]
 				});
-				*/
+				/**/
 				$scope.newsDetails = newsDetails;
 				$scope.miniProfile = SharedModel.get("miniProfile");
 			}).error(function(data, status, headers, config) {
 				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
 				console.log(JSON.stringify(data)); // invoke a general ui error handler
 			});
+	});
 
-		$scope.sendAnswer = function(question) {
-			if (!question.answer) return;
-			var theBody = {"question_id": question.id, "text": question.answer};
-			$http({method: "POST", url: "/api/answers/", 
-				   headers: {"x-vtd-token": $cookies["vtd_token"],
-				             "Content-Type": "application/json"},
-				   data: theBody
-			    }).success(function(data, status, headers, config) {
-			    	question.answered = true;
-			    	console.log("Just sent answer: " + JSON.stringify(theBody));
-				}).error(function(data, status, headers, config) {
-					console.log("[ERROR] - Unable send answer '" + JSON.stringify(question) + "'");
-					console.log(JSON.stringify(data)); // invoke a general ui error handler
-				});			
-		}
-	}		
+	$scope.sendAnswer = function(question) {
+		if (!question.answer) return;
+		var theBody = {"question_id": question.id, "text": question.answer};
+		$http({method: "POST", url: "/api/answers/", 
+			   headers: {"x-vtd-token": $cookies["vtd_token"],
+			             "Content-Type": "application/json"},
+			   data: theBody
+		    }).success(function(data, status, headers, config) {
+		    	question.answered = true;
+		    	console.log("Just sent answer: " + JSON.stringify(theBody));
+			}).error(function(data, status, headers, config) {
+				console.log("[ERROR] - Unable send answer '" + JSON.stringify(question) + "'");
+				console.log(JSON.stringify(data)); // invoke a general ui error handler
+			});			
+	};	
 }
+
 
 ventalandia.controller.TopbarController = function($scope, $cookies, $http, SharedModel) {
 	$http({method: "GET", url: "/api/news/summary", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
-	    	var summary = ventalandia.model.Summary.fromObject(data);
+	    	//var summary = ventalandia.model.Summary.fromObject(data);
 
 			/* Mock data for test: */
-			/*
+			/**/
 			var summary = ventalandia.model.Summary.fromObject({"new_questions":10,"user_id":118519141});
-			*/
+			/**/
 
 			$scope.summary = summary;
 		}).error(function(data, status, headers, config) {
