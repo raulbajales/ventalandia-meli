@@ -35,29 +35,33 @@
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Tu browser es <em>viejo!</em> <a href="http://browsehappy.com/">Bajate un browser nuevo</a> o <a href="http://www.google.com/chromeframe/?redirect=true">instala Google Chrome Frame</a> para poder usar Ventalandia.</p><![endif]-->
-  <header>
-    <div class="header-container" ng-controller="ventalandia.controller.TopbarController">
-      <div class="logo"></div>
-      <div class="generic-search">
-        <i class="icon-search icon-white"></i>
-        <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
-      </div>
-      <div class="btn btn-link logout" ng-click="confirmLogout()">
-        <i class="icon-off icon-white"></i>  
-        Salir
-      </div>
-      <div class="notifications">
-        <span class="btn btn-link">
-          <i class="icon-exclamation-sign icon-white"></i>  
-          Notificaciones
-        </span>      
-        <span class="badge badge-important counter" ng-show="summary.newQuestions > 0">{{summary.newQuestions}}</span >       
-      </div>  
+  
+  <!-- BEGIN: header -->
+  <div id="header" ng-controller="ventalandia.controller.TopbarController">
+    <div class="logo"></div>
+    <div class="generic-search">
+      <i class="icon-search"></i>
+      <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
     </div>
-  </header>
+    <div class="btn btn-link logout" ng-click="confirmLogout()">
+      <i class="icon-off"></i>  
+      Salir
+    </div>
+    <!-- div class="notifications">
+      <span class="btn btn-link">
+        <i class="icon-exclamation-sign"></i>  
+        Notificaciones
+      </span>      
+      <span class="badge badge-important counter" ng-show="summary.newQuestions > 0">{{summary.newQuestions}}</span >       
+    </div -->  
+  </div>
+  <!-- END: header -->
 
-  <div class="main-container">
-    <div class="main" ng-controller="ventalandia.controller.NewsController">
+  <!-- BEGIN: container -->
+  <div id="container">
+  
+    <!-- BEGIN: center column -->
+    <div id="center" class="column" ng-controller="ventalandia.controller.NewsController">
       <div class="newsfeed">
         <div class="news" ng-repeat="entry in newsfeed.entries" ng-click="showNewsDetails($event, entry)">
           <span class="icon {{entry.type}}"></span>
@@ -68,43 +72,50 @@
             <div class="date">{{entry.date}}</div>
           </span>
         </div>
-      </div>
-      <div class="details">
         <div class="space"></div>
-        <div class="wrapper" ng-show="newsDetails != null">
-          <div class="publication">
-            <div class="header">Publicaci&oacute;n:</div>
-            <img class="picture" ng-src="{{newsDetails.item.pictureUrl}}"></img>
-            <div class="info">
-              <div class="title">{{newsDetails.item.title}}</div>
-            </div>
-          </div>
-          <div class="buyer">
-            <div class="header">Cliente:</div>
-            <img class="picture" ng-src="{{newsDetails.buyer.pictureUrl}}"></img>
-            <div class="info">
-              <div class="nickname">{{newsDetails.buyer.nickName}}</div>
-            </div>
-          </div>
-          <div class="conversation">
-            <div class="header">Conversaci&oacute;n:</div>
-            <div class="thread" ng-repeat="question in newsDetails.questions">
-              <div class="question">
-                <div class="icon"></div>
-                <div class="text">{{question.text}}</div>
-              </div>
-              <div class="answer">
-                <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
-                <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
-                <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
-                <button ng-hide="question.answered" class="send btn btn-primary btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
-              </div>
-            </div>          
-          </div>
-        </div>  
       </div>
     </div>
-    <div class="sidebar">
+    <!-- END: center column -->
+
+    <!-- BEGIN: right column -->
+    <div id="right" class="column" ng-controller="ventalandia.controller.NewsDetailsController">
+      <div class="space"></div>
+      <div class="wrapper" ng-show="newsDetails != null">
+        <div class="publication">
+          <div class="header">Publicaci&oacute;n:</div>
+          <img class="picture" ng-src="{{newsDetails.item.pictureUrl}}"></img>
+          <div class="info">
+            <div class="title">{{newsDetails.item.title}}</div>
+          </div>
+        </div>
+        <div class="buyer">
+          <div class="header">Cliente:</div>
+          <img class="picture" ng-src="{{newsDetails.buyer.pictureUrl}}"></img>
+          <div class="info">
+            <div class="nickname">{{newsDetails.buyer.nickName}}</div>
+          </div>
+        </div>
+        <div class="conversation">
+          <div class="header">Conversaci&oacute;n:</div>
+          <div class="thread" ng-repeat="question in newsDetails.questions">
+            <div class="question">
+              <div class="icon"></div>
+              <div class="text">{{question.text}}</div>
+            </div>
+            <div class="answer">
+              <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
+              <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
+              <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
+              <button ng-hide="question.answered" class="send btn btn-inverse btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
+            </div>
+          </div>          
+        </div>
+      </div>  
+    </div>
+    <!-- END: right column -->
+
+    <!-- BEGIN: left column -->
+    <div id="left" class="column">
       <div class="miniprofile" ng-controller="ventalandia.controller.MiniProfileController">
         <img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail">
         </img>
@@ -115,11 +126,11 @@
           </ul>
           <span class="reputation badge {{reputationClass}}">Reputacion</span>
         </span>
-        <ul class="nav nav-pills nav-stacked">
+        <!-- ul class="nav nav-pills nav-stacked">
           <li>
             <a href="#"><i class="icon-user"></i>&nbsp;Ver Mi Perfil</a>
           </li>
-        </ul>        
+        </ul -->        
       </div>
       <div class="navigation">
         <ul class="nav nav-pills nav-stacked">
@@ -135,20 +146,23 @@
         </ul>        
       </div>
     </div>
+    <!-- END: left column -->
+ 
   </div>
+  <!-- END: container -->
 
-  <footer>
-    <div class="footer-container">
-      <ul>
-        <li><a href="#">Sobre Ventalandia</a></li>
-        <li><a href="#">Terminos y Condiciones</a></li>
-        <li><a target="_blank" href="http://blog.ventalandia.com">Blog</a></li>
-        <li><a target="_blank" href="http://www.facebook.com/ventalandia"><div class="social-facebook"></div></a></li>
-        <li><a target="_blank" href="http://www.twitter.com/ventalandia"><div class="social-twitter"></div></a></li>
-        <li><a target="_blank" href="https://plus.google.com/106885144869417236506"><div class="social-googleplus"></div></a></li>
-      </ul>
-    </div>
-  </footer>
+  <!-- BEGIN: footer -->
+  <div id="footer">
+    <ul>
+      <li><a href="#">Sobre Ventalandia</a></li>
+      <li><a href="#">Terminos y Condiciones</a></li>
+      <li><a target="_blank" href="http://blog.ventalandia.com">Blog</a></li>
+      <li><a target="_blank" href="http://www.facebook.com/ventalandia"><div class="social-facebook"></div></a></li>
+      <li><a target="_blank" href="http://www.twitter.com/ventalandia"><div class="social-twitter"></div></a></li>
+      <li><a target="_blank" href="https://plus.google.com/106885144869417236506"><div class="social-googleplus"></div></a></li>
+    </ul>
+  </div>
+  <!-- END: footer -->
 
   <script src="js/libs/jquery-1.7.1.js"></script>
   <script src="js/plugins.js"></script>
