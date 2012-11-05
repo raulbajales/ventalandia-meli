@@ -17,10 +17,10 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 	$http({method: "GET", url: "/api/news", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
-	    	//var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
+	    	var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
 
 			/* Mock data for test: */
-			/**/
+			/*
 			var newsfeed = ventalandia.model.Newsfeed.fromObject([{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"juancito"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"lulu"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
@@ -30,7 +30,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
 			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0}]);
-			/**/
+			*/
 			$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 		}).error(function(data, status, headers, config) {
 			console.log("[ERROR] - Unable to get newsfeed");
@@ -48,10 +48,10 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http)
 		$http({method: "GET", url: "/api/news/" + entry.id, 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
 		    }).success(function(data, status, headers, config) {
-		    	//var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
+		    	var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
 
 				/* Mock data for test: */
-				/**/
+				/*
 				var newsDetails = ventalandia.model.NewsDetails.fromObject({
 				    "item": {
 				        "title": "Bicicleta rodado 26",
@@ -79,7 +79,7 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http)
 	                     }
 				    ]
 				});
-				/**/
+				*/
 				$scope.newsDetails = newsDetails;
 			}).error(function(data, status, headers, config) {
 				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
@@ -113,12 +113,12 @@ ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
 	$http({method: "GET", url: "/api/news/summary", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
-	    	//var summary = ventalandia.model.Summary.fromObject(data);
+	    	var summary = ventalandia.model.Summary.fromObject(data);
 
 			/* Mock data for test: */
-			/**/
+			/*
 			var summary = ventalandia.model.Summary.fromObject({"new_questions":10,"user_id":118519141});
-			/**/
+			*/
 
 			$scope.summary = summary;
 		}).error(function(data, status, headers, config) {
