@@ -47,8 +47,8 @@ public class VentalandiaServletModule extends JerseyServletModule {
         bind(AnswersApiServlet.class);
         
         // serve("/api/users/me").with(UserApiServlet.class);
-//        serve("/(?!_ah).*").with(GuiceContainer.class);
-        serveRegex("/(?!_ah).*").with(GuiceContainer.class);
+        serve("/*").with(GuiceContainer.class);
+//        serveRegex("/(?!_ah).*").with(GuiceContainer.class);
         bind(UsersApiServlet.class);
         // serve("/api/users/*").with(UsersApiServlet.class);
     }
