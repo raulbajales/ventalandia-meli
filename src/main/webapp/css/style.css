@@ -43,7 +43,7 @@ body { margin: 0; font-size: 1em; line-height: 1.4; }
  */
 
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: lightgray; color: #fff; text-shadow: none; }
 
 
 /* =============================================================================
@@ -300,14 +300,14 @@ body {
   margin-left: auto;
   margin-right: auto;     
   padding: 0;
-  background: url(http://static.tumblr.com/26l8vc7/q7Glbweh4/bg.jpg) repeat fixed;  
+  background: url(https://s3-sa-east-1.amazonaws.com/vld.bucket/static/bg.jpeg) repeat fixed;  
   height: 100%  
 }
 
 #footer {
   clear: both;
   padding: 25px 0;
-  background: url(http://static.tumblr.com/26l8vc7/qXwlbyaux/sprite.png) 0 -303px repeat-x #F2F2F2;
+  background: url(https://s3-sa-east-1.amazonaws.com/vld.bucket/static/sprite.png) 0 -303px repeat-x #F2F2F2;
   margin-top: -5px;
   height: 100px;
   position:relative;
@@ -325,7 +325,7 @@ body {
 }
 
 #center {
-  margin-left: 16px;
+  margin-left: 14px;
   width: 372px;
   min-height: 600px;
 }
@@ -342,7 +342,6 @@ body {
 
 #left {
   width: 200px;             
-  padding: 0 10px;          
   margin-right: -100%;
   position: fixed;
   margin-left: -200px;
@@ -357,7 +356,7 @@ body {
 #footer {
   clear: both;
   padding: 25px 0;
-  background: url(http://static.tumblr.com/26l8vc7/qXwlbyaux/sprite.png) 0 -303px repeat-x #F2F2F2;
+  background: url(https://s3-sa-east-1.amazonaws.com/vld.bucket/static/sprite.png) 0 -303px repeat-x #F2F2F2;
   margin-top: -5px;
   height: 100px;
   position:relative;
@@ -372,7 +371,7 @@ body {
   position: fixed;
   width: 1000px;
   z-index: 1;
-  background: url(http://static.tumblr.com/26l8vc7/qXwlbyaux/sprite.png) repeat-x;
+  background: url(https://s3-sa-east-1.amazonaws.com/vld.bucket/static/sprite.png) repeat-x;
   height: 38px;
   padding-top: 8px; 
 }
@@ -389,6 +388,10 @@ body {
   width: 280px;
 }
 
+#header .generic-search .icon-search {
+  margin-top: 5px;
+}
+
 #header .logo {
   background: url(../img/logo.png) top right no-repeat; 
   float: left;
@@ -400,7 +403,6 @@ body {
 }
 
 #header .logout {
-  color: #FFFFFF;
   float: right;
   margin-top: 1px;
   margin-right: 10;
@@ -408,7 +410,7 @@ body {
 }
 
 #header .logout:hover {
-  color: #FFFFFF;
+  color: black;
   text-decoration: underline;
 }
 
@@ -435,6 +437,15 @@ body {
   padding-right: 4px;
   position: fixed;
   background: red;
+}
+
+#footer a {
+  color: #56595A;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  text-decoration: underline;
 }
 
 #footer .social-facebook {
@@ -470,19 +481,33 @@ body {
 }
 
 #center .newsfeed {
-   width: 398px;
+   width: 407px;
    float: left;
    min-height: 300px;
-   margin-top: 47px; 
+   padding-top: 47px; 
+   background-color: white;
+   box-shadow: 0 0 4px 4px #F6F9F9;
+}
+
+#center .newsfeed a {
+   color: darkgoldenrod;
+}
+
+#left a {
+  color: black;
 }
 
 #left .miniprofile {
-   background: #E6E6FA;
+   background: #F2F2F2;
    width: 200px;
    height: 162px;
    position: fixed;
    border-bottom-left-radius: 7px;
    border-bottom-right-radius: 7px;
+   margin-left: 6px;
+   box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
+   -moz-box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
+   -webkit-box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
 }
 
 #left .miniprofile .thumbnail {
@@ -553,8 +578,8 @@ body {
 
 #left .navigation {
    padding-top: 162px;
-   width: 100%;
-   height: 180px;
+   width: 212px;
+   height: 126px;
 }
 
 #left .navigation ul {
@@ -563,45 +588,31 @@ body {
 }
 
 #left .navigation .nav {
-  padding-top: 10px
+  padding-top: 10px;
+  margin-left: 6px;
 }
 
 #center .newsfeed .news {
-  width: 388px;
-  margin-top: 15px;
+  width: 391px;
+  margin-top: 5px;
   padding-right: 8;
   margin-left: 7;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   border-bottom-left-radius: 7px;
   border-top-left-radius: 7px;  
-
-  background-color: white;
-
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: white;
-
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: white;
-
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-left-color: white;
 }
 
 #center .newsfeed .news:hover {
-    background-color: lavender;
+    background-color: #F0F0F0;
     cursor: pointer;
 }
 
 #center .newsfeed .news.active {
-    width: 389px;
-    background-color: lavender;
+    width: 391px;
+    background-color: #EBECDC;
     cursor: pointer;
-    border-top-color: #08C;
-    border-bottom-color: #08C;
-    border-left-color: #08C;
 }
 
 #center .newsfeed .news .icon {
@@ -635,13 +646,15 @@ body {
 }
 
 #right {
-  border-left-color: #08C;
-  border-left-style: solid;
-  border-left-width: 1px;
+  background-color: #F0F0F0;
+}
+
+#right.active {
+  background-color: #EBECDC;
 }
 
 #right .wrapper {
-  margin-left: 15px;
+  margin-left: 3px;
   height: 100%;
   overflow-y: scroll;
 }
@@ -651,12 +664,11 @@ body {
 }
 
 #right .wrapper > div {
-  margin-top: 10px
+  margin-top: 16px
 }
 
 #right .header {
   font-weight: bold;
-  color: #08C;
   text-shadow: -1px 1px white;
   height: 23px;
 }
@@ -694,12 +706,16 @@ body {
 }
 
 .thread .answer textarea {
-  width: 269px;
+  width: 320px;
   height: 55px;
 }
 
 #right .publication {
   height: 80px;
+}
+
+#right .publication .header, #right .buyer .header, #right .conversation .header{
+  color: darkGoldenrod;
 }
 
 #right .publication .info {
@@ -744,8 +760,12 @@ body {
 
 #right .answer .send {
   clear:both;
-  margin-right: 0;
+  margin-left: 280;
 }
+
+
+
+
 
 
 

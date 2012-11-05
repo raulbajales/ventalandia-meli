@@ -1,19 +1,19 @@
 /* Controllers */
 
-ventalandia.controller.MiniProfileController = function($scope, $cookies, $http, SharedModel) {
+ventalandia.controller.MiniProfileController = function($scope, $cookies, $http) {
 	$http({method: "GET", url: "/api/users/me", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
 			$scope.miniProfile = ventalandia.model.MiniProfile.fromObject(data);
 			$scope.reputationClass = ventalandia.ui.reputationClassFor($scope.miniProfile.sellerReputationLevel);
-			SharedModel.set("miniProfile", $scope.miniProfile);
+	 		$scope.$emit('broadcast', {id: "miniProfileLoaded", data: $scope.miniProfile});
 		}).error(function(data, status, headers, config) {
 			console.log("[ERROR] - Unable to get profile data");
 			console.log(JSON.stringify(data)); // invoke a general ui error handler
 		});
 }
 
-ventalandia.controller.NewsController = function($scope, $cookies, $http, SharedModel) {
+ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 	$http({method: "GET", url: "/api/news", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {
@@ -43,7 +43,7 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http, Shared
 	}		
 }
 
-ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http, SharedModel) {
+ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http) {
 	$scope.$on('showNewsDetails', function(event, entry) {
 		$http({method: "GET", url: "/api/news/" + entry.id, 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
@@ -81,11 +81,14 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http,
 				});
 				/**/
 				$scope.newsDetails = newsDetails;
-				$scope.miniProfile = SharedModel.get("miniProfile");
 			}).error(function(data, status, headers, config) {
 				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
 				console.log(JSON.stringify(data)); // invoke a general ui error handler
 			});
+	});
+
+	$scope.$on('miniProfileLoaded', function(event, miniProfile) {
+		$scope.miniProfile = miniProfile;
 	});
 
 	$scope.sendAnswer = function(question) {
@@ -106,7 +109,7 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http,
 }
 
 
-ventalandia.controller.TopbarController = function($scope, $cookies, $http, SharedModel) {
+ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
 	$http({method: "GET", url: "/api/news/summary", 
 		   headers: {"x-vtd-token": $cookies["vtd_token"]}
 	    }).success(function(data, status, headers, config) {

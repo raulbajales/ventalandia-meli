@@ -40,16 +40,16 @@
   <div id="header" ng-controller="ventalandia.controller.TopbarController">
     <div class="logo"></div>
     <div class="generic-search">
-      <i class="icon-search icon-white"></i>
+      <i class="icon-search"></i>
       <input type="search" class="search-query search-input" placeholder="Buscar..." size="90"/>
     </div>
     <div class="btn btn-link logout" ng-click="confirmLogout()">
-      <i class="icon-off icon-white"></i>  
+      <i class="icon-off"></i>  
       Salir
     </div>
     <!-- div class="notifications">
       <span class="btn btn-link">
-        <i class="icon-exclamation-sign icon-white"></i>  
+        <i class="icon-exclamation-sign"></i>  
         Notificaciones
       </span>      
       <span class="badge badge-important counter" ng-show="summary.newQuestions > 0">{{summary.newQuestions}}</span >       
@@ -106,7 +106,7 @@
               <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
               <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
               <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
-              <button ng-hide="question.answered" class="send btn btn-primary btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
+              <button ng-hide="question.answered" class="send btn btn-inverse btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
             </div>
           </div>          
         </div>

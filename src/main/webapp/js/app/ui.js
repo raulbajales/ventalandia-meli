@@ -22,7 +22,7 @@ ventalandia.ui.confirm = function(heading, question, cancelButtonTxt, okButtonTx
             '<a href="#" class="btn" data-dismiss="modal">' +
               cancelButtonTxt +
             '</a>' +
-            '<a href="#" id="okButton" class="btn btn-primary">' +
+            '<a href="#" id="okButton" class="btn btn-inverse">' +
               okButtonTxt +
             '</a>' +
           '</div>' +
@@ -56,7 +56,8 @@ ventalandia.ui.reputationClassFor = function(sellerReputationLevel) {
  */
 ventalandia.ui.newsfeed.activate = function(element) {
     $(".newsfeed .news").removeClass("active");
-    $(element).addClass("active");  
+    $(element).addClass("active"); 
+    $("#right").addClass("active"); 
 }
 
 /**

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('vldApp.services', [])
        .factory('SharedModel', function () {
 			var model = {};
