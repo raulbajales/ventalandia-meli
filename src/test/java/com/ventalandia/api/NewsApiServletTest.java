@@ -150,7 +150,7 @@ public class NewsApiServletTest {
         buyer.setMeliId(5678L);
         buyer.setNickName("TESTBUYER");
 
-        Mockito.when(newsFeedRepository.find(1234, 0, 10)).thenReturn(Arrays.asList(newsFeed));
+        Mockito.when(newsFeedRepository.find(1234,null, 0, 10)).thenReturn(Arrays.asList(newsFeed));
         Item item = new Item();
         item.setTitle("ItemTitle");
 

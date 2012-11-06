@@ -1,6 +1,5 @@
 package com.ventalandia.api;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,14 +60,14 @@ public class NewsApiServlet {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@QueryParam("since") String since) throws ParseException {
+    public List<NewsView> getNews(@QueryParam("since") String since){
         return getPagedNews(0, 10, since);
     }
 
     @GET
     @Path("/{fromPage}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset, @QueryParam("since") String since) throws ParseException {
+    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset, @QueryParam("since") String since){
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
