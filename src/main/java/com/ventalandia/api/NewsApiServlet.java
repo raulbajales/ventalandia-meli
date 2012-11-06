@@ -1,5 +1,6 @@
 package com.ventalandia.api;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,7 @@ public class NewsApiServlet {
     private ItemRepository itemRepository;
     private QuestionRepository questionRepository;
     private NewsFeedService newsFeedService;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     @Inject
     public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
@@ -146,14 +148,14 @@ public class NewsApiServlet {
                 
                 Map<String,Object> questionMap = MapBuilder.build()
                         .putValue("text", question.getText())
-                        .putValue("date", question.getCreationDate());
+                        .putValue("date", dateFormat.format(question.getCreationDate()));
                 
                 Map<String,Object> answerMap =null;
                 
                 if(question.getAnswer()!=null){
                     answerMap = MapBuilder.build()
                             .putValue("text", question.getAnswer().getText())
-                            .putValue("date", question.getAnswer().getCreationDate());
+                            .putValue("date", dateFormat.format(question.getAnswer().getCreationDate()));
                 }
                 
                 Map<String, Object> questionAsMap = MapBuilder.build()
