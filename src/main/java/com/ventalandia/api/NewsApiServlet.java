@@ -1,7 +1,8 @@
 package com.ventalandia.api;
 
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.google.inject.Inject;
 import com.ventalandia.domain.Item;
 import com.ventalandia.domain.Question;
 import com.ventalandia.domain.User;
+import com.ventalandia.framework.util.DateUtil;
 import com.ventalandia.framework.util.MapBuilder;
 import com.ventalandia.meli.pesistence.ItemRepository;
 import com.ventalandia.meli.pesistence.QuestionRepository;
@@ -47,7 +49,6 @@ public class NewsApiServlet {
     private ItemRepository itemRepository;
     private QuestionRepository questionRepository;
     private NewsFeedService newsFeedService;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     @Inject
     public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
@@ -60,21 +61,26 @@ public class NewsApiServlet {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews(@QueryParam("since") String since) {
+    public List<NewsView> getNews(@QueryParam("since") String since) throws ParseException {
         return getPagedNews(0, 10, since);
     }
 
     @GET
     @Path("/{fromPage}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset, @QueryParam("since") String since) {
+    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset, @QueryParam("since") String since) throws ParseException {
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
 
         LOGGER.info("Meli User Id: " + meliUserId);
 
-        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, fromPage, offset);
+        Date sinceDate= null;
+        if(since!=null && since.length()>0){
+            sinceDate= DateUtil.parse(since);
+        }
+        
+        List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, sinceDate, fromPage, offset);
         List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
         for (NewsFeed newsFeed : newsFeeds) {
@@ -148,14 +154,14 @@ public class NewsApiServlet {
                 
                 Map<String,Object> questionMap = MapBuilder.build()
                         .putValue("text", question.getText())
-                        .putValue("date", dateFormat.format(question.getCreationDate()));
+                        .putValue("date", DateUtil.format(question.getCreationDate()));
                 
                 Map<String,Object> answerMap =null;
                 
                 if(question.getAnswer()!=null){
                     answerMap = MapBuilder.build()
                             .putValue("text", question.getAnswer().getText())
-                            .putValue("date", dateFormat.format(question.getAnswer().getCreationDate()));
+                            .putValue("date", DateUtil.format(question.getAnswer().getCreationDate()));
                 }
                 
                 Map<String, Object> questionAsMap = MapBuilder.build()

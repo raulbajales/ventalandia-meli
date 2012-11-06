@@ -1,5 +1,6 @@
 package com.ventalandia.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.Query;
@@ -24,24 +25,36 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
 		super(persistenceManagerProvider);
 	}
 
-	public List<NewsFeed> find(long userId) {
-		return this.find(userId, 0, OFFSET);
+	public List<NewsFeed> find(long userId, Date since, Integer fromPage, Integer offset2) {
+		return this.find(userId, since, 0, OFFSET);
 	}
 
-	public List<NewsFeed> find(long userId, int from, int offset) {
+	public List<NewsFeed> find(long userId, Date since, int from, int offset) {
 		if (from < 0) {
 			throw new IllegalArgumentException("'From' must be > 0.");
 		}
 
+		String dateFilter = "";
+		String dateDefinition = "";
+		
+		if(since!=null){
+		    dateFilter = " && date >= since";
+	        dateDefinition = ", Date since";
+		}
+		
 		Query query = this.createQuery();
 
 		query.setOrdering("date desc");
 		query.setRange(from, from + offset);
+		if(since!=null){
+		    query.declareImports("import java.util.Date");
+		}
+        query.setFilter("userId == aMeliId" + dateFilter);
+        query.declareParameters("Long aMeliId" + dateDefinition);
 
-		query.setFilter("userId == aMeliId");
-		query.declareParameters("Long aMeliId");
-
-		return this.list(query, userId);
+		List<NewsFeed> list = (since != null) ? this.list(query, userId, since):this.list(query, userId);
+		
+        return list;
 	}
 
 	@Override
