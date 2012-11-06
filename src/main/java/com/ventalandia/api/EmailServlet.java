@@ -13,21 +13,27 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 
 /**
  * 
  * @author msulik
  * 
  */
+@Path("/_ah/mail")
 public class EmailServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     private static final Logger LOGGER = Logger.getLogger(EmailServlet.class.getName());
 
-    public void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
-        // LOGGER.info("sendTo param: " + sendTo);
+    @POST
+    @Path("/{sendTo}")
+    public void doPost(@Context HttpServletRequest request, @PathParam("sendTo") String sendTo) throws IOException {
+        LOGGER.info("sendTo param: " + sendTo);
         Properties props = new Properties();
 
         Session email = Session.getDefaultInstance(props, null);
