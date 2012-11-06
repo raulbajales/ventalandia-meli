@@ -11,12 +11,13 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
+
+import com.google.appengine.api.utils.SystemProperty;
 
 /**
  * 
@@ -24,15 +25,18 @@ import javax.ws.rs.core.Context;
  * 
  */
 @Path("/_ah/mail")
-public class EmailServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
+public class EmailServlet{
 
     private static final Logger LOGGER = Logger.getLogger(EmailServlet.class.getName());
 
     @POST
     @Path("/{sendTo}")
-    public void doPost(@Context HttpServletRequest request, @PathParam("sendTo") String sendTo) throws IOException {
+    public void doPost(@Context HttpServletRequest request, @PathParam("sendTo") String sendTo){
+        
+        String appId = SystemProperty.applicationId.get();
+        
+        LOGGER.info("appId: " + appId);
+        
         LOGGER.info("sendTo param: " + sendTo);
         Properties props = new Properties();
 
