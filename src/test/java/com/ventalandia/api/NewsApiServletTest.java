@@ -54,7 +54,7 @@ public class NewsApiServletTest {
     public void testGetNews() {
 
         prepareDataForGetNews();
-        List<NewsView> news = newsApiServlet.getNews();
+        List<NewsView> news = newsApiServlet.getNews(null);
 
         Assert.assertEquals(1, news.size());
         Assert.assertEquals(5678L, news.get(0).getBuyer().getId());
@@ -68,7 +68,7 @@ public class NewsApiServletTest {
     public void testPagedGetNews() {
 
         prepareDataForGetNews();
-        List<NewsView> news = newsApiServlet.getPagedNews(0, 10);
+        List<NewsView> news = newsApiServlet.getPagedNews(0, 10, null);
 
         Assert.assertEquals(1, news.size());
         Assert.assertEquals(5678L, news.get(0).getBuyer().getId());

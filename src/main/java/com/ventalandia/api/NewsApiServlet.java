@@ -58,14 +58,14 @@ public class NewsApiServlet {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getNews() {
-        return getPagedNews(0, 10);
+    public List<NewsView> getNews(@QueryParam("since") String since) {
+        return getPagedNews(0, 10, since);
     }
 
     @GET
     @Path("/{fromPage}/{offset}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset) {
+    public List<NewsView> getPagedNews(@PathParam("fromPage") Integer fromPage, @PathParam("offset") Integer offset, @QueryParam("since") String since) {
 
         LOGGER.info("getting news...");
         long meliUserId = AuthContext.getToken().getMeliId();
@@ -143,10 +143,23 @@ public class NewsApiServlet {
             List<Object> questionsList = new ArrayList<Object>();
 
             for (Question question : questions) {
+                
+                Map<String,Object> questionMap = MapBuilder.build()
+                        .putValue("text", question.getText())
+                        .putValue("date", question.getCreationDate());
+                
+                Map<String,Object> answerMap =null;
+                
+                if(question.getAnswer()!=null){
+                    answerMap = MapBuilder.build()
+                            .putValue("text", question.getAnswer().getText())
+                            .putValue("date", question.getAnswer().getCreationDate());
+                }
+                
                 Map<String, Object> questionAsMap = MapBuilder.build()
                         .putValue("id", question.getMeliId())
-                        .putValue("text", question.getText())
-                        .putValue("answer", question.getAnswer()!=null?question.getAnswer().getText():null);
+                        .putValue("question", questionMap)
+                        .putValue("answer", answerMap);
                 
                 questionsList.add(questionAsMap);
             }
