@@ -54,30 +54,34 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http)
 				/*
 				var newsDetails = ventalandia.model.NewsDetails.fromObject({
 				    "item": {
-				        "title": "Bicicleta rodado 26",
-				        "pictureUrl": "http://host/bici.jpg"
+				        "title": "Camiseta De Boca Impecable- Test Item",
+				        "pictureUrl": null
 				    },
-				    "buyer": {
-				        "pictureUrl": "http://host/photo.jpg",
-				        "nickname": "LALO_LANDA"
+				        "buyer": {
+				        "pictureUrl": null,
+				        "nickname": "TEST6102"
 				    },
-				    "questions": [
-				         {
-	                        "id": "2496684004",
-	                        "text": "hola cuanto sale el envio hasta neuquen? saludos",
-	                        "answer": "Hola! hasta tu domiclio sale $75 por correo argentino"
-	                     },
-				         {
-	                        "id": "2496684005",
-	                        "text": "una preg mas",
-	                        "answer": "Hola! tu respuesta"
-	                     },
-	                     {
-	                        "id": "2496684006",
-	                        "text": "otra preg",
-	                        "answer": null
-	                     }
-				    ]
+				        "questions": [{
+				            "id": 2518148373,
+				            "question": {
+				                "text": "cuanto me sale hasta Dinamarca?",
+				                "date": "2012-10-10T13:10:52.067"
+				            },
+				            "answer": {
+				                "text": "1000 pesos mas",
+				                "date": "2012-10-10T13:10:52.067"
+				            }
+				    }, {
+				            "id": 2516147342,
+				            "question": {
+				                "text": "tene' una con la cara de cabaña'?",
+				                "date": "2012-10-10T13:10:52.067"
+				            },
+				            "answer": {
+				                "text": "tengo nene",
+				                "date": "2012-10-10T13:10:52.067"
+				            }
+				    }]
 				});
 				*/
 				$scope.newsDetails = newsDetails;
