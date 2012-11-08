@@ -1,41 +1,17 @@
 /* Controllers */
 
-ventalandia.controller.MiniProfileController = function($scope, $cookies, $http) {
-	$http({method: "GET", url: "/api/users/me", 
-		   headers: {"x-vtd-token": $cookies["vtd_token"]}
-	    }).success(function(data, status, headers, config) {
-			$scope.miniProfile = ventalandia.model.MiniProfile.fromObject(data);
-			$scope.reputationClass = ventalandia.ui.reputationClassFor($scope.miniProfile.sellerReputationLevel);
-	 		$scope.$emit('broadcast', {id: "miniProfileLoaded", data: $scope.miniProfile});
-		}).error(function(data, status, headers, config) {
-			console.log("[ERROR] - Unable to get profile data");
-			console.log(JSON.stringify(data)); // invoke a general ui error handler
-		});
+ventalandia.controller.MiniProfileController = function($scope, UserService) {
+	UserService.getMyProfile(function(miniProfile) {
+		$scope.miniProfile = miniProfile;
+		$scope.reputationClass = ventalandia.ui.reputationClassFor($scope.miniProfile.sellerReputationLevel);
+		$scope.$emit('broadcast', {id: "miniProfileLoaded", data: $scope.miniProfile});
+	});
 }
 
-ventalandia.controller.NewsController = function($scope, $cookies, $http) {
-	$http({method: "GET", url: "/api/news", 
-		   headers: {"x-vtd-token": $cookies["vtd_token"]}
-	    }).success(function(data, status, headers, config) {
-	    	var newsfeed = ventalandia.model.Newsfeed.fromObject(data);
-
-			/* Mock data for test: */
-			/*
-			var newsfeed = ventalandia.model.Newsfeed.fromObject([{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"juancito"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"lulu"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"traviesa"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0},
-			{"id":5006,"buyer":{"id":12345,"nickname":"ICLACREYO"},"date":"2012-10-10T13:10:52.067","type":"QUESTION","item":{"id":"MLA434525953","title":"Bicicleta rodado 26"},"entityId":0}]);
-			*/
-			$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
-		}).error(function(data, status, headers, config) {
-			console.log("[ERROR] - Unable to get newsfeed");
-			console.log(JSON.stringify(data)); // invoke a general ui error handler
-		});
+ventalandia.controller.NewsController = function($scope, NewsService) {
+	NewsService.getMyNewsfeed(function(newsfeed) {
+		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
+	});
 
 	$scope.showNewsDetails = function($event, entry) {
 		ventalandia.ui.newsfeed.activate($event.currentTarget);
@@ -45,50 +21,9 @@ ventalandia.controller.NewsController = function($scope, $cookies, $http) {
 
 ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http) {
 	$scope.$on('showNewsDetails', function(event, entry) {
-		$http({method: "GET", url: "/api/news/" + entry.id, 
-			   headers: {"x-vtd-token": $cookies["vtd_token"]}
-		    }).success(function(data, status, headers, config) {
-		    	var newsDetails = ventalandia.model.NewsDetails.fromObject(data);
-
-				/* Mock data for test: */
-				/*
-				var newsDetails = ventalandia.model.NewsDetails.fromObject({
-				    "item": {
-				        "title": "Camiseta De Boca Impecable- Test Item",
-				        "pictureUrl": null
-				    },
-				        "buyer": {
-				        "pictureUrl": null,
-				        "nickname": "TEST6102"
-				    },
-				        "questions": [{
-				            "id": 2518148373,
-				            "question": {
-				                "text": "cuanto me sale hasta Dinamarca?",
-				                "date": "2012-10-10T13:10:52.067"
-				            },
-				            "answer": {
-				                "text": "1000 pesos mas",
-				                "date": "2012-10-10T13:10:52.067"
-				            }
-				    }, {
-				            "id": 2516147342,
-				            "question": {
-				                "text": "tene' una con la cara de cabaña'?",
-				                "date": "2012-10-10T13:10:52.067"
-				            },
-				            "answer": {
-				                "text": "tengo nene",
-				                "date": "2012-10-10T13:10:52.067"
-				            }
-				    }]
-				});
-				*/
-				$scope.newsDetails = newsDetails;
-			}).error(function(data, status, headers, config) {
-				console.log("[ERROR] - Unable to get newsfeed details for id " + entry.id);
-				console.log(JSON.stringify(data)); // invoke a general ui error handler
-			});
+		NewsService.getNewsDetails(entry.id, function(newsDetails) {
+		    $scope.newsDetails = newsDetails;
+	    });
 	});
 
 	$scope.$on('miniProfileLoaded', function(event, miniProfile) {
@@ -121,7 +56,7 @@ ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
 
 			/* Mock data for test: */
 			/*
-			var summary = ventalandia.model.Summary.fromObject({"new_questions":10,"user_id":118519141});
+			var summary = ventalandia.model.Summary.fromObject(ventalandia.test.mocks.newsSummary);
 			*/
 
 			$scope.summary = summary;

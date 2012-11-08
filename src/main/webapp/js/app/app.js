@@ -1,4 +1,6 @@
-'use strict';
+ventalandia.settings = {
+  USE_MOCKS = true;
+}
 
 angular.module('vldApp', ['ngCookies', 'vldApp.filters', 'vldApp.services', 'vldApp.directives']).
   config(function($routeProvider) {
