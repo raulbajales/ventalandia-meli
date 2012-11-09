@@ -174,8 +174,8 @@ ventalandia.model.NewsDetails.fromObject = function(obj) {
 		var id = e.id;
 		var text = e.question.text;
 		var textDate = humaneDate(e.question.date);
-		var answer = e.answer.text;
-		var answerDate = humaneDate(e.answer.date);
+		var answer = e.answer ? e.answer.text : null;
+		var answerDate = e.answer ? humaneDate(e.answer.date) : null;
 		questions.push(new ventalandia.model.NewsDetails.Question(id, text, answer));
 	});
 	return new ventalandia.model.NewsDetails(item, buyer, questions);
