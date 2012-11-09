@@ -1,6 +1,6 @@
 /* -------------------------------------------------- */
 //
-//  The Controllers
+//  MiniProfileController
 //
 /* -------------------------------------------------- */
 
@@ -11,6 +11,13 @@ ventalandia.controller.MiniProfileController = function($scope, UserService) {
 		$scope.$emit('broadcast', {id: "miniProfileLoaded", data: $scope.miniProfile});
 	});
 }
+ventalandia.controller.MiniProfileController.$inject = ['$scope', 'UserService'];
+
+/* -------------------------------------------------- */
+//
+//  NewsController
+//
+/* -------------------------------------------------- */
 
 ventalandia.controller.NewsController = function($scope, NewsService) {
 	NewsService.getMyNewsfeed(function(newsfeed) {
@@ -22,8 +29,15 @@ ventalandia.controller.NewsController = function($scope, NewsService) {
  		$scope.$emit('broadcast', {id: "showNewsDetails", data: entry});
 	}		
 }
+ventalandia.controller.NewsController.$inject = ['$scope', 'NewsService'];
 
-ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http) {
+/* -------------------------------------------------- */
+//
+//  NewsDetailsController
+//
+/* -------------------------------------------------- */
+
+ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 	$scope.$on('showNewsDetails', function(event, entry) {
 		NewsService.getNewsDetails(entry.id, function(newsDetails) {
 		    $scope.newsDetails = newsDetails;
@@ -41,9 +55,15 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http)
 		});
 	};	
 }
+ventalandia.controller.NewsController.$inject = ['$scope', 'NewsService'];
 
+/* -------------------------------------------------- */
+//
+//  TopbarController
+//
+/* -------------------------------------------------- */
 
-ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
+ventalandia.controller.TopbarController = function($scope, NewsService) {
 	NewsService.getMyNewsSummary(function(summary) {
 		$scope.summary = summary;
 	});
@@ -56,6 +76,7 @@ ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
         });
 	}
 }
+ventalandia.controller.TopbarController.$inject = ['$scope', 'NewsService'];
 
 ventalandia.controller.CustomersController = function() {}
 
