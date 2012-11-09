@@ -64,5 +64,37 @@ ventalandia.service.NewsService = function($cookies, $http) {
 			});
 	}
 
+	/**
+	 * @param {function(ventalandia.model.Summary)} onSuccess
+	 */
+	NewsService.getMyNewsSummary = function(onSuccess) {
+		$http({method: "GET", url: "/api/news/summary", 
+			   headers: {"x-vtd-token": $cookies["vtd_token"]}
+		    }).success(function(data, status, headers, config) {
+		    	onSucess(ventalandia.model.Summary.fromObject(data));
+			}).error(function(data, status, headers, config) {
+				console.log("[ERROR] - Unable to get news summary ");
+				console.log(JSON.stringify(data)); // invoke a general ui error handler
+			});
+	}
 
+	/**
+	 * @param {string} newsId
+	 * @param {string} answer
+	 * @param {function()} onSuccess
+	 */
+	NewsService.sendAnswer = function(newsId, answer, onSuccess) {
+		var theBody = {"question_id": newsId, "text": answer};
+		$http({method: "POST", url: "/api/answers/", 
+			   headers: {"x-vtd-token": $cookies["vtd_token"],
+			             "Content-Type": "application/json"},
+			   data: theBody
+		    }).success(function(data, status, headers, config) {
+		    	onSuccess();
+		    	console.log("Just sent answer: " + JSON.stringify(theBody));
+			}).error(function(data, status, headers, config) {
+				console.log("[ERROR] - Unable send answer '" + JSON.stringify(question) + "'");
+				console.log(JSON.stringify(data)); // invoke a general ui error handler
+			});			
+	}
 }

@@ -1,4 +1,8 @@
-/* Controllers */
+/* -------------------------------------------------- */
+//
+//  The Controllers
+//
+/* -------------------------------------------------- */
 
 ventalandia.controller.MiniProfileController = function($scope, UserService) {
 	UserService.getMyProfile(function(miniProfile) {
@@ -32,38 +36,17 @@ ventalandia.controller.NewsDetailsController = function($scope, $cookies, $http)
 
 	$scope.sendAnswer = function(question) {
 		if (!question.answer) return;
-		var theBody = {"question_id": question.id, "text": question.answer};
-		$http({method: "POST", url: "/api/answers/", 
-			   headers: {"x-vtd-token": $cookies["vtd_token"],
-			             "Content-Type": "application/json"},
-			   data: theBody
-		    }).success(function(data, status, headers, config) {
-		    	question.answered = true;
-		    	console.log("Just sent answer: " + JSON.stringify(theBody));
-			}).error(function(data, status, headers, config) {
-				console.log("[ERROR] - Unable send answer '" + JSON.stringify(question) + "'");
-				console.log(JSON.stringify(data)); // invoke a general ui error handler
-			});			
+		NewsService.sendAnswer(question.id, question.answer, function() {
+			question.answered = true;
+		});
 	};	
 }
 
 
 ventalandia.controller.TopbarController = function($scope, $cookies, $http) {
-	$http({method: "GET", url: "/api/news/summary", 
-		   headers: {"x-vtd-token": $cookies["vtd_token"]}
-	    }).success(function(data, status, headers, config) {
-	    	var summary = ventalandia.model.Summary.fromObject(data);
-
-			/* Mock data for test: */
-			/*
-			var summary = ventalandia.model.Summary.fromObject(ventalandia.test.mocks.newsSummary);
-			*/
-
-			$scope.summary = summary;
-		}).error(function(data, status, headers, config) {
-			console.log("[ERROR] - Unable to get news summary ");
-			console.log(JSON.stringify(data)); // invoke a general ui error handler
-		});
+	NewsService.getMyNewsSummary(function(summary) {
+		$scope.summary = summary;
+	});
 
 	$scope.confirmLogout = function() {
         ventalandia.ui.confirm("Salir", "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
