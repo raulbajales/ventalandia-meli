@@ -22,7 +22,7 @@ ventalandia.test.mocks = {};
 /* -------------------------------------------------- */
 
 ventalandia.settings = {
-  USE_MOCKS: true
+  USE_MOCKS: false
 }
 
 /* -------------------------------------------------- */
