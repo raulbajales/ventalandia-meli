@@ -779,11 +779,9 @@ body {
 
 
 
-#footer .footer-guest {
-  height: 34px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;  
+#footer.guest {
+  height: 80px;
+  position:absolute;
 }
 
 .main-content-guest {
@@ -792,7 +790,7 @@ body {
   margin-right: auto ;
   margin-top: 50px;
   height: 400px;
-  background: #08C;
+  background: darkGoldenrod;
 }
 
 .main-content-guest .logo {
@@ -806,7 +804,7 @@ body {
 }
 
 .main-content-guest .content {
-  background: lavender;
+  background: #F2F2F2;
   padding-left: 26px;
   padding-right: 26px;
   padding-top: 15px;
@@ -818,7 +816,6 @@ body {
 }
 
 .main-content-guest .content .headline {
-  color: #0C055E;
   margin-top: 3px;
   font-weight: bold;
   font-size: 28;
@@ -835,9 +832,9 @@ body {
 .main-content-guest .content .info {
   float: right;
   width: 313px;
-  height: 179px;
-  background: lavender;
-  margin-top: 20;
+  height: 139px;
+  background: #EBECDC;
+  margin-top: 24;
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
@@ -845,8 +842,9 @@ body {
 
 .main-content-guest .content .info .title{
   font-weight: bold;
-  color: #08C;
+  color: darkgoldenrod;
   font-size: 17;
+  padding-top: 10px;
 }
 
 .main-content-guest .content .info p {
@@ -856,7 +854,7 @@ body {
 
 .main-content-guest .content .info .btn {
   margin-left: 17px;
-  margin-top: 34px;
+  margin-top: 21px;
 }
 
 
