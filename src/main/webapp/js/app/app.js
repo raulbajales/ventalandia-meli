@@ -40,7 +40,7 @@ vldApp.config(function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/news'});
 });
 
-vldApp.run(function($rootScope, $httpBackend) {
+vldApp.run(function($rootScope) {
   /*
     Event dispatching for controllers, how to use it:
       Dispatch event:

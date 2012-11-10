@@ -153,11 +153,15 @@ ventalandia.model.NewsDetails.Buyer = function(pictureUrl, nickName) {
  * @param {string} id
  * @param {string} text
  * @param {string} answer
+ * @param {string} textDate
+ * @param {string} answerDate
  */
-ventalandia.model.NewsDetails.Question = function(id, text, answer) {
+ventalandia.model.NewsDetails.Question = function(id, text, answer, textDate, answerDate) {
 	this.id = id;
 	this.text = text;
 	this.answer = answer;
+	this.textDate = textDate;
+	this.answerDate = answerDate;
 	this.answered = (this.answer != null && this.answer != undefined)	
 }
 
@@ -176,7 +180,7 @@ ventalandia.model.NewsDetails.fromObject = function(obj) {
 		var textDate = humaneDate(e.question.date);
 		var answer = e.answer ? e.answer.text : null;
 		var answerDate = e.answer ? humaneDate(e.answer.date) : null;
-		questions.push(new ventalandia.model.NewsDetails.Question(id, text, answer));
+		questions.push(new ventalandia.model.NewsDetails.Question(id, text, answer, textDate, answerDate));
 	});
 	return new ventalandia.model.NewsDetails(item, buyer, questions);
 }

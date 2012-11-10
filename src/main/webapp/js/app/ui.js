@@ -64,7 +64,7 @@ ventalandia.ui.newsfeed.activate = function(element) {
  * General UI initialization
  */
 ventalandia.ui.initialize = function() {
-  $(".generic-search").tooltip({title:"Puede buscar Novedades, Publicaciones o Clientes. Escriba lo que busca y presione Enter.", placement: "bottom"});
+  $(".generic-search").tooltip({title:"Puede buscar en todas sus Novedades. Escriba lo que busca y presione Enter.", placement: "bottom"});
   $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});      
 }
 

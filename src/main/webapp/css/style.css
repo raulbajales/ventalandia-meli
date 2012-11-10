@@ -341,7 +341,7 @@ body {
 }
 
 #left {
-  width: 200px;             
+  width: 203px;             
   margin-right: -100%;
   position: fixed;
   margin-left: -200px;
@@ -499,12 +499,11 @@ body {
 
 #left .miniprofile {
    background: #F2F2F2;
-   width: 200px;
+   width: 203px;
    height: 162px;
    position: fixed;
    border-bottom-left-radius: 7px;
    border-bottom-right-radius: 7px;
-   margin-left: 6px;
    box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
    -moz-box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
    -webkit-box-shadow: 0px 4px 0 rgba(94, 94, 94, 0.1);
@@ -584,12 +583,11 @@ body {
 
 #left .navigation ul {
    position: fixed;
-   width: 200px;
+   width: 203px;
 }
 
 #left .navigation .nav {
   padding-top: 10px;
-  margin-left: 6px;
 }
 
 #center .newsfeed .news {
@@ -642,7 +640,7 @@ body {
   text-align: right;
   color: grey;
   font-style: italic;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 
 #right {
@@ -763,6 +761,12 @@ body {
   margin-left: 280;
 }
 
+.date {
+  text-align: right;
+  color: grey;
+  font-style: italic;
+  font-size: 0.8em;
+}
 
 
 
@@ -775,7 +779,7 @@ body {
 
 
 
-footer .footer-guest {
+#footer .footer-guest {
   height: 34px;
   position: absolute;
   bottom: 0;
@@ -854,6 +858,7 @@ footer .footer-guest {
   margin-left: 17px;
   margin-top: 34px;
 }
+
 
 
 
