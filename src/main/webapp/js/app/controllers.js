@@ -1,17 +1,32 @@
 /* -------------------------------------------------- */
 //
+//  Events
+//
+/* -------------------------------------------------- */
+
+ventalandia.controller.event = {
+	MINI_PROFILE_LOADED: "miniProfileLoaded",
+	NEWS_DETAILS_REQUESTED: "newsDetailsRequested"
+}
+
+/* -------------------------------------------------- */
+//
 //  MiniProfileController
 //
 /* -------------------------------------------------- */
 
 ventalandia.controller.MiniProfileController = function($scope, UserService) {
+	var event = ventalandia.controller.event;
+	
 	UserService.getMyProfile(function(miniProfile) {
 		$scope.miniProfile = miniProfile;
 		$scope.reputationClass = ventalandia.ui.reputationClassFor($scope.miniProfile.sellerReputationLevel);
-		$scope.$emit('broadcast', {id: "miniProfileLoaded", data: $scope.miniProfile});
+		$scope.$emit('broadcast', {
+			id: event.MINI_PROFILE_LOADED, 
+			data: $scope.miniProfile
+		});
 	});
 }
-ventalandia.controller.MiniProfileController.$inject = ['$scope', 'UserService'];
 
 /* -------------------------------------------------- */
 //
@@ -20,16 +35,20 @@ ventalandia.controller.MiniProfileController.$inject = ['$scope', 'UserService']
 /* -------------------------------------------------- */
 
 ventalandia.controller.NewsController = function($scope, NewsService) {
+	var event = ventalandia.controller.event;
+	
 	NewsService.getMyNewsfeed(function(newsfeed) {
 		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 	});
 
 	$scope.showNewsDetails = function($event, entry) {
 		ventalandia.ui.newsfeed.activate($event.currentTarget);
- 		$scope.$emit('broadcast', {id: "showNewsDetails", data: entry});
+ 		$scope.$emit('broadcast', {
+ 			id: event.NEWS_DETAILS_REQUESTED, 
+ 			data: entry
+ 		});
 	}		
 }
-ventalandia.controller.NewsController.$inject = ['$scope', 'NewsService'];
 
 /* -------------------------------------------------- */
 //
@@ -38,13 +57,15 @@ ventalandia.controller.NewsController.$inject = ['$scope', 'NewsService'];
 /* -------------------------------------------------- */
 
 ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
-	$scope.$on('showNewsDetails', function(event, entry) {
+	var event = ventalandia.controller.event;
+
+	$scope.$on(event.NEWS_DETAILS_REQUESTED, function(event, entry) {
 		NewsService.getNewsDetails(entry.id, function(newsDetails) {
 		    $scope.newsDetails = newsDetails;
 	    });
 	});
 
-	$scope.$on('miniProfileLoaded', function(event, miniProfile) {
+	$scope.$on(event.NEWS_DETAILS_REQUESTED, function(event, miniProfile) {
 		$scope.miniProfile = miniProfile;
 	});
 
@@ -55,7 +76,6 @@ ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 		});
 	};	
 }
-ventalandia.controller.NewsController.$inject = ['$scope', 'NewsService'];
 
 /* -------------------------------------------------- */
 //
@@ -74,8 +94,19 @@ ventalandia.controller.TopbarController = function($scope, NewsService) {
         });
 	}
 }
-ventalandia.controller.TopbarController.$inject = ['$scope', 'NewsService'];
+
+/* -------------------------------------------------- */
+//
+//  CustomersController
+//
+/* -------------------------------------------------- */
 
 ventalandia.controller.CustomersController = function() {}
+
+/* -------------------------------------------------- */
+//
+//  ProductsController
+//
+/* -------------------------------------------------- */
 
 ventalandia.controller.ProductsController = function() {}

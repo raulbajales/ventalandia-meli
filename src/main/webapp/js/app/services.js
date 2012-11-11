@@ -13,11 +13,6 @@ ventalandia.service.UserService = function($cookies, $http) {
 	 * @param {function(ventalandia.model.MiniProfile)} onSuccess
 	 */
     getMyProfile: function(onSuccess) {
-
-		// FIXME: do it by config...
-		if (ventalandia.settings.USE_MOCKS) 
-			return onSuccess(ventalandia.model.MiniProfile.fromObject(ventalandia.test.mocks.miniProfile));
-
 		$http({method: "GET", url: "/api/users/me", 
 			   headers: {"x-vtd-token": $cookies["vtd_token"]}
 		    }).success(function(data, status, headers, config) {
@@ -44,11 +39,6 @@ ventalandia.service.NewsService = function($cookies, $http) {
 		 * @param {function(ventalandia.model.Newsfeed)} onSuccess
 		 */
 		getMyNewsfeed: function(onSuccess) {
-
-			// FIXME: do it by config...
-			if (ventalandia.settings.USE_MOCKS) 
-				return onSuccess(ventalandia.model.Newsfeed.fromObject(ventalandia.test.mocks.news));
-
 			$http({method: "GET", url: "/api/news", 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
@@ -62,11 +52,6 @@ ventalandia.service.NewsService = function($cookies, $http) {
 		 * @param {function(ventalandia.model.Newsfeed)} onSuccess
 		 */
 		getNewsDetails: function(newsId, onSuccess) {
-
-			// FIXME: do it by config...
-			if (ventalandia.settings.USE_MOCKS) 
-				return onSuccess(ventalandia.model.NewsDetails.fromObject(ventalandia.test.mocks.newsDetails));
-
 			$http({method: "GET", url: "/api/news/" + newsId, 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
@@ -80,11 +65,6 @@ ventalandia.service.NewsService = function($cookies, $http) {
 		 * @param {function(ventalandia.model.Summary)} onSuccess
 		 */
 		getMyNewsSummary: function(onSuccess) {
-
-			// FIXME: do it by config...
-			if (ventalandia.settings.USE_MOCKS) 
-				return onSuccess(ventalandia.model.Summary.fromObject(ventalandia.test.mocks.newsSummary));
-
 			$http({method: "GET", url: "/api/news/summary", 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {

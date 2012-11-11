@@ -5,11 +5,11 @@
 /* -------------------------------------------------- */
 
 ventalandia.test.mocks.miniProfile = {
-    "nickname": "TT771170",
-    "meliId": 127837357,
-    "name": "Test",
-    "surname": "Test",
-    "sellerReputationLevel": 0
+    "nickname": "unpetiso",
+    "meliId": 123456,
+    "name": "Unpe",
+    "surname": "Tiso",
+    "sellerReputationLevel": 3
 };
 
 /* -------------------------------------------------- */
@@ -180,4 +180,19 @@ ventalandia.test.mocks.newsDetails = {
 ventalandia.test.mocks.newsSummary = {
     "new_questions": 10,
     "user_id": 118519141
+}
+
+/* -------------------------------------------------- */
+//
+//  Configure mock http service
+//
+/* -------------------------------------------------- */
+
+ventalandia.test.mocks.configureBackend = function(http) {
+    http.whenPOST().respond(200);    
+    http.whenGET('/api/users/me').respond(ventalandia.test.mocks.miniProfile);
+    http.whenGET('/api/news').respond(ventalandia.test.mocks.news);
+    http.whenGET('/api/news/5006').respond(ventalandia.test.mocks.newsDetails);
+    http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
+    http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
 }

@@ -33,7 +33,10 @@ ventalandia.settings = {
 
 var vldApp = angular.module('vldApp', ['ng', 'ngCookies', 'vldApp.filters', 'vldApp.services', 'vldApp.directives']);
 
-vldApp.config(function($routeProvider) {
+vldApp.config(function($routeProvider, $provide) {
+  /*
+    Handle URL routes
+  */
   $routeProvider
       .when('/news', {
         templateUrl: '/partials/news.html', 
@@ -50,6 +53,12 @@ vldApp.config(function($routeProvider) {
       .otherwise({
         redirectTo: '/news'
       });
+  /*
+    Enable mocks
+  */
+  if (ventalandia.settings.USE_MOCKS) {
+    $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+  }
 });
 
 vldApp.provider({
@@ -58,7 +67,8 @@ vldApp.provider({
     */
     $exceptionHandler: function() {
         var handler = function(exception, cause) {
-            console.log(cause);
+            console.log("exception: " + exception);
+            console.log("cause" + cause);
             ventalandia.ui.alert("Ha ocurrido un error!", 
               "Ha ocurrido un error, es necesario que inicie su sesión nuevamente. Si el error vuelve a ocurrir, por favor escríbanos a <a href='mailto:info@ventalandia.com'>info@ventalandia.com</a>, disculpe las molestias!", 
               "Ok", 
@@ -73,7 +83,7 @@ vldApp.provider({
     }
 });
 
-vldApp.run(function($rootScope) {
+vldApp.run(function($rootScope, $httpBackend) {
   /*
     Event dispatching for controllers, how to use it:
       Dispatch event:
@@ -87,5 +97,11 @@ vldApp.run(function($rootScope) {
       } else {
           console.log("[WARN] - Unable to broadcast message for: " + JSON.stringify(message));
       }
-  });   
+  }); 
+  /*
+    Enable mocks
+  */
+  if (ventalandia.settings.USE_MOCKS) {
+    ventalandia.test.mocks.configureBackend($httpBackend);
+  }
 });
