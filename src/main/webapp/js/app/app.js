@@ -31,13 +31,46 @@ ventalandia.settings = {
 //
 /* -------------------------------------------------- */
 
-var vldApp = angular.module('vldApp', ['ngCookies', 'vldApp.filters', 'vldApp.services', 'vldApp.directives']);
+var vldApp = angular.module('vldApp', ['ng', 'ngCookies', 'vldApp.filters', 'vldApp.services', 'vldApp.directives']);
 
 vldApp.config(function($routeProvider) {
-  $routeProvider.when('/news', {templateUrl: '/partials/news.html', controller: ventalandia.controller.NewsController});
-  $routeProvider.when('/customers', {templateUrl: '/partials/customers.html', controller: ventalandia.controller.CustomersController});
-  $routeProvider.when('/products', {templateUrl: '/partials/products.html', controller: ventalandia.controller.ProductsController});
-  $routeProvider.otherwise({redirectTo: '/news'});
+  $routeProvider
+      .when('/news', {
+        templateUrl: '/partials/news.html', 
+        controller: ventalandia.controller.NewsController
+      })
+      .when('/customers', {
+        templateUrl: '/partials/customers.html', 
+        controller: ventalandia.controller.CustomersController
+      })
+      .when('/products', {
+        templateUrl: '/partials/products.html', 
+        controller: ventalandia.controller.ProductsController
+      })
+      .otherwise({
+        redirectTo: '/news'
+      });
+});
+
+vldApp.provider({
+    /*
+      General Exception handler
+    */
+    $exceptionHandler: function() {
+        var handler = function(exception, cause) {
+            console.log(cause);
+            ventalandia.ui.alert("Ha ocurrido un error!", 
+              "Ha ocurrido un error, es necesario que inicie su sesión nuevamente. Si el error vuelve a ocurrir, por favor escríbanos a <a href='mailto:info@ventalandia.com'>info@ventalandia.com</a>, disculpe las molestias!", 
+              "Ok", 
+              function() {
+                ventalandia.ui.logout();
+              });
+        };
+
+        this.$get = function() {
+            return handler;
+        };
+    }
 });
 
 vldApp.run(function($rootScope) {

@@ -167,10 +167,6 @@ ventalandia.test.mocks.newsDetails = {
             "question": {
                 "text": "tene' una con la cara de cabaña'?",
                 "date": "2012-10-10T13:10:52.067"
-            },
-            "answer": {
-                "text": "tengo nene",
-                "date": "2012-10-10T13:10:52.067"
             }
     }]
 }

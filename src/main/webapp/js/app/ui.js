@@ -35,6 +35,36 @@ ventalandia.ui.confirm = function(heading, question, cancelButtonTxt, okButtonTx
 };
 
 /**
+ * Renders an "Alert" dialog.
+ *
+ * @param {string|null} heading
+ * @param {string} text
+ * @param {string} okButtonTxt
+ * @param {string} callback
+ */
+ventalandia.ui.alert = function(heading, text, okButtonTxt, callback) {
+  var headingHTML = heading ? '<div class="modal-header">' +
+            '<h3>' + heading +'</h3>' +
+          '</div>' : '';
+    var confirmModal =
+      $('<div class="modal hide">' +    
+          headingHTML +
+          '<div class="modal-body">' +
+            '<p>' + text + '</p>' +
+          '</div>' +
+          '<div class="modal-footer">' +
+            '<a href="#" id="okButton" class="btn btn-inverse">' +
+              okButtonTxt +
+            '</a>' +
+          '</div>' +
+        '</div>');
+    confirmModal.find('#okButton').click(function(event) {
+      callback();
+      confirmModal.modal('hide');
+    });
+    confirmModal.modal('show');    
+};
+/**
  * Maps a reputation level (as defined by our VentalandiaAPI)
  * to a css class name
  *
@@ -66,6 +96,15 @@ ventalandia.ui.newsfeed.activate = function(element) {
 ventalandia.ui.initialize = function() {
   $(".generic-search").tooltip({title:"Puede buscar en todas sus Novedades. Escriba lo que busca y presione Enter.", placement: "bottom"});
   $(".reputation.badge").tooltip({title:"Este es su nivel actual de Reputacion en Mercadolibre.", placement: "right"});      
+}
+
+/**
+ * Finishes current session
+ */
+ventalandia.ui.logout = function() {
+  document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.location.href="/";
+  document.location.reload();
 }
 
 

@@ -70,9 +70,7 @@ ventalandia.controller.TopbarController = function($scope, NewsService) {
 
 	$scope.confirmLogout = function() {
         ventalandia.ui.confirm("Salir", "Esta seguro de que desea salir de Ventalandia?", "Cancelar", "Ok", function() {
-          document.cookie = 'vtd_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-          document.location.href="/";
-          document.location.reload();
+        	ventalandia.ui.logout();
         });
 	}
 }
