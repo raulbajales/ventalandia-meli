@@ -90,6 +90,7 @@ public class NewsApiServlet {
             news.setType(newsFeed.getType());
             news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
             news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
+            news.setAnswered(newsFeed.isAnswered());
 
             feeds.add(news);
         }

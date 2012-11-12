@@ -17,7 +17,10 @@ public class AnswersService {
 
     @Inject
     private QuestionRepository questionRepository;
-
+    
+    @Inject
+    private NewsFeedRepository newsFeedRepository;
+    
     @Inject
     private MeliQuestionService meliQuestionService;
 
@@ -38,6 +41,10 @@ public class AnswersService {
         question.setAnswer(answer);
 
         this.questionRepository.update(question);
+        
+        NewsFeed feed = newsFeedRepository.getByBuyerAndItem(question.getClient().getMeliId(), question.getItem().getMeliId());
+        feed.setAsAnswered();
+        newsFeedRepository.update(feed);
     }
 
 }

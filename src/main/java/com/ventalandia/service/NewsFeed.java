@@ -48,6 +48,9 @@ public class NewsFeed {
     @Persistent
     private String itemId;
 
+    @Persistent
+    private boolean answered;
+    
     public NewsFeed() {
         this.date = new Date();
     }
@@ -111,10 +114,27 @@ public class NewsFeed {
     public void setDate(Date date) {
         this.date = date;
     }
+    
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
 
     @Override
     public String toString() {
         return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", userId=" + userId + ", buyerId=" + buyerId + ", itemId=" + itemId + "]";
+    }
+
+    public void setAsNotAnswered() {
+        this.answered = false;
+        
+    }
+
+    public void setAsAnswered() {
+        this.answered = true;
     }
 
 }
