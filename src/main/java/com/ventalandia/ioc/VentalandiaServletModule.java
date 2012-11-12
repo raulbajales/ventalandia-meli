@@ -5,6 +5,7 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.ventalandia.api.AnswersApiServlet;
 import com.ventalandia.api.ApiServlet;
 import com.ventalandia.api.AuthServlet;
+import com.ventalandia.api.CustomersApiServlet;
 import com.ventalandia.api.DevSupportServlet;
 import com.ventalandia.api.EchoServlet;
 import com.ventalandia.api.EmailServlet;
@@ -46,6 +47,7 @@ public class VentalandiaServletModule extends JerseyServletModule {
         bind(NewsApiServlet.class);
         bind(EmailServlet.class);
         bind(AnswersApiServlet.class);
+        bind(CustomersApiServlet.class);
         
         // serve("/api/users/me").with(UserApiServlet.class);
         serve("/*").with(GuiceContainer.class);
