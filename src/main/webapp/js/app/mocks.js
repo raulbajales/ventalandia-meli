@@ -195,4 +195,5 @@ ventalandia.test.mocks.configureBackend = function(http) {
     http.whenGET('/api/news/5006').respond(ventalandia.test.mocks.newsDetails);
     http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
     http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
+    http.whenGET('/api/news?since=2012-10-10T13%3A10%3A52.067').respond(null);
 }

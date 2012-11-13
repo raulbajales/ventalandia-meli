@@ -87,6 +87,7 @@ ventalandia.model.Newsfeed.prototype.merge = function(entries) {
  */
 ventalandia.model.Newsfeed.Entry = function(id, date, type, raw) {
 	this.id = id;
+	this.utcDate = date;
 	this.date = humaneDate(date);
 	this.type = type;
 	this._buildMetadata(raw);
@@ -120,6 +121,9 @@ ventalandia.model.Newsfeed.Entry.prototype._buildMetadata = function(raw) {
  */
 ventalandia.model.Newsfeed.fromObject = function(raw) {
 	var entries;
+	if (!raw) {
+		return new ventalandia.model.Newsfeed([]);
+	};
 	raw.forEach(function(e) {
 		entries = entries || [];
 		entries.push(new ventalandia.model.Newsfeed.Entry(e.id, e.date, e.type, e));

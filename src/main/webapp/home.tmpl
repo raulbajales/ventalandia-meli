@@ -67,6 +67,9 @@
     <!-- BEGIN: center column -->
     <div id="center" class="column" ng-controller="ventalandia.controller.NewsController">
       <div class="newsfeed">
+        <div ng-show="numNewsfeedUpdates > 0" class="updates alert alert-block">
+          Tienes <strong>{{numNewsfeedUpdates}}</strong> novedades recientes. &nbsp; <button class="btn btn-warning btn-mini" type="button" ng-click="updateNewsfeed()">Cargar!</button>
+        </div>        
         <div class="news" ng-repeat="entry in newsfeed.entries" ng-click="showNewsDetails($event, entry)">
           <span class="icon {{entry.type}}"></span>
           <span class="info">

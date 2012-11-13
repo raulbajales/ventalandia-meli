@@ -101,7 +101,7 @@ ventalandia.service.NewsService = function($cookies, $http) {
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
 					var latest = ventalandia.model.Newsfeed.fromObject(data);
-					onSuccess(latest.entries);
+					onSuccess(latest ? latest.entries : []);
 				}).error(function(data, status, headers, config) {
 					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);
 				});
