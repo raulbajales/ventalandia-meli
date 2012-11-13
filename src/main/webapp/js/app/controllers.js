@@ -34,9 +34,10 @@ ventalandia.controller.MiniProfileController = function($scope, UserService) {
 //
 /* -------------------------------------------------- */
 
-ventalandia.controller.NewsController = function($scope, NewsService) {
+ventalandia.controller.NewsController = function($scope, $timeout, NewsService) {
 	var event = ventalandia.controller.event;
-	
+	var settings = ventalandia.settings;
+
 	NewsService.getMyNewsfeed(function(newsfeed) {
 		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 	});
@@ -48,6 +49,25 @@ ventalandia.controller.NewsController = function($scope, NewsService) {
  			data: entry
  		});
 	}		
+
+	$scope.updateNewsfeed = function() {
+		$scope.newsfeed = angular.copy($scope.updatedNewsfeed);
+		delete $scope.updatedNewsfeed;
+		$scope.numNewsfeedUpdates = 0;
+	}		
+
+	/*
+	  Start pulling for updates on newsfeed
+	*/
+	var _updateNewsfeed = function() {
+		var newestDate = $scope.newsfeed ? $scope.newsfeed[0]["date"] : (new Date()).toISO();
+		NewsService.getNewsfeedSince(newestDate, function(entries) {
+			$scope.numNewsfeedUpdates = entries && angular.isArray(entries) ? entries.size() : 0;
+			$scope.updatedNewsfeed = $scope.newsfeed.merge(entries);
+		});
+		$timeout(_updateNewsfeed, settings.NEWSFEED_PULL_INTERVAL_IN_MILLIS);
+	}
+	$timeout(_updateNewsfeed, settings.NEWSFEED_PULL_INTERVAL_IN_MILLIS);
 }
 
 /* -------------------------------------------------- */

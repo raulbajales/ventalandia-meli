@@ -1,4 +1,3 @@
-
 /* -------------------------------------------------- */
 //
 //  UserService
@@ -24,7 +23,6 @@ ventalandia.service.UserService = function($cookies, $http) {
   }
 }
 
-
 /* -------------------------------------------------- */
 //
 //  NewsService
@@ -49,6 +47,7 @@ ventalandia.service.NewsService = function($cookies, $http) {
 		},
 
 		/**
+		 * @param {string} newsId
 		 * @param {function(ventalandia.model.Newsfeed)} onSuccess
 		 */
 		getNewsDetails: function(newsId, onSuccess) {
@@ -91,8 +90,22 @@ ventalandia.service.NewsService = function($cookies, $http) {
 				}).error(function(data, status, headers, config) {
 					throw "[ERROR] - Unable to send answer\n" + JSON.stringify(data);
 				});			
-		}
+		},
 
+		/**
+		 * @param {string} aDate Date in UTC string format (like "2012-10-10T13:10:52.067")
+		 * @param {function(Array.<ventalandia.model.Newsfeed.Entry>)} onSuccess
+		 */
+		getNewsfeedSince: function(aDate, onSuccess) {
+			$http({method: "GET", url: "/api/news?since=" + encodeURIComponent(aDate), 
+				   headers: {"x-vtd-token": $cookies["vtd_token"]}
+			    }).success(function(data, status, headers, config) {
+					var latest = ventalandia.model.Newsfeed.fromObject(data);
+					onSuccess(latest.entries);
+				}).error(function(data, status, headers, config) {
+					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);
+				});
+		}
 	}
 }
 

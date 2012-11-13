@@ -63,6 +63,21 @@ ventalandia.model.Newsfeed.prototype.hasEntries = function() {
 }
 
 /**
+ * @param {Array.<ventalandia.model.Newsfeed.Entry>|null|undefined} entries
+ * @return {ventalandia.model.Newsfeed}
+ */
+ventalandia.model.Newsfeed.prototype.merge = function(entries) {
+	var ids = entries ? _.map(entries, function(entry) {
+		return entry.id;
+	}) : [];
+	var filtered = _.reject(angular.copy(this.entries), function(entry) {
+		return _.indexOf(ids, entry.id) != -1;
+	})
+	var result = _.union(entries, filtered);
+	return new ventalandia.model.Newsfeed(result);
+}
+
+/**
  * Base model for an entry
  *
  * @param {string} id 
