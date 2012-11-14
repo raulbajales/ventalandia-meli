@@ -35,6 +35,7 @@ public class NewsFeedService {
             this.newsFeedRepository.add(feed);
         }else{
             feed.setDate(new Date());
+            feed.setAsNotAnswered();
             this.newsFeedRepository.update(feed);
         }
         

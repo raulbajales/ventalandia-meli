@@ -25,6 +25,8 @@ public class NewsView {
     private ItemView item;
 
     private long entityId;
+    
+    private boolean answered;
 
     public NewsView() {
         super();
@@ -79,4 +81,13 @@ public class NewsView {
         return entityId;
     }
 
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
+
+    
 }
