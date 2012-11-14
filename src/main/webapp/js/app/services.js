@@ -40,7 +40,7 @@ ventalandia.service.NewsService = function($cookies, $http) {
 			$http({method: "GET", url: "/api/news", 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
-					onSuccess(ventalandia.model.Newsfeed.fromObject(data));
+					onSuccess(ventalandia.model.Newsfeed.fromObject(data || []));
 				}).error(function(data, status, headers, config) {
 					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);
 				});
@@ -48,7 +48,7 @@ ventalandia.service.NewsService = function($cookies, $http) {
 
 		/**
 		 * @param {string} newsId
-		 * @param {function(ventalandia.model.Newsfeed)} onSuccess
+		 * @param {function(ventalandia.model.NewsDetails)} onSuccess
 		 */
 		getNewsDetails: function(newsId, onSuccess) {
 			$http({method: "GET", url: "/api/news/" + newsId, 
@@ -97,10 +97,11 @@ ventalandia.service.NewsService = function($cookies, $http) {
 		 * @param {function(Array.<ventalandia.model.Newsfeed.Entry>)} onSuccess
 		 */
 		getNewsfeedSince: function(aDate, onSuccess) {
+			console.log("[DEBUG] - Getting news since " + aDate);
 			$http({method: "GET", url: "/api/news?since=" + encodeURIComponent(aDate), 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
-					var latest = ventalandia.model.Newsfeed.fromObject(data);
+					var latest = ventalandia.model.Newsfeed.fromObject(data || []);
 					onSuccess(latest ? latest.entries : []);
 				}).error(function(data, status, headers, config) {
 					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);

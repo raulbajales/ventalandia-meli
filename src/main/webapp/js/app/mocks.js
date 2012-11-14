@@ -110,7 +110,7 @@ ventalandia.test.mocks.news = [{
     },
     "entityId": 0
 }, {
-    "id": 5006,
+    "id": 5008,
     "buyer": {
         "id": 12345,
         "nickname": "ICLACREYO"
@@ -137,6 +137,39 @@ ventalandia.test.mocks.news = [{
     "entityId": 0
 }];
 
+/* -------------------------------------------------- */
+//
+//  Newsfeed entries for update (pulling)
+//
+/* -------------------------------------------------- */
+
+ventalandia.test.mocks.newsUpdate = [{
+    "id": 5007,
+    "buyer": {
+        "id": 12345,
+        "nickname": "COMEGATO"
+    },
+    "date": "2012-10-10T13:10:53.067",
+    "type": "QUESTION",
+    "item": {
+        "id": "MLA434525953",
+        "title": "Bicicleta rodado 26"
+    },
+    "entityId": 0
+},{
+    "id": 5008,
+    "buyer": {
+        "id": 12345,
+        "nickname": "ble"
+    },
+    "date": "2012-10-10T13:10:53.067",
+    "type": "QUESTION",
+    "item": {
+        "id": "MLA434525953",
+        "title": "Bicicleta rodado 26"
+    },
+    "entityId": 0
+}];
 /* -------------------------------------------------- */
 //
 //  News details
@@ -193,7 +226,10 @@ ventalandia.test.mocks.configureBackend = function(http) {
     http.whenGET('/api/users/me').respond(ventalandia.test.mocks.miniProfile);
     http.whenGET('/api/news').respond(ventalandia.test.mocks.news);
     http.whenGET('/api/news/5006').respond(ventalandia.test.mocks.newsDetails);
+    http.whenGET('/api/news/5007').respond(ventalandia.test.mocks.newsDetails);
+    http.whenGET('/api/news/5008').respond(ventalandia.test.mocks.newsDetails);
     http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
-    http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
-    http.whenGET('/api/news?since=2012-10-10T13%3A10%3A52.067').respond(null);
+
+    http.whenGET('/api/news?since=2012-10-10T13%3A10%3A52.067').respond(ventalandia.test.mocks.newsUpdate);
+    http.whenGET('/api/news?since=2012-10-10T13%3A10%3A53.067').respond(null);
 }

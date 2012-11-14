@@ -73,7 +73,7 @@ ventalandia.model.Newsfeed.prototype.merge = function(entries) {
 	var filtered = _.reject(angular.copy(this.entries), function(entry) {
 		return _.indexOf(ids, entry.id) != -1;
 	})
-	var result = _.union(entries, filtered);
+	var result = (entries || []).concat(filtered);
 	return new ventalandia.model.Newsfeed(result);
 }
 
