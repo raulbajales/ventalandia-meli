@@ -9,7 +9,8 @@ ventalandia.test.mocks.miniProfile = {
     "meliId": 123456,
     "name": "Unpe",
     "surname": "Tiso",
-    "sellerReputationLevel": 3
+    "sellerReputationLevel": 3,
+    "thumbnailUrl": "/img/icon_guest.jpeg"
 };
 
 /* -------------------------------------------------- */
@@ -30,7 +31,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": true
 }, {
     "id": 5006,
     "buyer": {
@@ -43,7 +45,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }, {
     "id": 5006,
     "buyer": {
@@ -56,7 +59,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": true
 }, {
     "id": 5006,
     "buyer": {
@@ -69,7 +73,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": true
 }, {
     "id": 5006,
     "buyer": {
@@ -82,7 +87,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }, {
     "id": 5006,
     "buyer": {
@@ -95,7 +101,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }, {
     "id": 5006,
     "buyer": {
@@ -108,7 +115,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }, {
     "id": 5008,
     "buyer": {
@@ -121,7 +129,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }, {
     "id": 5006,
     "buyer": {
@@ -134,7 +143,8 @@ ventalandia.test.mocks.news = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }];
 
 /* -------------------------------------------------- */
@@ -155,7 +165,8 @@ ventalandia.test.mocks.newsUpdate = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 },{
     "id": 5008,
     "buyer": {
@@ -168,7 +179,8 @@ ventalandia.test.mocks.newsUpdate = [{
         "id": "MLA434525953",
         "title": "Bicicleta rodado 26"
     },
-    "entityId": 0
+    "entityId": 0,
+    "answered": false
 }];
 /* -------------------------------------------------- */
 //

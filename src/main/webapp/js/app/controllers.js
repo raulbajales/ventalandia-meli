@@ -39,6 +39,8 @@ ventalandia.controller.NewsController = function($scope, $timeout, NewsService) 
 	var settings = ventalandia.settings;
 
 	NewsService.getMyNewsfeed(function(newsfeed) {
+		console.log("newsfeed");
+		console.log(newsfeed);
 		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 	});
 
@@ -80,12 +82,13 @@ ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 	var event = ventalandia.controller.event;
 
 	$scope.$on(event.NEWS_DETAILS_REQUESTED, function(event, entry) {
+		$scope.newsEntry = entry;
 		NewsService.getNewsDetails(entry.id, function(newsDetails) {
 		    $scope.newsDetails = newsDetails;
 	    });
 	});
 
-	$scope.$on(event.NEWS_DETAILS_REQUESTED, function(event, miniProfile) {
+	$scope.$on(event.MINI_PROFILE_LOADED, function(event, miniProfile) {
 		$scope.miniProfile = miniProfile;
 	});
 
@@ -93,6 +96,7 @@ ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 		if (!question.answer) return;
 		NewsService.sendAnswer(question.id, question.answer, function() {
 			question.answered = true;
+			$scope.newsEntry.answered = true;
 		});
 	};	
 }
