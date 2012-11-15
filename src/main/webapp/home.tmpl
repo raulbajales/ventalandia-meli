@@ -70,8 +70,10 @@
         <div ng-show="numNewsfeedUpdates > 0" class="updates alert alert-block">
           Tienes <strong>{{numNewsfeedUpdates}}</strong> novedades recientes. &nbsp; <button class="btn btn-warning btn-mini" type="button" ng-click="updateNewsfeed()">Cargar!</button>
         </div>        
-        <div class="news" ng-repeat="entry in newsfeed.entries" ng-click="showNewsDetails($event, entry)">
-          <span class="icon {{entry.type}}"></span>
+        <div class="news" ng-class="{notAnswered: !entry.answered}" ng-repeat="entry in newsfeed.entries" ng-click="showNewsDetails($event, entry)">
+          <span class="icon {{entry.type}}">
+            <span ng-show="!entry.answered" class="mark">*</span>  
+          </span>
           <span class="info">
             <div class="header"><a href="#">{{entry.buyerNickName}}</a></div>
             <div class="message">Agrego una nueva pregunta a la publicacion:</div>

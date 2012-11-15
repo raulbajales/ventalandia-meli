@@ -489,6 +489,20 @@ body {
    box-shadow: 0 0 4px 4px #F6F9F9;
 }
 
+#center .newsfeed .news.notAnswered {
+  font-weight: bold;
+  border-left: 4px solid #8B7F7F;
+}
+
+#center .newsfeed .news .mark {
+  font-size: 2em;
+  font-weight: bold;
+  color: darkgoldenrod;
+  position: absolute;
+  margin-left: 35px;
+  margin-top: -6px;  
+}
+
 #center .newsfeed a {
    color: darkgoldenrod;
 }
@@ -647,6 +661,7 @@ body {
   color: grey;
   font-style: italic;
   font-size: 0.8em;
+  font-weight: normal !important;
 }
 
 #right {

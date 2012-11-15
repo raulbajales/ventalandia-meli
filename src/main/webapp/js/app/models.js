@@ -30,13 +30,13 @@ ventalandia.model.MiniProfile = function(meliId, firstName, lastName, nickName, 
  * @return {ventalandia.model.MiniProfile}
  */
 ventalandia.model.MiniProfile.fromObject = function(obj) {
-	var thumbnailUrl = "img/icon_guest.jpeg"
+	var defaultThumb = "img/icon_guest.jpeg"
 	return new ventalandia.model.MiniProfile(
 		obj.meliId, 
 		obj.name, 
 		obj.surname, 
 		obj.nickname, 
-		thumbnailUrl,
+		obj.thumbnailUrl || defaultThumb,
 		obj.sellerReputationLevel);
 }
 
@@ -84,12 +84,14 @@ ventalandia.model.Newsfeed.prototype.merge = function(entries) {
  * @param {string} date
  * @param {string} type 
  * @param {object} raw 
+ * @param {object} answered 
  */
-ventalandia.model.Newsfeed.Entry = function(id, date, type, raw) {
+ventalandia.model.Newsfeed.Entry = function(id, date, type, raw, answered) {
 	this.id = id;
 	this.utcDate = date;
 	this.date = humaneDate(date);
 	this.type = type;
+	this.answered = answered;
 	this._buildMetadata(raw);
 }
 
@@ -126,7 +128,7 @@ ventalandia.model.Newsfeed.fromObject = function(raw) {
 	};
 	raw.forEach(function(e) {
 		entries = entries || [];
-		entries.push(new ventalandia.model.Newsfeed.Entry(e.id, e.date, e.type, e));
+		entries.push(new ventalandia.model.Newsfeed.Entry(e.id, e.date, e.type, e, e.answered));
 	});
 	return new ventalandia.model.Newsfeed(entries);
 }
