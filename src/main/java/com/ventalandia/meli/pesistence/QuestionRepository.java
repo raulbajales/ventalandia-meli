@@ -53,7 +53,8 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
         query.declareParameters(Long.class.getName() + " meliUserId");
         User seller = (User) query.execute(meliUserId);
         
-        query = this.getPersistenceManager().newQuery("select client from "+ Question.class.getName()+" WHERE  seller == meliUser GROUP BY client");
+        query = this.getPersistenceManager().newQuery("select client from "+ Question.class.getName());
+        query.setFilter(" seller == meliUser");
         query.setGrouping("client");
         query.declareParameters(Key.class.getName()+" meliUser");
         
