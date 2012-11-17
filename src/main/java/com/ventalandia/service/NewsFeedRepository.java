@@ -128,7 +128,9 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
             
             builder.append("keys.contains('" + key + "')");
 
-            builder.append(" & ");
+            if (i != keys.length - 1) {
+                builder.append(" & ");
+            }
         }
 
         query.setFilter(builder.toString());
