@@ -5,6 +5,7 @@
         <property name="userId" direction="asc"/>
         <property name="date" direction="desc"/>
         <property name="key" direction="asc"/>
+        <property name="keys" direction="asc"/>
     </datastore-index>
     
     <datastore-index kind="Question" ancestor="false" source="manual">
