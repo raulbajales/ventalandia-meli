@@ -1,6 +1,7 @@
 package com.ventalandia.service;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -48,9 +49,15 @@ public class NewsFeed {
     @Persistent
     private String itemId;
 
+    /**
+     * This is used to perform intensive searches on posts.
+     */
+    @Persistent
+    private Set<String> keys;
+
     @Persistent
     private boolean answered;
-    
+
     public NewsFeed() {
         this.date = new Date();
     }
@@ -114,7 +121,7 @@ public class NewsFeed {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     public boolean isAnswered() {
         return answered;
     }
@@ -123,18 +130,33 @@ public class NewsFeed {
         this.answered = answered;
     }
 
+    public void setKeys(Set<String> keys) {
+        this.keys = keys;
+    }
+
+    public Set<String> getKeys() {
+        return keys;
+    }
+
     @Override
     public String toString() {
-        return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", userId=" + userId + ", buyerId=" + buyerId + ", itemId=" + itemId + "]";
+        return "NewsFeed [key=" + key + ", type=" + type + ", date=" + date + ", entityId=" + entityId + ", userId=" + userId + ", buyerId=" + buyerId + ", itemId=" + itemId + ", keys=" + keys
+                + ", answered=" + answered + "]";
     }
 
     public void setAsNotAnswered() {
         this.answered = false;
-        
     }
 
     public void setAsAnswered() {
         this.answered = true;
+    }
+
+    public void index(Question question) {
+        String[] keywords = question.getText().split("[^a-z&&[^0-9]]");
+        for (String keyword: keywords) {
+            this.keys.add(keyword);
+        }
     }
 
 }

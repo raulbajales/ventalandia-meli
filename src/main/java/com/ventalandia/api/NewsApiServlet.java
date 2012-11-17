@@ -27,6 +27,7 @@ import com.ventalandia.meli.pesistence.UserRepository;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NewsFeed;
 import com.ventalandia.service.NewsFeedRepository;
+import com.ventalandia.service.NewsFeedSearchService;
 import com.ventalandia.service.NewsFeedService;
 import com.ventalandia.view.domain.ItemView;
 import com.ventalandia.view.domain.NewsView;
@@ -48,14 +49,16 @@ public class NewsApiServlet {
     private ItemRepository itemRepository;
     private QuestionRepository questionRepository;
     private NewsFeedService newsFeedService;
+    private NewsFeedSearchService newsFeedSearchService;
 
     @Inject
-    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository) {
+    public NewsApiServlet(NewsFeedRepository newsFeedRepository, UserRepository userRepository, ItemRepository itemRepository, NewsFeedService newsFeedService, QuestionRepository questionRepository, NewsFeedSearchService newsFeedSearchService) {
         this.newsFeedRepository = newsFeedRepository;
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.newsFeedService = newsFeedService;
         this.questionRepository = questionRepository;
+        this.newsFeedSearchService = newsFeedSearchService;
     }
 
     @GET
@@ -80,10 +83,14 @@ public class NewsApiServlet {
         }
         
         List<NewsFeed> newsFeeds = newsFeedRepository.find(meliUserId, sinceDate, fromPage, offset);
+        
+        return this.createNewsFeedForView(newsFeeds);
+    }
+
+    private List<NewsView> createNewsFeedForView(List<NewsFeed> newsFeeds) {
         List<NewsView> feeds = new ArrayList<NewsView>(newsFeeds.size());
 
         for (NewsFeed newsFeed : newsFeeds) {
-
             NewsView news = new NewsView();
             news.setId(newsFeed.getKeyId());
             news.setDate(newsFeed.getDate());
@@ -96,7 +103,6 @@ public class NewsApiServlet {
         }
 
         return feeds;
-
     }
 
     @GET
@@ -185,4 +191,13 @@ public class NewsApiServlet {
 
     }
 
+    @GET
+    @Path("/search")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+    public List<NewsView> search(@QueryParam("q") String keywords) {
+        List<NewsFeed> result = this.newsFeedSearchService.search(keywords);
+        
+        return this.createNewsFeedForView(result);
+    }
+    
 }

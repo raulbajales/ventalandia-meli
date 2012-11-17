@@ -32,10 +32,12 @@ public class NewsFeedService {
         
         if(feed == null){
             feed = this.questionToNewsFeedTransformer.transform(question);
+            feed.index(question);
             this.newsFeedRepository.add(feed);
         }else{
             feed.setDate(new Date());
             feed.setAsNotAnswered();
+            feed.index(question);
             this.newsFeedRepository.update(feed);
         }
         

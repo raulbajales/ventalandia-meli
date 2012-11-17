@@ -97,5 +97,49 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
         
         return list.isEmpty() ? null : list.get(0);
 	}
+
+    public List<NewsFeed> findByContent(String[] keys) {
+        return this.findByContent(keys, -1, -1);
+    }
+
+   /**
+     * Perform a search based on the elements contains on the title. As there is
+     * not such thing like SQL 'like' operator and search-based-text
+     * functionality provided by GAE/J the search is based on a hook on the
+     * elements on the content ('keys' attribute) provided by the resources from MELI (i.e.: questions).
+     * If there is not match for keys it will return an empty {@link List}.
+     * 
+     * @param keys
+     * @return a {@link List} of {@link NewsFeed}s which contains all keys on the
+     *         content.
+     */
+    // TODO: add user id (owner) to the filter
+    public List<NewsFeed> findByContent(String[] keys, int fromIndex, int toIndex) {
+        Query query = this.createQuery();
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < keys.length; i++) {
+            String key = keys[i];
+            
+            if (key == null || key.isEmpty()) {
+                continue;
+            }
+            
+            builder.append("keys.contains('" + key + "')");
+
+            builder.append(" & ");
+        }
+
+        query.setFilter(builder.toString());
+        query.setOrdering("date desc");
+
+        if (fromIndex > -1) {
+            query.setRange(fromIndex, toIndex);
+        }
+
+        return this.list(query);
+    }
+
 	
 }
