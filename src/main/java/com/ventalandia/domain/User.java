@@ -15,7 +15,7 @@ import com.google.appengine.datanucleus.annotations.Unowned;
  * 
  */
 @PersistenceCapable
-public class User {
+public class User implements Comparable<User>{
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -79,6 +79,11 @@ public class User {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.key.compareTo(o.key);
     }
     
 

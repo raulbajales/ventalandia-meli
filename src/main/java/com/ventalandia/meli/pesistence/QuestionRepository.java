@@ -47,12 +47,18 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
     @SuppressWarnings("unchecked")
     public List<User> getBuyersByMeliSellerId(long meliUserId) {
         
-        Query query = this.getPersistenceManager().newQuery("select client from "+ Question.class.getName());
-//        query.setFilter(" seller.meliId == meliUserId");
-//        query.declareParameters(Long.class.getName() + " meliUserId");
-
-//        return (List<User>) query.execute(meliUserId);
-        return (List<User>) query.execute();
+        Query query = this.getPersistenceManager().newQuery("select from "+ User.class.getName());
+        query.setFilter(" meliId == meliUserId");
+        query.setUnique(true);
+        query.declareParameters(Long.class.getName() + " meliUserId");
+        User seller = (User) query.execute(meliUserId);
+        
+        query = this.getPersistenceManager().newQuery("select client from "+ Question.class.getName());
+        query.setFilter(" seller == meliUser");
+        query.setGrouping("client");
+        query.declareParameters(Key.class.getName()+" meliUser");
+        
+        return (List<User>) query.execute(seller.getKey());
 
     }	
 
