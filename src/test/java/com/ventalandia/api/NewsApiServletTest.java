@@ -22,6 +22,7 @@ import com.ventalandia.meli.pesistence.UserRepository;
 import com.ventalandia.meli.service.AuthContext;
 import com.ventalandia.service.NewsFeed;
 import com.ventalandia.service.NewsFeedRepository;
+import com.ventalandia.service.NewsFeedSearchService;
 import com.ventalandia.service.NewsFeedService;
 import com.ventalandia.service.NewsType;
 import com.ventalandia.view.domain.NewsView;
@@ -35,7 +36,8 @@ public class NewsApiServletTest {
     private ItemRepository itemRepository;
     private QuestionRepository questionRepository;
     private NewsFeedService newsFeedService;
-
+    private NewsFeedSearchService newsFeedSearchService;
+    
     @Before
     public void setup() {
 
@@ -44,7 +46,8 @@ public class NewsApiServletTest {
         itemRepository = Mockito.mock(ItemRepository.class);
         questionRepository = Mockito.mock(QuestionRepository.class);
         newsFeedService = Mockito.mock(NewsFeedService.class);
-        newsApiServlet = new NewsApiServlet(newsFeedRepository, userRepository, itemRepository, newsFeedService, questionRepository);
+        newsFeedSearchService = Mockito.mock(NewsFeedSearchService.class);
+        newsApiServlet = new NewsApiServlet(newsFeedRepository, userRepository, itemRepository, newsFeedService, questionRepository, newsFeedSearchService);
 
         AuthContext.setAuthToken(TokenHelper.create());
 
