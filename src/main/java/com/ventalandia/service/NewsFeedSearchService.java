@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.inject.Inject;
+import com.ventalandia.meli.service.AuthContext;
 
 /**
  * All functionality related with search must be here.
@@ -41,6 +42,8 @@ public class NewsFeedSearchService {
      * keywords (all keywords).
      */
     public List<NewsFeed> search(String keywords, int page) {
+        long meliUserId = AuthContext.getToken().getMeliId();
+        
         if (keywords == null || keywords.isEmpty()) {
             return EMPTY_LIST;
         }
@@ -52,11 +55,11 @@ public class NewsFeedSearchService {
         }
 
         if (page > 0) {
-            List<NewsFeed> result = this.newsFeedRepository.findByContent(cleanKeywords, SEARCH_PAGE_SIZE * (page - 1), (SEARCH_PAGE_SIZE * page) + 1);
+            List<NewsFeed> result = this.newsFeedRepository.findByContent(meliUserId, cleanKeywords, SEARCH_PAGE_SIZE * (page - 1), (SEARCH_PAGE_SIZE * page) + 1);
             return result.subList(0, SEARCH_PAGE_SIZE - 1);
         }
 
-        return this.newsFeedRepository.findByContent(cleanKeywords);
+        return this.newsFeedRepository.findByContent(meliUserId, cleanKeywords);
     }
 
     public SearchResult getSearchResult(String keywords, int page) {
@@ -78,10 +81,11 @@ public class NewsFeedSearchService {
     }
 
     private SearchResult search(String[] cleanKeywords, int page) {
+        long meliUserId = AuthContext.getToken().getMeliId();
         SearchResult result = new SearchResult();
 
         if (page > 0) {
-            List<NewsFeed> newsFeedList = this.newsFeedRepository.findByContent(cleanKeywords, SEARCH_PAGE_SIZE * (page - 1), (SEARCH_PAGE_SIZE * (page + 1)));
+            List<NewsFeed> newsFeedList = this.newsFeedRepository.findByContent(meliUserId, cleanKeywords, SEARCH_PAGE_SIZE * (page - 1), (SEARCH_PAGE_SIZE * (page + 1)));
             if (newsFeedList.size() > SEARCH_PAGE_SIZE) {
                 result.setMoreResults(true);
                 result.setResult(newsFeedList.subList(0, SEARCH_PAGE_SIZE));
@@ -91,7 +95,7 @@ public class NewsFeedSearchService {
             }
         }
         else {
-            result.setResult(this.newsFeedRepository.findByContent(cleanKeywords));
+            result.setResult(this.newsFeedRepository.findByContent(meliUserId, cleanKeywords));
         }
 
         return result;

@@ -98,8 +98,8 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
         return list.isEmpty() ? null : list.get(0);
 	}
 
-    public List<NewsFeed> findByContent(String[] keys) {
-        return this.findByContent(keys, -1, -1);
+    public List<NewsFeed> findByContent(Long ownerId, String[] keys) {
+        return this.findByContent(ownerId, keys, -1, -1);
     }
 
    /**
@@ -114,7 +114,7 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
      *         content.
      */
     // TODO: add user id (owner) to the filter
-    public List<NewsFeed> findByContent(String[] keys, int fromIndex, int toIndex) {
+    public List<NewsFeed> findByContent(Long ownerId, String[] keys, int fromIndex, int toIndex) {
         Query query = this.createQuery();
 
         StringBuilder builder = new StringBuilder();
@@ -128,19 +128,20 @@ public class NewsFeedRepository extends JdoRepository<NewsFeed> {
             
             builder.append("keys.contains('" + key + "')");
 
-            if (i != keys.length - 1) {
-                builder.append(" & ");
-            }
+            builder.append(" & ");
         }
 
+        builder.append("userId == ownerId");
+
         query.setFilter(builder.toString());
+        query.declareParameters(Long.class.getName() + " ownerId");
         query.setOrdering("date desc");
 
         if (fromIndex > -1) {
             query.setRange(fromIndex, toIndex);
         }
 
-        return this.list(query);
+        return this.list(query, ownerId);
     }
 
 	
