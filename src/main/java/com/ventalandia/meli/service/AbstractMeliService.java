@@ -1,6 +1,7 @@
 package com.ventalandia.meli.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Logger;
 
 import com.google.appengine.api.urlfetch.HTTPRequest;
@@ -103,8 +104,15 @@ public class AbstractMeliService {
 
     protected <T> T parseEntity(HTTPResponse httpResponse, Class<T> entity) {
         if (httpResponse.getResponseCode() == 200) {
-            String json = new String(httpResponse.getContent());
-            return gson.fromJson(json, entity);
+            
+            try {
+                String json = new String(httpResponse.getContent(),"utf-8");
+                return gson.fromJson(json, entity);
+            }
+            catch (UnsupportedEncodingException e) {
+                LOGGER.severe("Encoding error: "+e.getMessage());
+                return null;
+            }
         }
         else {
             throw new RuntimeException("Errors when getting the Entity " + entity.getName() + " from MELI.");

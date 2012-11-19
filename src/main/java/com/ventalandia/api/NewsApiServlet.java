@@ -1,7 +1,5 @@
 package com.ventalandia.api;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,11 +64,6 @@ public class NewsApiServlet {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<NewsView> getNews(@QueryParam("since") String since){
-        OutputStreamWriter out = new OutputStreamWriter(new ByteArrayOutputStream());
-        String encoding = out.getEncoding(); 
-        
-        LOGGER.info("ENCODING: "+encoding);
-        
         return getPagedNews(0, 10, since);
     }
 
