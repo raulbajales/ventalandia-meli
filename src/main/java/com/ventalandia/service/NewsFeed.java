@@ -1,6 +1,7 @@
 package com.ventalandia.service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -154,7 +155,12 @@ public class NewsFeed {
 
     public void index(Question question) {
         String[] keywords = question.getText().split("[^a-z&&[^0-9]]");
-        for (String keyword: keywords) {
+
+        if (this.keys == null) {
+            this.keys = new HashSet<String>();
+        }
+
+        for (String keyword : keywords) {
             this.keys.add(keyword);
         }
     }
