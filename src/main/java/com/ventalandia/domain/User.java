@@ -15,7 +15,7 @@ import com.google.appengine.datanucleus.annotations.Unowned;
  * 
  */
 @PersistenceCapable
-public class User implements Comparable<User>{
+public class User implements Comparable<User> {
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -33,9 +33,15 @@ public class User implements Comparable<User>{
 
     @Persistent
     private Date registrationDate;
-    
+
     @Persistent
     private String pictureUrl;
+
+    @Persistent
+    private String email;
+
+    @Persistent
+    private boolean TOS;
 
     public long getMeliId() {
         return meliId;
@@ -69,9 +75,9 @@ public class User implements Comparable<User>{
         this.registrationDate = registrationDate;
     }
 
-	public Key getKey() {
-		return key;
-	}
+    public Key getKey() {
+        return key;
+    }
 
     public String getPictureUrl() {
         return pictureUrl;
@@ -85,6 +91,21 @@ public class User implements Comparable<User>{
     public int compareTo(User o) {
         return this.key.compareTo(o.key);
     }
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isTOS() {
+        return TOS;
+    }
+
+    public void setTOS(boolean TOS) {
+        this.TOS = TOS;
+    }
 
 }

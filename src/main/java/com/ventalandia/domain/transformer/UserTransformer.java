@@ -2,10 +2,11 @@ package com.ventalandia.domain.transformer;
 
 import com.google.inject.Inject;
 import com.ventalandia.domain.Country;
-import com.ventalandia.meli.api.notification.User;
+import com.ventalandia.domain.User;
+import com.ventalandia.meli.api.user.MeliPublicUser;
 import com.ventalandia.service.CountryService;
 
-public class UserTransformer implements Transformer<User, com.ventalandia.domain.User> {
+public class UserTransformer implements Transformer<MeliPublicUser, User> {
 
     private CountryService countryService;
 
@@ -14,11 +15,11 @@ public class UserTransformer implements Transformer<User, com.ventalandia.domain
         this.countryService = countryService;
     }
 
-    public com.ventalandia.domain.User transform(User user) {
+    public User transform(MeliPublicUser user) {
 
         Country country = countryService.getByMeliId(user.getCountry_id());
 
-        com.ventalandia.domain.User result = new com.ventalandia.domain.User();
+        User result = new User();
 
         result.setMeliId(user.getId());
         result.setNickName(user.getNickname());

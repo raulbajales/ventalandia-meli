@@ -3,30 +3,31 @@ package com.ventalandia.service;
 import com.google.inject.Inject;
 import com.ventalandia.domain.User;
 import com.ventalandia.domain.transformer.UserTransformer;
+import com.ventalandia.meli.api.user.MeliPublicUser;
 import com.ventalandia.meli.pesistence.UserRepository;
-import com.ventalandia.meli.service.MeliService;
+import com.ventalandia.meli.service.UserMeliService;
 
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private MeliService meliService;
+
+    private UserMeliService userMeliService;
+
     private UserTransformer userTransformer;
 
     @Inject
-    public UserServiceImpl(UserRepository userRepository, MeliService meliService, UserTransformer userTransformer) {
+    public UserServiceImpl(UserRepository userRepository, UserMeliService userMeliService, UserTransformer userTransformer) {
         this.userRepository = userRepository;
-        this.meliService = meliService;
+        this.userMeliService = userMeliService;
         this.userTransformer = userTransformer;
     }
 
-
     public User getByMeliId(long userId) {
-
         User user = userRepository.getByMeliId(userId);
-        
+
         if (user == null) {
-            com.ventalandia.meli.api.notification.User userMeli = meliService.getEntityFromMELI("/users/"+userId, com.ventalandia.meli.api.notification.User.class);
-            user = userTransformer.transform(userMeli);
+            MeliPublicUser publicUser = this.userMeliService.getPulicUser(userId);
+            user = userTransformer.transform(publicUser);
             userRepository.add(user);
         }
 

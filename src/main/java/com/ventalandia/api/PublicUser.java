@@ -1,6 +1,7 @@
 package com.ventalandia.api;
 
 /**
+ * Public data for users. It could be shared without authentication.
  * 
  * @author matias
  * 
