@@ -32,7 +32,7 @@ import com.ventalandia.service.NewsFeedService;
 import com.ventalandia.view.domain.ItemView;
 import com.ventalandia.view.domain.NewsView;
 import com.ventalandia.view.domain.SummaryView;
-import com.ventalandia.view.domain.UserView;
+import com.ventalandia.view.domain.SimpleUserView;
 
 /**
  * 
@@ -96,7 +96,7 @@ public class NewsApiServlet {
             news.setDate(newsFeed.getDate());
             news.setType(newsFeed.getType());
             news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
-            news.setBuyer(new UserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
+            news.setBuyer(new SimpleUserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
             news.setAnswered(newsFeed.isAnswered());
 
             feeds.add(news);

@@ -6,7 +6,7 @@ package com.ventalandia.api;
  * @author msulik
  * 
  */
-public class User {
+public class UserView {
 
 	private String nickname;
 	private long meliId;

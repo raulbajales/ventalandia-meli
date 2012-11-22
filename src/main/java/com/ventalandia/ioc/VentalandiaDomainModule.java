@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
-import com.ventalandia.api.UserService;
 import com.ventalandia.meli.pesistence.CountryRepository;
 import com.ventalandia.meli.pesistence.CountryRepositoryImpl;
 import com.ventalandia.meli.pesistence.CurrencyRepository;
@@ -40,32 +39,30 @@ import com.ventalandia.service.UserServiceImpl;
  */
 public class VentalandiaDomainModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		// support
-		this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create());
+    @Override
+    protected void configure() {
+        // support
+        this.bind(Gson.class).toInstance(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create());
 
-		// services
-		this.bind(NewsService.class).toInstance(new NewsServiceStub());
-		this.bind(NotificationService.class).to(NotificationServiceImpl.class);
-		this.bind(UserService.class).toInstance(new UserService());
-		this.bind(AuthService.class).toInstance(new AuthService());
-		this.bind(com.ventalandia.service.UserService.class).to(UserServiceImpl.class);
-		this.bind(CurrencyService.class).to(CurrencyServiceImpl.class);
-		this.bind(CountryService.class).to(CountryServiceImpl.class);
-		this.bind(ItemService.class).to(ItemServiceImpl.class);
-		this.bind(QuestionService.class).to(QuestionServiceImpl.class);
-		
-		// repositories
-		this.bind(NotificationRepository.class);
-		this.bind(QuestionRepository.class);
-		this.bind(TokenRepository.class);
-		this.bind(UserRepository.class).to(UserRepositoryImpl.class);
+        // services
+        this.bind(NewsService.class).toInstance(new NewsServiceStub());
+        this.bind(NotificationService.class).to(NotificationServiceImpl.class);
+        this.bind(AuthService.class).toInstance(new AuthService());
+        this.bind(com.ventalandia.service.UserService.class).to(UserServiceImpl.class);
+        this.bind(CurrencyService.class).to(CurrencyServiceImpl.class);
+        this.bind(CountryService.class).to(CountryServiceImpl.class);
+        this.bind(ItemService.class).to(ItemServiceImpl.class);
+        this.bind(QuestionService.class).to(QuestionServiceImpl.class);
+
+        // repositories
+        this.bind(NotificationRepository.class);
+        this.bind(QuestionRepository.class);
+        this.bind(TokenRepository.class);
+        this.bind(UserRepository.class).to(UserRepositoryImpl.class);
         this.bind(CurrencyRepository.class).to(CurrencyRepositoryImpl.class);
         this.bind(CountryRepository.class).to(CountryRepositoryImpl.class);
         this.bind(ItemRepository.class).to(ItemRepositoryImpl.class);
-        
 
-	}
+    }
 
 }

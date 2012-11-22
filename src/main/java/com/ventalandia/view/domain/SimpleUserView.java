@@ -1,12 +1,12 @@
 package com.ventalandia.view.domain;
 
-public class UserView {
+public class SimpleUserView {
 
     private long id;
 
     private String nickname;
 
-    public UserView(long id, String nickname) {
+    public SimpleUserView(long id, String nickname) {
         super();
         this.id = id;
         this.nickname = nickname;

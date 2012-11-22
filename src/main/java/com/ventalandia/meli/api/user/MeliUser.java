@@ -2,7 +2,7 @@ package com.ventalandia.meli.api.user;
 
 
 /**
- * 
+ * MELI user definition. It contains all private data.
  * @author matias
  * 
  */

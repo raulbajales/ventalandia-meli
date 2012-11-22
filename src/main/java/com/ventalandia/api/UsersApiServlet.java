@@ -1,16 +1,19 @@
 package com.ventalandia.api;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.ventalandia.meli.api.user.MeliPublicUser;
 import com.ventalandia.meli.service.MeliUserContext;
 import com.ventalandia.meli.service.UserMeliService;
+import com.ventalandia.service.UserService;
 
 /**
  * 
@@ -52,4 +55,13 @@ public class UsersApiServlet {
         MeliUserContext.set(this.userMeliService.getCurrentUser());
         return this.gson.toJson(this.userService.getCurrent());
     }
+
+    @POST
+    @Path("/me/TOS")
+    public Response tos() {
+        MeliUserContext.set(this.userMeliService.getCurrentUser());
+        this.userService.acceptTOS();
+        return Response.ok().build();
+    }
+
 }
