@@ -15,16 +15,24 @@ import com.ventalandia.meli.service.MeliQuestionService;
  */
 public class AnswersService {
 
-    @Inject
     private QuestionRepository questionRepository;
-    
-    @Inject
     private NewsFeedRepository newsFeedRepository;
-    
-    @Inject
     private MeliQuestionService meliQuestionService;
+    
+
+    @Inject
+    public AnswersService(QuestionRepository questionRepository, NewsFeedRepository newsFeedRepository, MeliQuestionService meliQuestionService) {
+        super();
+        this.questionRepository = questionRepository;
+        this.newsFeedRepository = newsFeedRepository;
+        this.meliQuestionService = meliQuestionService;
+    }
+
+
 
     public void answer(long questionId, String text) {
+        
+        
         this.meliQuestionService.answer(questionId, text);
 
         Question question = this.questionRepository.getByMeliId(questionId);
@@ -42,9 +50,13 @@ public class AnswersService {
 
         this.questionRepository.update(question);
         
+        boolean answered = questionRepository.hasUnAnsweredQuestions(question.getSeller());
+        
         NewsFeed feed = newsFeedRepository.getByBuyerAndItem(question.getClient().getMeliId(), question.getItem().getMeliId());
-        feed.setAsAnswered();
+        feed.setAnswered(answered);
         newsFeedRepository.update(feed);
+        
+        
     }
 
 }

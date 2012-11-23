@@ -60,6 +60,22 @@ public class QuestionRepository extends MeliJdoRepository<Question> {
         
         return (List<User>) query.execute(seller.getKey());
 
+    }
+
+    /**
+     * Loohing unanswered questions from a given user.
+     * @param seller
+     * @return
+     */
+    public boolean hasUnAnsweredQuestions(User seller) {
+        
+        Query query = this.getPersistenceManager().newQuery("select count(q) from "+ Question.class.getName()+" q");
+        query.setFilter(" seller == meliUser && answer == null");
+        query.declareParameters(Key.class.getName() + " meliUser" );
+        Long count = (Long) query.execute(seller.getKey());
+        
+        return count > 0;
+        
     }	
 
 }
