@@ -26,7 +26,7 @@ public class Question {
     private User seller;
 
     @Persistent(dependent = "true")
-    @Unowned
+//    @Unowned
     private Answer answer;
 
     @Persistent
