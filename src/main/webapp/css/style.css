@@ -491,13 +491,11 @@ body {
 
 #center .newsfeed .news.notAnswered {
   font-weight: bold;
-  border-left: 4px solid #8B7F7F;
 }
 
 #center .newsfeed .news .mark {
   font-size: 2em;
   font-weight: bold;
-  color: darkgoldenrod;
   position: absolute;
   margin-left: 35px;
   margin-top: -6px;  
