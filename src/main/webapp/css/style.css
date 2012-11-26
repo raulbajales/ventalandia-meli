@@ -493,6 +493,10 @@ body {
   font-weight: bold;
 }
 
+#center .newsfeed .news.notAnswered .message {
+  font-style: italic;
+}
+
 #center .newsfeed .news .mark {
   font-size: 2em;
   font-weight: bold;
