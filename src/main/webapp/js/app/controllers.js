@@ -39,8 +39,6 @@ ventalandia.controller.NewsController = function($scope, $timeout, NewsService) 
 	var settings = ventalandia.settings;
 
 	NewsService.getMyNewsfeed(function(newsfeed) {
-		console.log("newsfeed");
-		console.log(newsfeed);
 		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
 	});
 
@@ -63,10 +61,17 @@ ventalandia.controller.NewsController = function($scope, $timeout, NewsService) 
 	*/
     setInterval(function() {
         $scope.$apply(function() {
-			var newestDate = $scope.newsfeed ? $scope.newsfeed.entries[0]["utcDate"] : (new Date()).toISO();
+        	var newsfeed = $scope.newsfeed;
+			var newestDate = (newsfeed && newsfeed.entries) ? newsfeed.entries[0]["utcDate"] : (new Date()).toISO();
+
+			// Add one minute to avoid getting the same result on updates (#102)
+			var timeObject = (new Date(newestDate));
+			timeObject.setTime(timeObject.getTime() + 1000 * 60);
+			newestDate = timeObject.toISO();
+
 			NewsService.getNewsfeedSince(newestDate, function(entries) {
 				$scope.numNewsfeedUpdates = entries && angular.isArray(entries) ? entries.length : 0;
-				$scope.updatedNewsfeed = $scope.newsfeed.merge(entries);
+				$scope.updatedNewsfeed = newsfeed.merge(entries);
 			});
         });
     }, settings.NEWSFEED_PULL_INTERVAL_IN_MILLIS);
