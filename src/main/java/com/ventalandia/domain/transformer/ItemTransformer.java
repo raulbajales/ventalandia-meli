@@ -44,6 +44,7 @@ public class ItemTransformer implements Transformer<com.ventalandia.meli.api.not
         item.setSubTitle(itemAPI.getSubtitle());
         item.setTitle(itemAPI.getTitle());
         item.setMeliId(itemAPI.getId());
+        item.setStatus(itemAPI.getStatus());
         List<Picture> pictures = itemAPI.getPictures();
         if(pictures!=null && pictures.size()>0){
         	item.setPictureUrl(pictures.get(0).getUrl());

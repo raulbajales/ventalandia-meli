@@ -13,6 +13,8 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 @PersistenceCapable
 public class Item {
 
+    private static final String CLOSED_STATUS = "closed";
+
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Key key;
@@ -58,6 +60,8 @@ public class Item {
     @Persistent
     private String pictureUrl;
     
+    @Persistent
+    private String status;
     
     public User getSeller() {
         return seller;
@@ -167,5 +171,17 @@ public class Item {
 		this.pictureUrl = pictureUrl;
 	}
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public boolean isClosed(){
+        return CLOSED_STATUS.equalsIgnoreCase(this.status);
+    }
+    
    
 }
