@@ -18,14 +18,15 @@ public class UserServiceImpl implements UserService {
     private UserMeliService userMeliService;
 
     private UserTransformer userTransformer;
-    
+
     private MeliUserToDomainTransformer meliUserToDomainTransformer;
 
     @Inject
-    public UserServiceImpl(UserRepository userRepository, UserMeliService userMeliService, UserTransformer userTransformer) {
+    public UserServiceImpl(UserRepository userRepository, UserMeliService userMeliService, UserTransformer userTransformer, MeliUserToDomainTransformer meliUserToDomainTransformer) {
         this.userRepository = userRepository;
         this.userMeliService = userMeliService;
         this.userTransformer = userTransformer;
+        this.meliUserToDomainTransformer = meliUserToDomainTransformer;
     }
 
     public User getByMeliId(long userId) {
@@ -82,16 +83,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void acceptTOS() {
         User user = this.userRepository.getByMeliId(MeliUserContext.get());
-        
+
         if (user == null) {
             user = this.meliUserToDomainTransformer.transform(MeliUserContext.get());
             user.setTOS(true);
             this.userRepository.add(user);
-        } else {
+        }
+        else {
             user.setTOS(true);
             this.userRepository.update(user);
         }
     }
-
 
 }
