@@ -680,8 +680,12 @@ body {
   overflow-y: scroll;
 }
 
-#right .space {
+#right .margin-top {
   height: 40px;
+}
+
+#right .wrapper .margin-bottom {
+  height: 150px;
 }
 
 #right .wrapper > div {

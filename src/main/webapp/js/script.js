@@ -17,5 +17,5 @@ Date.prototype.toISO= function(){
         tem= A[i];
         if(tem<10) A[i]= '0'+tem;
     }
-    return A.splice(0, 3).join('-')+'T'+A.join(':');    
+    return A.splice(0, 3).join('-')+'T'+A.join(':')+'.000';    
 }
