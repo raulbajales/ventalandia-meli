@@ -2,6 +2,7 @@
 
 /* Directives */
 
+/*
 angular.module('vldApp.directives', []).
 	directive('fallbackImages', function() {
 	    return {
@@ -48,4 +49,5 @@ angular.module('vldApp.directives', []).
 	            };
 	        }
 	    };
-	});​
+	});
+*/
