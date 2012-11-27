@@ -1,5 +1,9 @@
-angular.module('vldApp.directives', [])
-	.directive('fallbackImages', function() {
+'use strict';
+
+/* Directives */
+
+angular.module('vldApp.directives', []).
+	directive('fallbackImages', function() {
 	    return {
 	        scope: {
 	            fallbackImages: '='
