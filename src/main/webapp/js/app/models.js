@@ -166,7 +166,8 @@ ventalandia.model.NewsDetails.Item = function(title, pictureUrl) {
  * @param {string} nickName
  */
 ventalandia.model.NewsDetails.Buyer = function(pictureUrl, nickName) {
-	this.pictureUrl = pictureUrl;
+	var defaultThumb = "img/icon_customer.jpeg"
+	this.pictureUrl = pictureUrl || defaultThumb;
 	this.nickName = nickName;
 }
 
