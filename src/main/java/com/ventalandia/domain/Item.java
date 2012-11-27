@@ -14,6 +14,7 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 public class Item {
 
     private static final String CLOSED_STATUS = "closed";
+    private static final String ACTIVE_STATUS = "active";
 
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -181,6 +182,10 @@ public class Item {
     
     public boolean isClosed(){
         return CLOSED_STATUS.equalsIgnoreCase(this.status);
+    }
+    
+    public boolean isActive(){
+        return ACTIVE_STATUS.equalsIgnoreCase(this.status); 
     }
     
    
