@@ -1,4 +1,4 @@
-angular.module('vldApp.directives', []).
+angular.module('vldApp.directives', [])
 	.directive('fallbackImages', function() {
 	    return {
 	        scope: {
