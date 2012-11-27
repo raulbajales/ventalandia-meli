@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void acceptTOS() {
-        User user = this.userRepository.getByMeliId(MeliUserContext.get());
+        User user = this.userRepository.getByMeliId(MeliUserContext.get().getId());
 
         if (user == null) {
             user = this.meliUserToDomainTransformer.transform(MeliUserContext.get());
