@@ -119,7 +119,10 @@
               <textarea ng-hide="question.answered || !newsDetails.item.active" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
               <button ng-hide="question.answered || !newsDetails.item.active" class="send btn btn-inverse btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
             </div>
-          </div>          
+          </div>
+          <script>        
+              $("#right textarea").first().focus();
+          </script>          
           <div ng-hide="newsDetails.item.active" class="alert alert-block">Esta conversaci&oacute;n finalz&oacute; porque el &iacute;tem esta inactivo.</div>
         </div>
         <div class="margin-bottom">
