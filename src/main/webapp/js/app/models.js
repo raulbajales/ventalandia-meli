@@ -155,10 +155,12 @@ ventalandia.model.NewsDetails = function(item, buyer, questions) {
 /**
  * @param {string} title
  * @param {string} pictureUrl
+ * @param {boolean} active
  */
-ventalandia.model.NewsDetails.Item = function(title, pictureUrl) {
+ventalandia.model.NewsDetails.Item = function(title, pictureUrl, active) {
 	this.title = title;
 	this.pictureUrl = pictureUrl;
+	this.active = active;
 }
 
 /**
@@ -193,7 +195,7 @@ ventalandia.model.NewsDetails.Question = function(id, text, answer, textDate, an
  * @param {object} obj
  */
 ventalandia.model.NewsDetails.fromObject = function(obj) {
-	var item = new ventalandia.model.NewsDetails.Item(obj.item.title, obj.item.pictureUrl);
+	var item = new ventalandia.model.NewsDetails.Item(obj.item.title, obj.item.pictureUrl, obj.item.active);
 	var buyer = new ventalandia.model.NewsDetails.Buyer(obj.buyer.pictureUrl, obj.buyer.nickname);
 	var questions = [];
 	obj.questions.forEach(function(e) {

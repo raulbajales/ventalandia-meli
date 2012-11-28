@@ -65,6 +65,7 @@ vldApp.config(function($routeProvider, $provide) {
 vldApp.provider({
     /*
       General Exception handler
+      TODO: Should logg the error data to a logger service (#96)
     */
     $exceptionHandler: function() {
         var handler = function(exception, cause) {
@@ -74,7 +75,7 @@ vldApp.provider({
               "Ha ocurrido un error, es necesario que inicie su sesión nuevamente. Si el error vuelve a ocurrir, por favor escríbanos a <a href='mailto:info@ventalandia.com'>info@ventalandia.com</a>, disculpe las molestias!", 
               "Ok", 
               function() {
-                ventalandia.ui.logout();
+                  document.location.reload();
               });
         };
 

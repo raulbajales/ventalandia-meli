@@ -191,7 +191,8 @@ ventalandia.test.mocks.newsUpdate = [{
 ventalandia.test.mocks.newsDetails = {
     "item": {
         "title": "Camiseta De Boca Impecable- Test Item",
-        "pictureUrl": null
+        "pictureUrl": null,
+        "active": false
     },
         "buyer": {
         "pictureUrl": null,

@@ -107,4 +107,3 @@ ventalandia.ui.logout = function() {
   document.location.reload();
 }
 
-

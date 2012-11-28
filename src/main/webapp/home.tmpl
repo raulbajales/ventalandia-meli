@@ -113,13 +113,14 @@
               <div class="date">{{question.textDate}}</div>              
             </div>
             <div class="answer">
-              <div class="icon"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
+              <div class="icon" ng-show="newsDetails.item.active"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
               <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
               <div class="date" ng-hide="!question.answered">{{question.answerDate}}</div>              
-              <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
-              <button ng-hide="question.answered" class="send btn btn-inverse btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
+              <textarea ng-hide="question.answered || !newsDetails.item.active" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
+              <button ng-hide="question.answered || !newsDetails.item.active" class="send btn btn-inverse btn-small" type="button" ng-click="sendAnswer(question)">Enviar!</button>
             </div>
           </div>          
+          <div ng-hide="newsDetails.item.active" class="alert alert-block">Esta conversaci&oacute;n finalz&oacute; porque el &iacute;tem esta inactivo.</div>
         </div>
         <div class="margin-bottom">
         </div>
