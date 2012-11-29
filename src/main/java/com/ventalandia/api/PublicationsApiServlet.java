@@ -37,7 +37,13 @@ public class PublicationsApiServlet {
         List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 
         for (Item item : itemsBySeller) {
-            Map<String, Object> itemMap = MapBuilder.build().putValue("id", item.getMeliId()).putValue("title", item.getTitle()).putValue("pictureUrl", item.getPictureUrl());
+            Map<String, Object> itemMap = MapBuilder.build()
+                    .putValue("id", item.getMeliId())
+                    .putValue("title", item.getTitle())
+                    .putValue("pictureUrl", item.getPictureUrl())
+                    .putValue("initialQuantity", item.getInitialQuantity())
+                    .putValue("availableQuantity", item.getAvailableQuantity())
+                    .putValue("soldQuantity", item.getSoldQuantity());
             items.add(itemMap);
         }
 
