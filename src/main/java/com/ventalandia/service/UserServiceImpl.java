@@ -46,6 +46,20 @@ public class UserServiceImpl implements UserService {
 
         MeliUser meliUser = MeliUserContext.get();
 
+        User persistedUser = this.userRepository.getByMeliId(meliUser.getId());
+
+        if (persistedUser != null) {
+            persistedUser.setEmail(meliUser.getEmail());
+            persistedUser.setNickName(persistedUser.getNickName());
+
+            this.userRepository.update(persistedUser);
+
+            user.setTOS(persistedUser.isTOS());
+        }
+        else {
+            user.setTOS(false);
+        }
+
         user.setNickname(meliUser.getNickname());
         user.setMeliId(meliUser.getId());
         user.setName(meliUser.getFirst_name());

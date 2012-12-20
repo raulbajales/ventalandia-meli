@@ -13,6 +13,7 @@ public class UserView {
 	private String name;
 	private String surname;
 	private int sellerReputationLevel;
+	private boolean TOS;
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
@@ -53,5 +54,13 @@ public class UserView {
 	public int getSellerReputationLevel() {
 		return sellerReputationLevel;
 	}
+
+    public boolean isTOS() {
+        return TOS;
+    }
+
+    public void setTOS(boolean tOS) {
+        TOS = tOS;
+    }
 
 }
