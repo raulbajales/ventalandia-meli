@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import com.ventalandia.domain.DomainTest;
 import com.ventalandia.meli.api.user.MeliUser;
@@ -19,10 +20,12 @@ import com.ventalandia.util.file.FileUtils;
  * @author matias
  * 
  */
-public class UserTest extends DomainTest {
+public class UserTest
+// extends DomainTest
+{
 
     @Inject
-    private Gson gson;
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 
     @Test
     public void test() throws FileNotFoundException {
@@ -30,6 +33,7 @@ public class UserTest extends DomainTest {
         MeliUser user = this.gson.fromJson(json, MeliUser.class);
 
         Assert.assertEquals("MSSULIK", user.getNickname());
+        System.out.println(user.getCredit().getConsumed());
     }
 
     private Reader getUserAsJson() throws FileNotFoundException {

@@ -7,14 +7,14 @@ package com.ventalandia.meli.api.user;
  */
 public class Credit {
 
-	private long consumed;
+	private Double consumed;
 	private String credit_level_id;
 
-	public long getConsumed() {
+	public Double getConsumed() {
 		return consumed;
 	}
 
-	public void setConsumed(long consumed) {
+	public void setConsumed(Double consumed) {
 		this.consumed = consumed;
 	}
 
