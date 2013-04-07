@@ -23,7 +23,7 @@ ventalandia.test.mocks = {};
 
 ventalandia.settings = {
   NEWSFEED_PULL_INTERVAL_IN_MILLIS: 1000 * 60 * 3,
-  USE_MOCKS: false
+  USE_MOCKS: true
 }
 
 /* -------------------------------------------------- */

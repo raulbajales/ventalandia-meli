@@ -149,6 +149,42 @@ ventalandia.test.mocks.news = [{
 
 /* -------------------------------------------------- */
 //
+//  Newsfeed entries
+//
+/* -------------------------------------------------- */
+
+ventalandia.test.mocks.news.search = [{
+    "id": 5006,
+    "buyer": {
+        "id": 12345,
+        "nickname": "ICLACREYO"
+    },
+    "date": "2012-10-10T13:10:52.067",
+    "type": "QUESTION",
+    "item": {
+        "id": "MLA434525953",
+        "title": "Bicicleta rodado 26"
+    },
+    "entityId": 0,
+    "answered": true
+}, {
+    "id": 5006,
+    "buyer": {
+        "id": 12345,
+        "nickname": "ICLACREYO"
+    },
+    "date": "2012-10-10T13:10:52.067",
+    "type": "QUESTION",
+    "item": {
+        "id": "MLA434525953",
+        "title": "Bicicleta rodado 26"
+    },
+    "entityId": 0,
+    "answered": false
+}];
+
+/* -------------------------------------------------- */
+//
 //  Newsfeed entries for update (pulling)
 //
 /* -------------------------------------------------- */
@@ -242,6 +278,7 @@ ventalandia.test.mocks.configureBackend = function(http) {
     http.whenGET('/api/news/5007').respond(ventalandia.test.mocks.newsDetails);
     http.whenGET('/api/news/5008').respond(ventalandia.test.mocks.newsDetails);
     http.whenGET('/api/news/summary').respond(ventalandia.test.mocks.newsSummary);
+    http.whenGET('/api/news/search?q=a').respond(ventalandia.test.mocks.news.search);
 
     http.whenGET('/api/news?since=2012-10-10T13%3A11%3A52.000').respond(ventalandia.test.mocks.newsUpdate);
     http.whenGET('/api/news?since=2012-10-10T13%3A11%3A53.000').respond(null);

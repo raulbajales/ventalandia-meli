@@ -6,7 +6,8 @@
 
 ventalandia.controller.event = {
 	MINI_PROFILE_LOADED: "miniProfileLoaded",
-	NEWS_DETAILS_REQUESTED: "newsDetailsRequested"
+	NEWS_DETAILS_REQUESTED: "newsDetailsRequested",
+	NEWSFEED_SEARCH_EXECUTED: "newsfeedSearchExecuted"
 }
 
 /* -------------------------------------------------- */
@@ -37,6 +38,10 @@ ventalandia.controller.MiniProfileController = function($scope, UserService) {
 ventalandia.controller.NewsController = function($scope, $timeout, NewsService) {
 	var event = ventalandia.controller.event;
 	var settings = ventalandia.settings;
+
+	$scope.$on(event.NEWSFEED_SEARCH_EXECUTED, function(event, newsfeed) {
+		$scope.newsfeed = newsfeed;
+	});
 
 	NewsService.getMyNewsfeed(function(newsfeed) {
 		$scope.newsfeed = newsfeed.hasEntries() ? newsfeed : null;			
@@ -113,6 +118,10 @@ ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 /* -------------------------------------------------- */
 
 ventalandia.controller.TopbarController = function($scope, NewsService) {
+    var event = ventalandia.controller.event;
+    
+    $scope.searchTerms = "";
+
 	NewsService.getMyNewsSummary(function(summary) {
 		$scope.summary = summary;
 	});
@@ -122,6 +131,15 @@ ventalandia.controller.TopbarController = function($scope, NewsService) {
         	ventalandia.ui.logout();
         });
 	}
+
+	$scope.searchNewsfeed = function(terms) {
+		NewsService.searchNewsfeed(terms, function(newsfeed) {
+		    $scope.$emit('broadcast', {
+				id: event.NEWSFEED_SEARCH_EXECUTED, 
+				data: newsfeed.hasEntries() ? newsfeed : null
+			});
+	    })
+	}	
 }
 
 /* -------------------------------------------------- */
