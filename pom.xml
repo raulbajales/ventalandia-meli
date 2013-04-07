@@ -11,7 +11,7 @@
 	<properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<downloadSources>true</downloadSources>
-		<gae.version>1.7.3</gae.version>
+		<gae.version>1.7.6</gae.version>
 		<gae-plugin.version>0.9.5</gae-plugin.version>
 		<gae.application.version>development</gae.application.version>
         <datanucleus.version>3.1.1</datanucleus.version>
