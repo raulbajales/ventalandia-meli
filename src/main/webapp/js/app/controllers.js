@@ -26,6 +26,12 @@ ventalandia.controller.MiniProfileController = function($scope, UserService) {
 			id: event.MINI_PROFILE_LOADED, 
 			data: $scope.miniProfile
 		});
+		if (!miniProfile.TOS) {
+			ventalandia.ui.showTOS(function() {
+			  UserService.acceptTOS();
+			  document.location.reload();
+			});
+		}
 	});
 }
 

@@ -19,7 +19,15 @@ ventalandia.service.UserService = function($cookies, $http) {
 			}).error(function(data, status, headers, config) {
 				throw "[ERROR] - Unable to get profile data\n" + JSON.stringify(data);
 			});		
-	}
+	},
+
+    acceptTOS: function() {
+		$http({method: "POST", url: "/api/users/me/TOS", 
+			   headers: {"x-vtd-token": $cookies["vtd_token"]}
+		    }).error(function(data, status, headers, config) {
+				throw "[ERROR] - Unable to accept TOS\n" + JSON.stringify(data);
+			});		
+	}	
   }
 }
 

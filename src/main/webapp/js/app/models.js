@@ -13,14 +13,16 @@
  * @param {string} nickName
  * @param {string} thumbnailUrl
  * @param {string} sellerReputationLevel
+ * @param {boolean} TOS
  */
-ventalandia.model.MiniProfile = function(meliId, firstName, lastName, nickName, thumbnailUrl, sellerReputationLevel) {
+ventalandia.model.MiniProfile = function(meliId, firstName, lastName, nickName, thumbnailUrl, sellerReputationLevel, TOS) {
 	this.meliId = meliId;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.nickName = nickName;
 	this.thumbnailUrl = thumbnailUrl;
 	this.sellerReputationLevel = sellerReputationLevel;
+	this.TOS = TOS;
 }
 
 /**
@@ -37,7 +39,8 @@ ventalandia.model.MiniProfile.fromObject = function(obj) {
 		obj.surname, 
 		obj.nickname, 
 		obj.thumbnailUrl || defaultThumb,
-		obj.sellerReputationLevel);
+		obj.sellerReputationLevel,
+		obj.TOS);
 }
 
 /* -------------------------------------------------- */

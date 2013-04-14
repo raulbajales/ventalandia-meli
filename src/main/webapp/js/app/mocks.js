@@ -10,7 +10,8 @@ ventalandia.test.mocks.miniProfile = {
     "name": "Unpe",
     "surname": "Tiso",
     "sellerReputationLevel": 3,
-    "thumbnailUrl": "/img/icon_guest.jpeg"
+    "thumbnailUrl": "/img/icon_guest.jpeg",
+    "TOS": false
 };
 
 /* -------------------------------------------------- */
