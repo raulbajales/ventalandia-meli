@@ -64,6 +64,16 @@ ventalandia.ui.alert = function(heading, text, okButtonTxt, callback) {
     });
     confirmModal.modal('show');    
 };
+
+/**
+ * Shows the TOS.
+ *
+ * @param {function} callback
+ */
+ventalandia.ui.showTOS = function(callback) {
+  ventalandia.ui.alert("T&eacute;rminos del Servicio", "Ventalandia no usar&aacute; tus datos p&uacute;blicamente, solo los usar&aacute; para mejorar tu experiencia y performance de venta.</br>Ventalandia no ejecutar&aacute; transacciones (compras o ventas) en tu nombre en MercadoLibre.</br>Ventalandia no esta asociada ni relacionada de ninguna manera con Mercadolibre.", "Acepto.", callback);  
+}
+
 /**
  * Maps a reputation level (as defined by our VentalandiaAPI)
  * to a css class name
@@ -106,4 +116,3 @@ ventalandia.ui.logout = function() {
   document.location.href="/";
   document.location.reload();
 }
-

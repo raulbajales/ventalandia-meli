@@ -19,7 +19,15 @@ ventalandia.service.UserService = function($cookies, $http) {
 			}).error(function(data, status, headers, config) {
 				throw "[ERROR] - Unable to get profile data\n" + JSON.stringify(data);
 			});		
-	}
+	},
+
+    acceptTOS: function() {
+		$http({method: "POST", url: "/api/users/me/TOS", 
+			   headers: {"x-vtd-token": $cookies["vtd_token"]}
+		    }).error(function(data, status, headers, config) {
+				throw "[ERROR] - Unable to accept TOS\n" + JSON.stringify(data);
+			});		
+	}	
   }
 }
 
@@ -40,6 +48,23 @@ ventalandia.service.NewsService = function($cookies, $http) {
 			$http({method: "GET", url: "/api/news", 
 				   headers: {"x-vtd-token": $cookies["vtd_token"]}
 			    }).success(function(data, status, headers, config) {
+					onSuccess(ventalandia.model.Newsfeed.fromObject(data || []));
+				}).error(function(data, status, headers, config) {
+					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);
+				});
+		},
+
+		/**
+		 * @param {string} terms
+		 * @param {function(ventalandia.model.Newsfeed)} onSuccess
+		 */
+		searchNewsfeed: function(terms, onSuccess) {
+			if (!terms) return this.getMyNewsfeed(onSuccess);
+			console.log("[DEBUG] - Searching news with terms " + terms);
+			$http({method: "GET", url: "/api/news/search?q=" + terms, 
+				   headers: {"x-vtd-token": $cookies["vtd_token"]}
+			    }).success(function(data, status, headers, config) {
+			        console.log("[DEBUG] - Searching got: " + data);
 					onSuccess(ventalandia.model.Newsfeed.fromObject(data || []));
 				}).error(function(data, status, headers, config) {
 					throw "[ERROR] - Unable to get newsfeed\n" + JSON.stringify(data);
