@@ -47,7 +47,10 @@ public class Question {
 
     @Persistent
     private boolean read;
-
+    
+    @Persistent
+    private boolean close;
+    
     public User getClient() {
         return client;
     }
@@ -124,7 +127,15 @@ public class Question {
         return key;
     }
 
-    @Override
+    public boolean isClose() {
+		return close;
+	}
+
+	public void setClose(boolean close) {
+		this.close = close;
+	}
+
+	@Override
     public String toString() {
         return "Question [key=" + key + ", client=" + client + ", seller=" + seller + ", answer=" + answer + ", item=" + item + ", text=" + text + ", creationDate=" + creationDate + ", status="
                 + status + ", meliId=" + meliId + ", read=" + read + "]";

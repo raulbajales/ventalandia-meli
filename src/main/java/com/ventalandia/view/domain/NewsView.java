@@ -28,6 +28,8 @@ public class NewsView {
     
     private boolean answered;
 
+    private boolean close;
+    
     public NewsView() {
         super();
 
@@ -88,6 +90,14 @@ public class NewsView {
     public void setAnswered(boolean answered) {
         this.answered = answered;
     }
+
+	public boolean isClose() {
+		return close;
+	}
+
+	public void setClose(boolean close) {
+		this.close = close;
+	}
 
     
 }
