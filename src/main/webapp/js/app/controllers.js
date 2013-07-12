@@ -101,6 +101,7 @@ ventalandia.controller.NewsDetailsController = function($scope, NewsService) {
 		$scope.newsEntry = entry;
 		NewsService.getNewsDetails(entry.id, function(newsDetails) {
 		    $scope.newsDetails = newsDetails;
+		    $scope.newsDetails.close = entry.close
 	    });
 	});
 

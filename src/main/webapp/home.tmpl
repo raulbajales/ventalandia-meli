@@ -116,7 +116,7 @@
               <div class="date">{{question.textDate}}</div>              
             </div>
             <div class="answer">
-              <div class="icon" ng-show="newsDetails.item.active"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
+              <div class="icon" ng-hide="newsDetails.close"><img ng-src="{{miniProfile.thumbnailUrl}}" class="thumbnail"></div>
               <div class="text" ng-hide="!question.answered">{{question.answer}}</div>
               <div class="date" ng-hide="!question.answered">{{question.answerDate}}</div>              
               <textarea ng-hide="question.answered" placeholder="Escriba su respuesta y presione Enviar!" ng-model="question.answer"></textarea>
@@ -126,7 +126,7 @@
           <script>        
               $("#right textarea").first().focus();
           </script>          
-          <div ng-hide="newsDetails.item.active" class="alert alert-block">Esta conversaci&oacute;n finalz&oacute; porque el &iacute;tem esta inactivo.</div>
+          <div ng-show="newsDetails.close" class="alert alert-block">Esta conversaci&oacute;n finalz&oacute;.</div>
         </div>
         <div class="margin-bottom">
         </div>

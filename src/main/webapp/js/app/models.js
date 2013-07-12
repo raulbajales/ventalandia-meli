@@ -113,6 +113,7 @@ ventalandia.model.Newsfeed.Entry.prototype._buildMetadata = function(raw) {
 			that.buyerNickName = raw.buyer.nickname,
 			that.itemId = raw.item.id,
 			that.itemTitle = raw.item.title
+			that.close = raw.close
 		}
 	};
 	handlers[this.type](raw);
