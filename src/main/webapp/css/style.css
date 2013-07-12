@@ -677,7 +677,6 @@ body {
 #right .wrapper {
   margin-left: 3px;
   height: 100%;
-  overflow-y: scroll;
 }
 
 #right .margin-top {
