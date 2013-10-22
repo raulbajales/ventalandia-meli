@@ -95,9 +95,11 @@ public class NewsApiServlet {
             news.setId(newsFeed.getKeyId());
             news.setDate(newsFeed.getDate());
             news.setType(newsFeed.getType());
-            news.setItem(new ItemView(newsFeed.getItemId(), itemRepository.getByMeliId(newsFeed.getItemId()).getTitle()));
+            Item item = itemRepository.getByMeliId(newsFeed.getItemId());
+			news.setItem(new ItemView(newsFeed.getItemId(), item.getTitle()));
             news.setBuyer(new SimpleUserView(newsFeed.getBuyerId(), userRepository.getByMeliId(newsFeed.getBuyerId()).getNickName()));
             news.setAnswered(newsFeed.isAnswered());
+            news.setClose(!item.isActive());
 
             feeds.add(news);
         }

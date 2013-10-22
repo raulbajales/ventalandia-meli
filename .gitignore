@@ -16,6 +16,8 @@ ventalandia-test/bin/*
 .settings
 .classpath
 target
+war
+bin
 **/.project
 **/.settings
 **/.externalToolBuilders

@@ -179,14 +179,13 @@ public class Item {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public boolean isClosed(){
         return CLOSED_STATUS.equalsIgnoreCase(this.status);
     }
-    
+
     public boolean isActive(){
         return ACTIVE_STATUS.equalsIgnoreCase(this.status); 
     }
-    
-   
+
 }
