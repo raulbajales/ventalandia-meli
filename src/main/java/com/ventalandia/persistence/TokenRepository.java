@@ -1,5 +1,7 @@
 package com.ventalandia.persistence;
 
+import java.util.List;
+
 import javax.jdo.Query;
 
 import com.google.inject.Inject;
@@ -25,7 +27,13 @@ public class TokenRepository extends JdoRepository<Token> {
         query.setFilter("meliId == aMeliId");
         query.declareParameters("Long aMeliId");
 
-        return this.list(query, aMeliId).get(0);
+        List<Token> tokens = this.list(query, aMeliId);
+        
+        if (tokens == null || tokens.size() == 0) {
+			return null;
+		}
+        
+        return tokens.get(0);
     }
 
 }
